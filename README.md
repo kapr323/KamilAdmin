@@ -13,7 +13,7 @@ This is a management tool designed to support the administration of small munici
 
 # Technologie
 - Django
-- MySQL
+- SQLite3 nebo MySQL
 
 # Základní entity
 - Personalistika
@@ -93,3 +93,9 @@ smluv
   - Založení účtu – tajemník
   - Nastavení přístupových oprávnění do jednotlivých oblastí podle pracovního 
 zařazení (viz. Organizační struktura)
+
+professional_competence = odborná způsobilost (potřebná úroveň vzdělání, kurzy, atd.)
+
+Postup práce:
+1. Vytvoření databáze (employees a cars) + Hlavní stránka s rozcestníkem/odkazy
+?. Admin panel
