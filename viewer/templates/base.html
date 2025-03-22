@@ -3,26 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Kamil Admin{% endblock %}</title>
+    <title>{% block title %}MORSE{% endblock %}</title>
     {% load static %}
+    <link rel="icon" href="{% static 'img/MORSE.ico' %}">
     <link rel="stylesheet" href="{% static 'css/viewer.css' %}?v={{ STATIC_VERSION }}">
 </head>
 <body>
-
     <div class="sidebar">
+        <img src="{% static 'img/MORSE.ico' %}" alt="MORSE" class="logo-sidebar">
         <a href="{% url 'home' %}">🏠 Domů</a>
-        <a href="#">⭐ Oblíbené</a>
-        <a href="#">👤 Správa účtu</a>
-        <a href="#">⚙️ Nastavení</a>
+        <a href="{% url 'user_favorite' %}">⭐ Oblíbené</a>
+        <a href="{% url 'user_account' %}">👤 Správa účtu</a>
+        <a href="{% url 'user_settings' %}">⚙️ Nastavení</a>
+        <a href="{% url 'about' %}">❓ O systému MORSE</a>
     </div>
 
     <div class="navbar">
-        Kamil Admin
+        <img src="{% static 'img/MORSE.ico' %}" alt="MORSE" class="logo-navbar">
     </div>
 
     <div class="content">
         {% block content %}{% endblock %}
     </div>
-
+    <script src="{% static 'js/viewer.js' %}?v={{ STATIC_VERSION }}"></script>
 </body>
 </html>

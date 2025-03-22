@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}MORSE{% endblock %}
+
+{% block content %}
+    <h1>Rezervační systém zasedacích místností a sálů</h1>
+<form id="reservation-form">
+  <label for="building">Budova:</label>
+  <select id="building" name="building">
+    <option value="">-- Vyber budovu --</option>
+    <option value="budova-a">Budova A</option>
+    <option value="budova-b">Budova B</option>
+    <option value="budova-c">Budova C</option>
+  </select>
+
+  <label for="date">Datum:</label>
+  <input type="date" id="date" name="date">
+
+  <label for="time_from">Od:</label>
+  <input type="time" id="time_from" name="time_from">
+
+  <label for="time_to">Do:</label>
+  <input type="time" id="time_to" name="time_to">
+
+  <label for="reserved_by">Kdo rezervuje:</label>
+  <input type="text" id="reserved_by" name="reserved_by" placeholder="Zadej své jméno">
+
+  <button type="submit">Rezervovat</button>
+</form>
+
+<div id="result"></div>
+{% endblock %}

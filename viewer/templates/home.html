@@ -1,52 +1,65 @@
 {% extends "base.html" %}
 
-{% block title %}Kamil Admin{% endblock %}
+{% block title %}MORSE{% endblock %}
 
 {% block content %}
     <h1>Odkazy</h1>
 
-    <ul>
-        <li><a href="#">📂 Obsah hlavní stránky</a>
-            <ul>
-                <li><a href="#">📌 Zobrazení oblastí a základních údajů o obsahu</a></li>
-                <li><a href="#">🔑 Zobrazení přihlašovacího okna</a></li>
-            </ul>
-        </li>
-        <li><a href="#">👨‍💼 Personalistika</a>
-            <ul>
-                <li><a href="#">📋 Seznam kategorií</a></li>
-                <li><a href="#">🏛️ Organizační struktura úřadu</a></li>
-                <li><a href="#">🆔 Osobní karty zaměstnanců</a></li>
-                <li><a href="#">🎓 Souhrny školení, kurzů, plán vzdělávání</a></li>
-                <li><a href="#">📝 Evidence DPP a DPČ</a></li>
-                <li><a href="#">✅ Automatický proces nástupu/odchodu zaměstnanců</a></li>
-                <li><a href="#">📑 Evidence uchazečů o zaměstnání</a></li>
-            </ul>
-        </li>
-        <li><a href="#">📜 Přehled interních směrnic a předpisů</a>
-            <ul>
-                <li><a href="#">📁 Archiv směrnic a nařízení</a></li>
-                <li><a href="#">📖 Přístup zaměstnanců k dokumentům</a></li>
-            </ul>
-        </li>
-        <li><a href="#">🏢 Přehled nemovité infrastruktury</a>
-            <ul>
-                <li><a href="#">📌 Základní karty nemovitostí</a></li>
-                <li><a href="#">📃 Informace o pronájmech</a></li>
-                <li><a href="#">🔔 Notifikace o revizích</a></li>
-            </ul>
-        </li>
-        <li><a href="#">🚗 Rezervační systém</a>
-            <ul>
-                <li><a href="#">📅 Kalendář rezervací</a></li>
-            </ul>
-        </li>
-        <li><a href="#">👥 Správa uživatelských účtů</a>
-            <ul>
-                <li><a href="#">➕ Založení účtu</a></li>
-                <li><a href="#">🔐 Nastavení přístupových oprávnění</a></li>
-            </ul>
-        </li>
-    </ul>
+    <div id="main-tiles" class="tiles">
+    <div class="tile" onclick="showSubtiles('personalistics')">
+        <div class="tile-content">👷‍♂️<br>Personalistika</div>
+    </div>
+    <div class="tile" onclick="showSubtiles('infrastructure')">
+        <div class="tile-content">🏢<br>Infrastruktura</div>
+    </div>
+    <div class="tile" onclick="showSubtiles('reservations')">
+        <div class="tile-content">📅<br>Rezervace</div>
+    </div>
+    <div class="tile" onclick="showSubtiles('internal-guidelines')">
+        <div class="tile-content">Přehled interních směrnic</div>
+    </div>
+        <div class="tile" onclick="showSubtiles('operational-logs')">
+        <div class="tile-content">Provozní deníky</div>
+    </div>
+        <div class="tile" onclick="showSubtiles('administration')">
+        <div class="tile-content">Administrace</div>
+    </div>
+</div>
+
+<div id="subtiles" style="display: none;">
+    <button class="back-button" onclick="backToMain()">⬅ Zpět</button>
+
+    <div id="personalistics" class="tiles" style="display: none;">
+        <div class="tile">
+            <div class="tile-content">Zaměstnanci</div>
+        </div>
+        <div class="tile">
+            <div class="tile-content">Dlaždice A</div>
+        </div>
+    </div>
+    <div id="reservations" class="tiles" style="display: none;">
+        <div class="tile">
+        <a href="{% url 'reservation_system' %}" class="tile-link">
+            <div class="tile-content">
+                Rezervační systém zasedacích místností a sálů
+            </div>
+        </a>
+</div>
+    </div>
+    <div id="operational-logs" class="tiles" style="display: none;">
+        <div class="tile">
+            <div class="tile-content">Nemovitosti</div>
+        </div>
+        <div class="tile">
+            <div class="tile-content">Místnosti</div>
+        </div>
+        <div class="tile">
+            <div class="tile-content">Vozidla</div>
+        </div>
+    </div>
+</div>
+
+
+
 
 {% endblock %}

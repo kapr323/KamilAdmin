@@ -2,7 +2,7 @@ from enum import unique
 
 from django.db import models
 from django.db.models import Model, CharField, DateField
-from django.forms import IntegerField
+from django.db.models import IntegerField
 
 
 # Create your models here.
