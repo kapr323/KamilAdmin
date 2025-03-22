@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Kamil Admin{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/viewer.css' %}?v={{ STATIC_VERSION }}">
+</head>
+<body>
+
+    <div class="sidebar">
+        <a href="{% url 'home' %}">🏠 Domů</a>
+        <a href="#">⭐ Oblíbené</a>
+        <a href="#">👤 Správa účtu</a>
+        <a href="#">⚙️ Nastavení</a>
+    </div>
+
+    <div class="navbar">
+        Kamil Admin
+    </div>
+
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+
+</body>
+</html>
