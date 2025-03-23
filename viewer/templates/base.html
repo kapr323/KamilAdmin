@@ -16,10 +16,19 @@
         <a href="{% url 'user_account' %}">👤 Správa účtu</a>
         <a href="{% url 'user_settings' %}">⚙️ Nastavení</a>
         <a href="{% url 'about' %}">❓ O systému MORSE</a>
+        <footer>
+            &copy MORSE s.r.o. 2025
+        </footer>
     </div>
 
+
     <div class="navbar">
-        <img src="{% static 'img/MORSE.ico' %}" alt="MORSE" class="logo-navbar">
+       <div class="system-name">
+  <b>M</b>unicipal <b>O</b>ffice <b>R</b>esource <b>S</b>ystem for its <b>E</b>ffectivity
+</div>
+        <div class="system-icons">
+            <div class="icon logout" src="{% static 'img/logout.png' %}"></div>
+        </div>
     </div>
 
     <div class="content">
