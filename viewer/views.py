@@ -48,3 +48,28 @@ def reservation_system(request):
             "today_year": today.year
         }
     return render(request, 'reservation_system.html', context)
+
+def organizational_structure(request):
+    return render(request, 'organizational_structure.html')
+
+def personnel_records(request):
+    return render(request, 'personnel_records_table.html')
+
+def properties_table(request):
+    return render(request, 'properties_table.html')
+
+def rooms_table(request):
+    return render(request, 'rooms_table.html')
+
+def vehicles_table(request):
+    return render(request, 'vehicles_table.html')
+
+def internal_guidelines(request):
+    return render(request, 'internal_guidelines.html')
+
+def submit_certificate(request):
+    return render(request, 'submit_certificate.html')
+
+
+
+

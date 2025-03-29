@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}MORSE{% endblock %}
+
+{% block content %}
+    <h1>Organizační struktura</h1>
+<button class="back-button" onclick="history.back()">⬅ Zpět</button>
+<div class="structure-tree">
+    <ul>
+        <li>
+            <a href="starosta/" class="position">Starosta</a>
+            <ul>
+                <li>
+                    <a href="tajemnik/" class="position">Tajemník</a>
+                    <ul>
+                        <li>
+                            <a href="odbor-1/" class="position">Odbor vnitřní správy</a>
+                        </li>
+                        <li>
+                            <a href="odbor-2/" class="position">Odbor ekonomiky a správy majetku</a>
+                            <ul>
+                                <li>
+                                    <a href="oddeleni/" class="position">Oddělení ekonomiky</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+
+{% endblock %}

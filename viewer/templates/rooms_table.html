@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}MORSE{% endblock %}
+
+{% block content %}
+    <h1>Místnosti</h1>
+<button class="back-button" onclick="history.back()">⬅ Zpět</button>
+<div class="table-wrapper">
+    <table id="table" class="table">
+        <thead>
+            <tr>
+                <th data-sort="name">Jméno</th>
+                <th data-sort="surname">Příjmení</th>
+                <th data-sort="position">Pozice</th>
+                <th data-sort="department">Oddělení</th>
+                <th data-sort="email">Email</th>
+                <th data-sort="phone">Telefon</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Jana</td>
+                <td>Nováková</td>
+                <td>Referentka</td>
+                <td>Odbor vnitřní správy</td>
+                <td>jana.novakova@urad.cz</td>
+                <td>123 456 789</td>
+            </tr>
+            <tr>
+                <td>Martin</td>
+                <td>Kaprál</td>
+                <td>nezaměstnaný</td>
+                <td>Popelář</td>
+                <td>mk@mk.cz</td>
+                <td>652588886</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

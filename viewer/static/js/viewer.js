@@ -153,3 +153,92 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+// Řazení tabulky
+document.addEventListener('DOMContentLoaded', () => {
+    const table = document.getElementById('table');
+    if (!table) return;
+    let sortDirection = {};
+    const headers = table.querySelectorAll('th');
+    const originalText = [];
+    headers.forEach((header, index) => {
+        originalText[index] = header.textContent.trim();
+        header.style.cursor = 'pointer';
+        header.addEventListener('click', () => {
+            const rows = Array.from(table.querySelectorAll('tbody tr'));
+            const dir = sortDirection[index] === 'asc' ? 'desc' : 'asc';
+            sortDirection = {};
+            sortDirection[index] = dir;
+            rows.sort((a, b) => {
+                const cellA = a.children[index].innerText.toLowerCase();
+                const cellB = b.children[index].innerText.toLowerCase();
+                if (!isNaN(cellA) && !isNaN(cellB)) {
+                    return dir === 'asc' ? cellA - cellB : cellB - cellA;
+                }
+                return dir === 'asc'
+                    ? cellA.localeCompare(cellB)
+                    : cellB.localeCompare(cellA);
+            });
+            headers.forEach((h, i) => {
+                h.textContent = originalText[i];
+            });
+            const arrow = dir === 'asc' ? ' ▲' : ' ▼';
+            headers[index].textContent = originalText[index] + arrow;
+            rows.forEach(row => table.querySelector('tbody').appendChild(row));
+        });
+    });
+});
+
+// Proklik do záznamu v řádku tabulky
+document.querySelectorAll('.table tbody tr').forEach(row => {
+    row.style.cursor = 'pointer';
+    row.addEventListener('click', (e) => {
+    if (
+        e.target.closest('.menu-button') || e.target.closest('.menu-dropdown')
+    )
+    {
+    return;
+    }
+        const href = row.getAttribute('data-href');
+        if (href) window.location.href = href;
+    });
+});
+
+// Přidání kebab menu na konci každého záznamu tabulky
+document.addEventListener('DOMContentLoaded', () => {
+    const dropdown = document.createElement('div');
+    dropdown.id = 'menu-dropdown';
+    dropdown.className = 'menu-dropdown';
+    dropdown.style.display = 'none';
+    document.body.appendChild(dropdown);
+
+    document.querySelectorAll('.table tbody tr').forEach(row => {
+        const id = row.dataset.id || '0';
+        const actionsCell = document.createElement('td');
+        actionsCell.className = 'actions-cell';
+        actionsCell.innerHTML = `
+            <button class="menu-button" data-id="${id}">⋮</button>`;
+        row.appendChild(actionsCell);
+    });
+    document.querySelectorAll('.table').forEach(table => {
+        table.addEventListener('click', (e) => {
+            const btn = e.target.closest('.menu-button');
+            if (btn) {
+                e.stopPropagation();
+                const id = btn.dataset.id;
+                const rect = btn.getBoundingClientRect();
+                dropdown.innerHTML = `
+                    <button onclick="editItem(${id})">✎ Upravit</button>
+                    <button onclick="deleteItem(${id})">🗑️ Smazat</button>
+                `;
+                dropdown.style.top = `${rect.bottom + window.scrollY}px`;
+                dropdown.style.left = `${rect.left + window.scrollX - 40}px`;
+                dropdown.style.display = 'flex';
+            }
+        });
+    });
+    document.addEventListener('click', () => {
+        dropdown.style.display = 'none';
+    });
+});
+

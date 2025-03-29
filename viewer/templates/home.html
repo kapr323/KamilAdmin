@@ -15,26 +15,25 @@
     <div class="tile" onclick="showSubtiles('reservations')">
         <div class="tile-content">📅<br>Rezervace</div>
     </div>
-    <div class="tile" onclick="showSubtiles('internal-guidelines')">
-        <div class="tile-content">Přehled interních směrnic</div>
+    <div class="tile">
+        <a href="internal-guidelines/" class="tile-content">Interní dokumenty a směrnice</a>
     </div>
         <div class="tile" onclick="showSubtiles('operational-logs')">
         <div class="tile-content">Provozní deníky</div>
     </div>
-        <div class="tile" onclick="showSubtiles('administration')">
-        <div class="tile-content">Administrace</div>
+        <div class="tile">
+        <a href={% url 'admin:index' %} class="tile-content">Administrace</a>
     </div>
 </div>
 
 <div id="subtiles" style="display: none;">
     <button class="back-button" onclick="backToMain()">⬅ Zpět</button>
-
     <div id="personalistics" class="tiles" style="display: none;">
         <div class="tile">
-            <div class="tile-content">Zaměstnanci</div>
+            <a href={% url 'organizational_structure' %} class="tile-content">Organizační struktura</a>
         </div>
         <div class="tile">
-            <div class="tile-content">Dlaždice A</div>
+            <a href={% url 'personnel_records' %} class="tile-content">Evidence zaměstnanců</a>
         </div>
     </div>
     <div id="reservations" class="tiles" style="display: none;">
@@ -48,13 +47,13 @@
     </div>
     <div id="operational-logs" class="tiles" style="display: none;">
         <div class="tile">
-            <div class="tile-content">Nemovitosti</div>
+            <a href={% url 'properties_table' %} class="tile-content">Nemovitosti</a>
         </div>
         <div class="tile">
-            <div class="tile-content">Místnosti</div>
+            <a href={% url 'rooms_table' %} class="tile-content">Místnosti</a>
         </div>
         <div class="tile">
-            <div class="tile-content">Vozidla</div>
+            <a href={% url 'vehicles_table' %} class="tile-content">Vozidla</a>
         </div>
     </div>
 </div>
