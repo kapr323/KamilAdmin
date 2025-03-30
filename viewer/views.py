@@ -1,8 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 import calendar
 import locale
 from datetime import date
 from django.http import JsonResponse
+from .models import *
+from .forms import EmployeeModelForm
+
 
 locale.setlocale(locale.LC_TIME, 'czech')
 
@@ -64,7 +67,42 @@ def organizational_structure(request):
     return render(request, 'organizational_structure.html')
 
 def personnel_records(request):
-    return render(request, 'personnel_records_table.html')
+    employees = Employee.objects.all()
+    return render(request, 'personnel_records_table.html', {'employees': employees})
+
+def employee_create(request):
+    if request.method == 'POST':
+        print("Formulář byl odeslán")
+        form = EmployeeModelForm(request.POST)
+        if form.is_valid():
+            print("Formulář je validní")
+            form.save()
+            return redirect('personnel_records')
+        else:
+            print("Formulář není validní")
+            print(form.errors)
+    else:
+        form = EmployeeModelForm()
+    return render(request, 'employee_form.html', {'form': form, 'action': 'Vytvořit'})
+
+
+def employee_update(request, pk):
+    employee = get_object_or_404(Employee, pk=pk)
+    if request.method == 'POST':
+        form = EmployeeModelForm(request.POST, instance=employee)
+        if form.is_valid():
+            form.save()
+            return redirect('personnel_records')
+    else:
+        form = EmployeeModelForm(instance=employee)
+    return render(request, 'employee_form.html', {'form': form, 'action': 'Upravit'})
+
+def employee_delete(request, pk):
+    employee = get_object_or_404(Employee, pk=pk)
+    if request.method == 'POST':
+        employee.delete()
+        return redirect('personnel_records')
+    return render(request, 'employee_confirm_delete.html', {'employee': employee})
 
 def properties_table(request):
     return render(request, 'properties_table.html')
@@ -120,7 +158,3 @@ def internal_guidelines(request):
 
 def submit_certificate(request):
     return render(request, 'submit_certificate.html')
-
-
-
-

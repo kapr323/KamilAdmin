@@ -92,10 +92,6 @@ class EmployeeModelForm(ModelForm):
         if not initial_name and not initial_surname:
             raise ValidationError("Je nutné zadat jméno a příjmení.")
 
-        initial_date_of_birth = cleaned_data.get('date_of_birth')
-        if initial_date_of_birth <= initial_date_of_birth:
-            raise ValidationError("Datum úmrtí nesmí být dřív, než datum narození.")
-
         return cleaned_data
 
 

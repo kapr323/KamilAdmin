@@ -21,4 +21,7 @@ urlpatterns = [
     path('internal-guidelines/', internal_guidelines, name='internal_guidelines'),
     path('new/', submit_certificate, name='submit_certificate'), # nechat new?
     path('vehicles/<int:car_id>/', vehicle_detail, name="vehicle_detail"),
+    path('personnel-records/add/', employee_create, name='employee_create'),
+    path('personnel-records/edit/<int:pk>/', employee_update, name='employee_update'),
+    path('personnel-records/delete/<int:pk>/', employee_delete, name='employee_delete'),
 ]
