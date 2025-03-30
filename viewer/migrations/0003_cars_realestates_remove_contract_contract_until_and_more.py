@@ -59,11 +59,6 @@ class Migration(migrations.Migration):
             field=models.DateField(default=None),
         ),
         migrations.AddField(
-            model_name='employee',
-            name='initial_creditable_work_experience',
-            field=models.IntegerField(default=0, help_text='Délka uznané započitatelné praxe ve dnech'),
-        ),
-        migrations.AddField(
             model_name='salarygrade',
             name='step',
             field=models.IntegerField(default=1),

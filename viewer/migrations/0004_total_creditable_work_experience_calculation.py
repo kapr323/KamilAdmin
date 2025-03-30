@@ -10,15 +10,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RenameField(
-            model_name='employee',
-            old_name='date_of_employment',
-            new_name='start_date_of_employment',
-        ),
-        migrations.RemoveField(
-            model_name='employee',
-            name='initial_creditable_work_experience',
-        ),
         migrations.AddField(
             model_name='employee',
             name='initial_creditable_work_experience_days',

@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'viewer',
+    'django_celery_results',
+    'django_celery_beat',
     'django_dump_load_utf8',
 ]
 
@@ -128,3 +130,12 @@ STATIC_VERSION = "1.0"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Celery nastavení
+CELERY_BROKER_URL = 'redis://localhost:6379/0'  # Redis jako message broker
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+
+# Uložení výsledků úloh
+CELERY_RESULT_BACKEND = 'django-db'  # nebo 'redis://localhost:6379/1'

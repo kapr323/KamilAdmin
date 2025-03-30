@@ -72,7 +72,7 @@ class Migration(migrations.Migration):
                 ('place_of_birth', models.CharField(max_length=40)),
                 ('nationality', models.CharField(max_length=20)),
                 ('address', models.CharField(max_length=100)),
-                ('date_of_employment', models.DateField()),
+                ('start_date_of_employment', models.DateField()),
                 ('creditable_work_experience', models.IntegerField(default=0, help_text='Délka praxe v měsících')),
                 ('education_level', models.CharField(max_length=20)),
                 ('type_of_employment', models.CharField(max_length=20)),

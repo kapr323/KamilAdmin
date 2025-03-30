@@ -49,6 +49,7 @@ class EmployeeModelForm(ModelForm):
             'place_of_death': 'Místo narození',
             'nationality': 'Národnost',
             'address': 'Adresa trvalého bydliště',
+            'email': 'E-mail',
             'start_date_of_employment': 'Datum nástupu',
             'contract_from': 'Platost smlouvy od',
             'contract_until': 'Platost smlouvy do',
@@ -100,7 +101,7 @@ class EmployeeModelForm(ModelForm):
 
 def calculate_total_creditable_work_experience(employee):
     current_date = datetime.now()
-    days_since_start = (current_date - employee.start_date).days
+    days_since_start = (current_date - employee.start_date_of_employment).days
     total_creditable_work_experience = ((employee.total_initial_experience_in_days()) + days_since_start) // 365
     return total_creditable_work_experience
 
@@ -189,3 +190,53 @@ class ContractModelForm(ModelForm):
         labels = {
             'name': 'Druh pracovního poměru'
         }
+
+
+class PersonalCompetenceModelForm(ModelForm):
+    class Meta:
+        model = PersonalCompetence
+        fields = '__all__'
+
+        labels = {
+            'name': 'Název a typ požadovaného vzdělání/kurzu'
+        }
+
+
+    class InternalDirectivesModelForm(ModelForm):
+        class Meta:
+            model = InternalDirectives
+            fields = '__all__'
+
+        labels = {
+            'name': 'Název směrnice/předpisu',
+            'effective_date': 'Datum účinnosti předpisu od:'
+        }
+
+
+    class CarsModelForm(ModelForm):
+        class Meta:
+            model = Cars
+            fields = '__all__'
+
+        labels = {
+            'name': 'Tovární značka vozidla',
+            'type': 'Typ',
+            'plate_number': 'Registrační značka vozidla',
+            'fuel_type': 'Typ paliva',
+            'technical_inspection_date': 'Datum příští technické prohlídky',
+            'highway_ticket_validity': 'Dálniční známka platná do:',
+            'is_usable': 'Je použitelné (není v servisu, nepojízdné, apod.)'
+        }
+
+
+class RealEstatesModelForm(ModelForm):
+    class Meta:
+        model = RealEstates
+        fields = '__all__'
+
+    labels = {
+        'name': 'Název nemovitosti',
+        'type': 'Typ',
+        'address': 'Adresa',
+        'is_usable': 'Je použitelná'
+    }
