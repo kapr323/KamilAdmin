@@ -16,6 +16,6 @@ urlpatterns = [
     path('rooms/', views.rooms_table, name='rooms_table'),
     path('vehicles/', views.vehicles_table, name='vehicles_table'),
     path('internal-guidelines/', views.internal_guidelines, name='internal_guidelines'),
-    path('new/', views.submit_certificate, name='submit_certificate'),
-
+    path('new/', views.submit_certificate, name='submit_certificate'), # nechat new?
+    path('vehicles/<int:car_id>/', views.vehicle_detail, name="vehicle_detail"),
 ]

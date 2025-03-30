@@ -59,10 +59,50 @@ def properties_table(request):
     return render(request, 'properties_table.html')
 
 def rooms_table(request):
+    rooms = [
+        {
+            "name": ""
+        }
+    ]
     return render(request, 'rooms_table.html')
 
+# testovací databáze pro frontend
+cars = [
+    {
+        "id": 432,
+        "name": "Audi",
+        "type": "Osobní",
+        "plate_number": "7A4 2543",
+        "technical_inspection_date": "1.1.2027",
+        "highway_ticket_validity": True,
+        "is_usable": True,
+    },
+    {
+        "id": 412,
+        "name": "Iveco",
+        "type": "Dodávka",
+        "plate_number": "7A6 5001",
+        "technical_inspection_date": "14.4.2025",
+        "highway_ticket_validity": False,
+        "is_usable": True,
+    },
+    {
+        "id": 38,
+        "name": "Ford Fiesta",
+        "type": "Osobní",
+        "plate_number": "4A4 5705",
+        "technical_inspection_date": "12.4.2025",
+        "highway_ticket_validity": True,
+        "is_usable": True,
+    }
+]
+
 def vehicles_table(request):
-    return render(request, 'vehicles_table.html')
+    return render(request, 'vehicles_table.html', {"cars": cars})
+
+def vehicle_detail(request, car_id):
+    car = next(c for c in cars if c["id"] == car_id)
+    return render(request, 'vehicle_detail.html', {"car": car})
 
 def internal_guidelines(request):
     return render(request, 'internal_guidelines.html')

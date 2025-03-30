@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}MORSE{% endblock %}
+
+{% block content %}
+<h1>Detail vozidla</h1>
+<button class="back-button" onclick="history.back()">⬅ Zpět</button>
+<div class="detail-wrapper">
+<div class="photo-container">
+    {% if car.image_url %}
+        <img src="{{ car.image_url }}" alt="Foto vozidla">
+    {% else %}
+        Foto není k dispozici
+    {% endif %}
+</div>
+        <table class="detail-table detail-info-table">
+            <tbody>
+                <tr>
+                    <th>Název</th>
+                    <td>{{ car.name }}</td>
+                </tr>
+                <tr>
+                    <th>Typ</th>
+                    <td>{{ car.type }}</td>
+                </tr>
+                <tr>
+                    <th>SPZ</th>
+                    <td>{{ car.plate_number }}</td>
+                </tr>
+                <tr>
+                    <th>STK</th>
+                    <td>{{ car.technical_inspection_date }}</td>
+                </tr>
+                <tr>
+                    <th>Dálniční známka</th>
+                    <td>{% if car.highway_ticket_validity %}✅ Ano{% else %}❌ Ne{% endif %}</td>
+                </tr>
+                <tr>
+                    <th>Provozuschopné</th>
+                    <td>{% if car.is_usable %}✅ Ano{% else %}❌ Ne{% endif %}</td>
+                </tr>
+                <tr>
+                    <th>Poznámky</th>
+                    <td>{{ car.notes|default:"-" }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+</div>
+{% endblock %}

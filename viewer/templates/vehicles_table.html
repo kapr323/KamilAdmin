@@ -14,24 +14,21 @@
                 <th data-sort="plate-number">SPZ</th>
                 <th data-sort="technical-inspection-date">STK</th>
                 <th data-sort="highway-ticket-validity">Dálniční známka</th>
+                <th data-sort="is_usable">Dostupné</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Audi</td>
-                <td>Osobní</td>
-                <td>7A4 2543</td>
-                <td>1.1.2027</td>
-                <td>Ano</td>
-            </tr>
-            <tr>
-                <td>Iveco</td>
-                <td>Dodávka</td>
-                <td>7A6 5001</td>
-                <td>14.4.2025</td>
-                <td>Ne</td>
-            </tr>
+            {% for car in cars %}
+                <tr data-href="{% url 'vehicle_detail' car.id %}">
+                    <td>{{ car.name }}</td>
+                    <td>{{ car.type }}</td>
+                    <td>{{ car.plate_number }}</td>
+                    <td>{{ car.technical_inspection_date }}</td>
+                    <td>{% if car.highway_ticket_validity %}✅ Ano{% else %}❌ Ne{% endif %}</td>
+                    <td>{% if car.is_usable %}✅ Ano{% else %}❌ Ne{% endif %}</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>
