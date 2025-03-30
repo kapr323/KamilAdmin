@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}MORSE{% endblock %}
+
+{% block content %}
+<h1>Rezervační systém zasedacích místností a sálů</h1>
+<button class="back-button" onclick="history.back()">⬅ Zpět</button>
+<form id="reservation-form">
+    <label for="building">Budova:</label>
+    <select id="building" name="building">
+        <option value="">-- Vyber budovu --</option>
+        <option value="4652">Kulturní dům, Řeporyjská 13</option>
+        <option value="4432">OÚ, Wichterleho 1</option>
+        <option value="8846">Městský park, Radní 5</option>
+    </select>
+    <label for="room">Místnost:</label> <!-- Potřeba pak napojit na zvolenou budovu -->
+    <select id="room" name="room">
+        <option value="">-- Vyber místnost --</option>
+        <option value="42">Vencovského aula</option>
+        <option value="80">Hala 303B</option>
+        <option value="81">Místnost 3</option>
+    </select>
+    <label for="reserved_by">Rezervováno na jméno:</label>
+    <select id="reserved_by" name="building">
+        <option value="">-- tento profil --</option>
+        <option value="123">Petr Gregor</option>
+        <option value="456">Martin Kaprál (impostor)</option>
+        <option value="789">Kamil Dvořák</option>
+    </select>
+    <button type="submit">Rezervovat</button>
+</form>
+<div class="calendar">
+    <p id="selected-date">Vybrané datum: {{ today_day }}.{{ month }}.{{ year }}</p>
+    <h2 id="calendar-title">{{ month_name }} {{ year }}</h2>
+    <div id="calendar-controls">
+    <button id="prev-month">Předchozí měsíc</button>
+    <button id="next-month">Následující měsíc</button>
+</div>
+    <div class="calendar-header">
+        <div>Po</div>
+        <div>Út</div>
+        <div>St</div>
+        <div>Čt</div>
+        <div>Pá</div>
+        <div>So</div>
+        <div>Ne</div>
+    </div>
+    <div class="calendar-body" id="calendar-body"></div>
+</div>
+
+<div class="building-list">
+    <div class="building" data-building="A">
+        <input type="checkbox" class="building-checkbox" />
+        🏢 Budova A
+    </div>
+    <div class="room-list" data-for="A">
+        <div class="room">
+            <input type="checkbox" class="room-checkbox" />
+            Místnost 101
+        </div>
+        <div class="room">
+            <input type="checkbox" class="room-checkbox" />
+            Místnost 102
+        </div>
+    </div>
+
+    <div class="building" data-building="B">
+        <input type="checkbox" class="building-checkbox" />
+        🏢 Budova B
+    </div>
+    <div class="room-list" data-for="B">
+        <div class="room">
+            <input type="checkbox" class="room-checkbox" />
+            Místnost 201
+        </div>
+        <div class="room">
+            <input type="checkbox" class="room-checkbox" />
+            Místnost 202
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

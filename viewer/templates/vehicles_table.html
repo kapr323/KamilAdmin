@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}MORSE{% endblock %}
+
+{% block content %}
+    <h1>Vozidla</h1>
+<button class="back-button" onclick="history.back()">⬅ Zpět</button>
+<div class="table-wrapper">
+    <table id="table" class="table">
+        <thead>
+            <tr>
+                <th data-sort="name">Název</th>
+                <th data-sort="type">Typ</th>
+                <th data-sort="plate-number">SPZ</th>
+                <th data-sort="technical-inspection-date">STK</th>
+                <th data-sort="highway-ticket-validity">Dálniční známka</th>
+                <th data-sort="is_usable">Dostupné</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for car in cars %}
+                <tr data-href="{% url 'vehicle_detail' car.id %}">
+                    <td>{{ car.name }}</td>
+                    <td>{{ car.type }}</td>
+                    <td>{{ car.plate_number }}</td>
+                    <td>{{ car.technical_inspection_date }}</td>
+                    <td>{% if car.highway_ticket_validity %}✅ Ano{% else %}❌ Ne{% endif %}</td>
+                    <td>{% if car.is_usable %}✅ Ano{% else %}❌ Ne{% endif %}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

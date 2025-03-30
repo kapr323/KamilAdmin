@@ -1,3 +1,5 @@
+from enum import unique
+
 from django.db import models
 from django.db.models import Model, CharField, DateField, IntegerField, ForeignKey, SET_NULL, BooleanField, TextChoices
 
