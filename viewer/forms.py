@@ -198,31 +198,31 @@ class PersonalCompetenceModelForm(ModelForm):
         }
 
 
-    class InternalDirectivesModelForm(ModelForm):
-        class Meta:
-            model = InternalDirectives
-            fields = '__all__'
+class InternalDirectivesModelForm(ModelForm):
+    class Meta:
+        model = InternalDirectives
+        fields = '__all__'
 
-        labels = {
-            'name': 'Název směrnice/předpisu',
-            'effective_date': 'Datum účinnosti předpisu od:'
-        }
+    labels = {
+        'name': 'Název směrnice/předpisu',
+        'effective_date': 'Datum účinnosti předpisu od:'
+    }
 
 
-    class CarsModelForm(ModelForm):
-        class Meta:
-            model = Cars
-            fields = '__all__'
+class CarsModelForm(ModelForm):
+    class Meta:
+        model = Cars
+        fields = '__all__'
 
-        labels = {
-            'name': 'Tovární značka vozidla',
-            'type': 'Typ',
-            'plate_number': 'Registrační značka vozidla',
-            'fuel_type': 'Typ paliva',
-            'technical_inspection_date': 'Datum příští technické prohlídky',
-            'highway_ticket_validity': 'Dálniční známka platná do:',
-            'is_usable': 'Je použitelné (není v servisu, nepojízdné, apod.)'
-        }
+    labels = {
+        'name': 'Tovární značka vozidla',
+        'type': 'Typ',
+        'plate_number': 'Registrační značka vozidla',
+        'fuel_type': 'Typ paliva',
+        'technical_inspection_date': 'Datum příští technické prohlídky',
+        'highway_ticket_validity': 'Dálniční známka platná do:',
+        'is_usable': 'Je použitelné (není v servisu, nepojízdné, apod.)'
+    }
 
 
 class RealEstatesModelForm(ModelForm):
