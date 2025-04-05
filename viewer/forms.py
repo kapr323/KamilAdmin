@@ -91,7 +91,6 @@ class EmployeeModelForm(ModelForm):
                   f"initial_surname = '{initial_surname}'")
         if not initial_name and not initial_surname:
             raise ValidationError("Je nutné zadat jméno a příjmení.")
-
         return cleaned_data
 
 
