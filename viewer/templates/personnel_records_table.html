@@ -22,7 +22,7 @@
         </thead>
         <tbody>
             {% for emp in employees %}
-                <tr data-href="">
+                <tr data-href="{% url 'employee_detail' emp.id %}" data-id="{{ emp.id }}">
                     <td>{{ emp.name }}</td>
                     <td>{{ emp.surname }}</td>
                     <td>{{ emp.personal_number }}</td>

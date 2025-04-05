@@ -220,6 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <button class="menu-button" data-id="${id}">⋮</button>`;
         row.appendChild(actionsCell);
     });
+
     document.querySelectorAll('.table').forEach(table => {
         table.addEventListener('click', (e) => {
             const btn = e.target.closest('.menu-button');
@@ -227,9 +228,36 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.stopPropagation();
                 const id = btn.dataset.id;
                 const rect = btn.getBoundingClientRect();
+
+                let editFunc = '';
+                let deleteFunc = '';
+
+                switch (window.location.pathname) {
+                    case '/personnel-records/':
+                        editFunc = `window.location.href='/personnel-records/edit/${id}/'`;
+                        deleteFunc = `window.location.href='/personnel-records/delete/${id}/'`;
+                        break;
+                    case '/vehicles/':
+                        editFunc = `window.location.href='/vehicles/edit/${id}/'`;
+                        deleteFunc = `window.location.href='/vehicles/delete/${id}/'`;
+                        break;
+                    case '/rooms/':
+                        editFunc = `window.location.href='/rooms/edit/${id}/'`;
+                        deleteFunc = `window.location.href='/rooms/delete/${id}/'`;
+                        break;
+                    case '/properties/':
+                        editFunc = `window.location.href='/properties/edit/${id}/'`;
+                        deleteFunc = `window.location.href='/properties/delete/${id}/'`;
+                        break;
+                    default:
+                        editFunc = `editItem(${id})`;
+                        deleteFunc = `deleteItem(${id})`;
+                        break;
+                }
+
                 dropdown.innerHTML = `
-                    <button onclick="editItem(${id})">✎ Upravit</button>
-                    <button onclick="deleteItem(${id})">🗑️ Smazat</button>
+                    <button onclick="${editFunc}">✎ Upravit</button>
+                    <button onclick="${deleteFunc}">🗑️ Smazat</button>
                 `;
                 dropdown.style.top = `${rect.bottom + window.scrollY}px`;
                 dropdown.style.left = `${rect.left + window.scrollX - 40}px`;
@@ -237,8 +265,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
     document.addEventListener('click', () => {
         dropdown.style.display = 'none';
     });
 });
-

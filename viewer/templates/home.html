@@ -9,9 +9,6 @@
     <div class="tile" onclick="showSubtiles('personalistics')">
         <div class="tile-content">👷‍♂️<br>Personalistika</div>
     </div>
-    <div class="tile" onclick="showSubtiles('infrastructure')">
-        <div class="tile-content">🏢<br>Infrastruktura</div>
-    </div>
     <div class="tile" onclick="showSubtiles('reservations')">
         <div class="tile-content">📅<br>Rezervace</div>
     </div>
@@ -47,7 +44,7 @@
     </div>
     <div id="operational-logs" class="tiles" style="display: none;">
         <div class="tile">
-            <a href={% url 'properties_table' %} class="tile-content">Nemovitosti</a>
+            <a href={% url 'properties' %} class="tile-content">Nemovitosti</a>
         </div>
         <div class="tile">
             <a href={% url 'rooms_table' %} class="tile-content">Místnosti</a>

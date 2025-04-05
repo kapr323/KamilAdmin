@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}MORSE{% endblock %}
+
+{% block content %}
+<h1>Detail zaměstnance</h1>
+<button class="back-button" onclick="history.back()">⬅ Zpět</button>
+<div class="detail-wrapper">
+<div class="photo-container">
+    {% if emp.image_url %}
+        <img src="{{ emp.image_url }}" alt="Foto zaměstnance">
+    {% else %}
+        Foto není k dispozici
+    {% endif %}
+</div>
+        <table class="detail-table detail-info-table">
+            <tbody>
+                <tr>
+                    <th>Jméno</th>
+                    <td>{{ emp.name }}</td>
+                </tr>
+                <tr>
+                    <th>Příjmení</th>
+                    <td>{{ emp.surname }}</td>
+                </tr>
+                <tr>
+                    <th>Osobní číslo</th>
+                    <td>{{ emp.personal_number }}</td>
+                </tr>
+                <tr>
+                    <th>Pozice</th>
+                    <td>{{ emp.job_position }}</td>
+                </tr>
+                <tr>
+                    <th>Datum začátku zaměstnaneckého poměru</th>
+                    <td>{{ emp.start_date_of_employment }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+</div>
+{% endblock %}

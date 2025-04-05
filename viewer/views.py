@@ -4,17 +4,13 @@ import locale
 from datetime import date
 from django.http import JsonResponse
 from .models import *
-from .forms import EmployeeModelForm
-
+from .forms import *
 
 locale.setlocale(locale.LC_TIME, 'czech')
-
 from viewer.models import *
-
 
 def home(request):
     return render(request, 'home.html')
-
 
 def employees(request):
     employees_ = Employee.objects.all()
@@ -64,11 +60,16 @@ def reservation_system(request):
     return render(request, 'reservation_system.html', context)
 
 def organizational_structure(request):
-    return render(request, 'organizational_structure.html')
+    tajemnik = Employee.objects.filter(job_position__name__iexact="Tajemník").first()
+    return render(request, 'organizational_structure.html', {'tajemnik': tajemnik})
 
 def personnel_records(request):
     employees = Employee.objects.all()
     return render(request, 'personnel_records_table.html', {'employees': employees})
+
+def employee_detail(request, pk):
+    emp = get_object_or_404(Employee, pk=pk)
+    return render(request, 'employees_detail.html', {'emp': emp})
 
 def employee_create(request):
     if request.method == 'POST':
@@ -104,8 +105,82 @@ def employee_delete(request, pk):
         return redirect('personnel_records')
     return render(request, 'employee_confirm_delete.html', {'employee': employee})
 
+'''
+def vehicle_create(request):
+    if request.method == 'POST':
+        print("Formulář byl odeslán")
+        form = EmployeeModelForm(request.POST)
+        if form.is_valid():
+            print("Formulář je validní")
+            form.save()
+            return redirect('personnel_records')
+        else:
+            print("Formulář není validní")
+            print(form.errors)
+    else:
+        form = EmployeeModelForm()
+    return render(request, 'vehicle_form.html', {'form': form, 'action': 'Vytvořit'})
+
+def vehicle_update(request, pk):
+    employee = get_object_or_404(Employee, pk=pk)
+    if request.method == 'POST':
+        form = EmployeeModelForm(request.POST, instance=employee)
+        if form.is_valid():
+            form.save()
+            return redirect('vehicles')
+    else:
+        form = EmployeeModelForm(instance=employee)
+    return render(request, 'vehicle_form.html', {'form': form, 'action': 'Upravit'})
+
+def vehicle_delete(request, pk):
+    employee = get_object_or_404(Employee, pk=pk)
+    if request.method == 'POST':
+        employee.delete()
+        return redirect('vehicles')
+    return render(request, 'vehicle_confirm_delete.html', {'vehicle': car})
+'''
+
+def property_create(request):
+    if request.method == 'POST':
+        print("Formulář byl odeslán")
+        form = RealEstatesModelForm(request.POST)
+        if form.is_valid():
+            print("Formulář je validní")
+            form.save()
+            return redirect('properties_table')
+        else:
+            print("Formulář není validní")
+            print(form.errors)
+    else:
+        form = RealEstatesModelForm()
+    return render(request, 'property_form.html', {'form': form, 'action': 'Vytvořit'})
+
+def property_update(request, pk):
+    property = get_object_or_404(RealEstates, pk=pk)
+    if request.method == 'POST':
+        form = RealEstatesModelForm(request.POST, instance=property)
+        if form.is_valid():
+            form.save()
+            return redirect('properties')
+    else:
+        form = RealEstatesModelForm(instance=property)
+    return render(request, 'property_form.html', {'form': form, 'action': 'Upravit'})
+
+def property_delete(request, pk):
+    property = get_object_or_404(RealEstates, pk=pk)
+    if request.method == 'POST':
+        property.delete()
+        return redirect('properties')
+    return render(request, 'property_confirm_delete.html', {'property': property})
+
+
 def properties_table(request):
-    return render(request, 'properties_table.html')
+    properties = RealEstates.objects.all()
+    return render(request, 'properties_table.html', {'properties': properties})
+
+def properties_detail(request, pk):
+    prop = get_object_or_404(RealEstates, pk=pk)
+    return render(request, 'properties_detail.html', {'prop': prop})
 
 def rooms_table(request):
     rooms = [
@@ -115,42 +190,12 @@ def rooms_table(request):
     ]
     return render(request, 'rooms_table.html')
 
-# testovací databáze pro frontend
-cars = [
-    {
-        "id": 432,
-        "name": "Audi",
-        "type": "Osobní",
-        "plate_number": "7A4 2543",
-        "technical_inspection_date": "1.1.2027",
-        "highway_ticket_validity": True,
-        "is_usable": True,
-    },
-    {
-        "id": 412,
-        "name": "Iveco",
-        "type": "Dodávka",
-        "plate_number": "7A6 5001",
-        "technical_inspection_date": "14.4.2025",
-        "highway_ticket_validity": False,
-        "is_usable": True,
-    },
-    {
-        "id": 38,
-        "name": "Ford Fiesta",
-        "type": "Osobní",
-        "plate_number": "4A4 5705",
-        "technical_inspection_date": "12.4.2025",
-        "highway_ticket_validity": True,
-        "is_usable": True,
-    }
-]
-
 def vehicles_table(request):
-    return render(request, 'vehicles_table.html', {"cars": cars})
+    vehicles = Cars.objects.all()
+    return render(request, 'vehicles_table.html', {"cars": vehicles})
 
-def vehicle_detail(request, car_id):
-    car = next(c for c in cars if c["id"] == car_id)
+def vehicle_detail(request, pk):
+    car = get_object_or_404(Cars, pk=pk)
     return render(request, 'vehicle_detail.html', {"car": car})
 
 def internal_guidelines(request):
