@@ -4,7 +4,6 @@ from django.urls import resolve
 
 EXEMPT_URLS = [
     '/login/',
-    '/logout/',
     '/admin/',
 ]
 
