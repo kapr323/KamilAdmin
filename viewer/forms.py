@@ -1,4 +1,5 @@
-from django.forms import ModelForm, DateField, NumberInput
+from django.core.validators import validate_email
+from django.forms import ModelForm, DateInput
 
 from kamiladmin.settings import DEBUG
 from django.core.exceptions import ValidationError
@@ -59,6 +60,35 @@ class EmployeeModelForm(ModelForm):
             'education_level': 'Maximální dosažené vzdělání',
             'type_of_employment': 'Druh pracovního poměru'
             }
+
+        widgets = {
+            'date_of_birth': DateInput(attrs={'type': 'date', 'class': 'form-control'}, format='%Y-%m-%d'),
+            'start_date_of_employment': DateInput(attrs={'type': 'date', 'class': 'form-control'}, format='%Y-%m-%d'),
+            'contract_from': DateInput(attrs={'type': 'date', 'class': 'form-control'}, format='%Y-%m-%d'),
+            'contract_until': DateInput(attrs={'type': 'date', 'class': 'form-control'}, format='%Y-%m-%d'),
+            'personal_number': forms.NumberInput(attrs={'min': '1'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        date_fields = ['date_of_birth', 'start_date_of_employment', 'contract_from', 'contract_until']
+        for field in date_fields:
+            self.fields[field].input_formats = ['%Y-%m-%d']
+
+    def clean_personal_number(self):
+        number = self.cleaned_data.get('personal_number')
+        if number is not None and number <= 0:
+            raise forms.ValidationError('Osobní číslo musí být větší než 0.')
+        return number
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if email:
+            try:
+                validate_email(email)
+            except ValidationError:
+                raise forms.ValidationError("Zadejte platnou e-mailovou adresu.")
+        return email
 
     def clean_name(self):
         initial = self.cleaned_data['name']
@@ -203,6 +233,7 @@ class InternalDirectivesModelForm(ModelForm):
         fields = '__all__'
 
     labels = {
+        'type': 'Druh předpisu',
         'name': 'Název směrnice/předpisu',
         'effective_date': 'Datum účinnosti předpisu od:'
     }

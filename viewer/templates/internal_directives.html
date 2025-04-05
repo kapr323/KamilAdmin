@@ -11,15 +11,16 @@
     <table id=table class="table">
         <thead>
             <tr>
-                <th data-sort="employee_name">Jméno a Příjmení</th>
-                <th data-sort="category">Kategorie</th>
-                <th data-sort="uploaded_at">Nahráno</th>
+                <th data-sort="type">Druh předpisu</th>
+                <th data-sort="name">Název</th>
+                <th data-sort="effective_date">Platnost do</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             {% for directive in directives %}
             <tr data-href="{% url 'directive_detail' directive.id %}" data-id="{{ directive.id }}">
+                <td>{{ directive.type }}</td>
                 <td>{{ directive.name }}</td>
                 <td>{{ directive.effective_date }}</td>
                 <td>{{ directive.uploaded_at|date:"d.m.Y H:i" }}</td>

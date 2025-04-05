@@ -2,6 +2,7 @@ from enum import unique
 
 from django.db import models
 from django.db.models import Model, CharField, DateField, IntegerField, ForeignKey, SET_NULL, BooleanField, TextChoices
+from django.core.validators import MinValueValidator, EmailValidator
 
 
 # Create your models here.
@@ -35,13 +36,13 @@ class Employee(Model):
     surname = CharField(max_length=32, null=False, blank=False, unique=False)
     title_before_name = CharField(max_length=20, null=True, blank=True, unique=False)
     title_after_name = CharField(max_length=20, null=True, blank=True, unique=False)
-    personal_number = IntegerField(null=False, blank=True, unique=True)
+    personal_number = models.PositiveIntegerField(validators=[MinValueValidator(1)], verbose_name='Osobní číslo')
     job_position = ForeignKey("JobPosition", null=True, blank=False, unique=False, on_delete=SET_NULL, related_name='employee_job_position')
     date_of_birth = DateField(null=False, blank=False, unique=False)
     place_of_birth = CharField(max_length=40, null=False, blank=False, unique=False)
     nationality = CharField(max_length=20, null=False, blank=False, unique=False)
     address = CharField(max_length=100, null=False, blank=False, unique=False)
-    email = CharField(max_length=100, null=False, blank=False, unique=False, default='')
+    email = models.EmailField(max_length=100, unique=False, blank=False, null=False, default='', validators=[EmailValidator()])
     start_date_of_employment = DateField(null=False, blank=False, unique=False)
     contract_from = DateField(null=False, blank=False, unique=False, default=None)
     contract_until = DateField(null=False, blank=False, unique=False, default=None)
@@ -138,6 +139,11 @@ class PersonalCompetence(Model):
 
 
 class InternalDirectives(Model):
+    class InternalDirectiveChoices(TextChoices):
+        REGULATIONS =  'Řád'
+        DIRECTIVES = 'Směrnice'
+        RULES = 'Nařízení'
+
     name = CharField(max_length=100, null=False, blank=False, unique=True)
     effective_date = DateField(null=False, blank=False, unique=False)
 
