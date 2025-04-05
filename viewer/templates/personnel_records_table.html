@@ -5,43 +5,31 @@
 {% block content %}
     <h1>Evidence zaměstnanců</h1>
 <button class="back-button" onclick="history.back()">⬅ Zpět</button>
+<form action="{% url 'employee_create' %}" method="get" style="display: inline;">
+    <button type="submit" class="btn">Vytvořit nový záznam</button>
+</form>
 <div class="table-wrapper">
     <table id="table" class="table">
         <thead>
             <tr>
                 <th data-sort="name">Jméno</th>
                 <th data-sort="surname">Příjmení</th>
-                <th data-sort="titles">Tituly</th>
                 <th data-sort="personal-number">Osobní číslo</th>
-                <th data-sort="date-of-birth">Datum narození</th>
-                <th data-sort="place-of-birth">Místo narození</th>
                 <th data-sort="position">Pozice</th>
-                <!-- <th data-sort="department">Oddělení</th> Nechybí nám v modelu Employee? -->
-                <th data-sort="nationality">Národnost</th>
+                <th data-sort="start-date-of-employment">Datum začátku zaměstnaneckého poměru</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr data-href="/jana">
-                <td>Jana</td>
-                <td>Nováková</td>
-                <td>Bc.</td>
-                <td>4652</td>
-                <td>17.4.1980</td>
-                <td>Tachov</td>
-                <td>Referent</td>
-                <td>ČR</td>
-            </tr>
-            <tr data-href="/martin">
-                <td>Martin</td>
-                <td>Kaprál</td>
-                <td></td>
-                <td>25</td>
-                <td>5.12.1997</td>
-                <td>Prostějov</td>
-                <td>Popelář</td>
-                <td>ČR</td>
-            </tr>
+            {% for emp in employees %}
+                <tr data-href="{% url 'employee_detail' emp.id %}" data-id="{{ emp.id }}">
+                    <td>{{ emp.name }}</td>
+                    <td>{{ emp.surname }}</td>
+                    <td>{{ emp.personal_number }}</td>
+                    <td>{{ emp.job_position }}</td>
+                    <td>{{ emp.start_date_of_employment }}</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>

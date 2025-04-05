@@ -5,36 +5,29 @@
 {% block content %}
     <h1>Nemovitosti</h1>
 <button class="back-button" onclick="history.back()">⬅ Zpět</button>
+<form action="{% url 'property_create' %}" method="get" style="display: inline;">
+    <button type="submit" class="btn">Vytvořit nový záznam</button>
+</form>
 <div class="table-wrapper">
     <table id="table" class="table">
         <thead>
             <tr>
                 <th data-sort="name">Jméno</th>
-                <th data-sort="surname">Příjmení</th>
-                <th data-sort="position">Pozice</th>
-                <th data-sort="department">Oddělení</th>
-                <th data-sort="email">Email</th>
-                <th data-sort="phone">Telefon</th>
+                <th data-sort="type">Typ</th>
+                <th data-sort="address">Adresa</th>
+                <th data-sort="is_usable">Dostupnost</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Jana</td>
-                <td>Nováková</td>
-                <td>Referentka</td>
-                <td>Odbor vnitřní správy</td>
-                <td>jana.novakova@urad.cz</td>
-                <td>123 456 789</td>
-            </tr>
-            <tr>
-                <td>Martin</td>
-                <td>Kaprál</td>
-                <td>nezaměstnaný</td>
-                <td>Popelář</td>
-                <td>mk@mk.cz</td>
-                <td>652588886</td>
-            </tr>
+            {% for prop in properties %}
+                <tr data-href="{% url 'properties_detail' prop.id %}" data-id="{{ prop.id }}">
+                    <td>{{ prop.name }}</td>
+                    <td>{{ prop.type }}</td>
+                    <td>{{ prop.address }}</td>
+                    <td>{{ prop.is_usable }}</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>

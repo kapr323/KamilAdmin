@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Smazat nemovitost{% endblock %}
+
+{% block content %}
+<h1>Opravdu chcete smazat nemovitost {{ prop.name }} {{ prop.surname }}?</h1>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn">Ano, smazat.</button>
+  <a href="{% url 'properties' %}" class="btn">Zpět</a>
+</form>
+{% endblock %}

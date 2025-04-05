@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}MORSE{% endblock %}
+
+{% block content %}
+<h1>Detail zaměstnance</h1>
+<button class="back-button" onclick="history.back()">⬅ Zpět</button>
+<div class="detail-wrapper">
+<div class="photo-container">
+    {% if prop.image_url %}
+        <img src="{{ prop.image_url }}" alt="Foto zaměstnance">
+    {% else %}
+        Foto není k dispozici
+    {% endif %}
+</div>
+        <table class="detail-table detail-info-table">
+            <tbody>
+                <tr>
+                    <th>Název</th>
+                    <td>{{ prop.name }}</td>
+                </tr>
+                <tr>
+                    <th>Typ</th>
+                    <td>{{ prop.type }}</td>
+                </tr>
+                <tr>
+                    <th>Adresa</th>
+                    <td>{{ prop.address }}</td>
+                </tr>
+                <tr>
+                    <th>Dostupnost</th>
+                    <td>{{ prop.is_usable }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+</div>
+{% endblock %}

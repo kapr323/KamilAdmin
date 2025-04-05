@@ -92,10 +92,6 @@ class EmployeeModelForm(ModelForm):
         if not initial_name and not initial_surname:
             raise ValidationError("Je nutné zadat jméno a příjmení.")
 
-        initial_date_of_birth = cleaned_data.get('date_of_birth')
-        if initial_date_of_birth <= initial_date_of_birth:
-            raise ValidationError("Datum úmrtí nesmí být dřív, než datum narození.")
-
         return cleaned_data
 
 
@@ -202,31 +198,31 @@ class PersonalCompetenceModelForm(ModelForm):
         }
 
 
-    class InternalDirectivesModelForm(ModelForm):
-        class Meta:
-            model = InternalDirectives
-            fields = '__all__'
+class InternalDirectivesModelForm(ModelForm):
+    class Meta:
+        model = InternalDirectives
+        fields = '__all__'
 
-        labels = {
-            'name': 'Název směrnice/předpisu',
-            'effective_date': 'Datum účinnosti předpisu od:'
-        }
+    labels = {
+        'name': 'Název směrnice/předpisu',
+        'effective_date': 'Datum účinnosti předpisu od:'
+    }
 
 
-    class CarsModelForm(ModelForm):
-        class Meta:
-            model = Cars
-            fields = '__all__'
+class CarsModelForm(ModelForm):
+    class Meta:
+        model = Cars
+        fields = '__all__'
 
-        labels = {
-            'name': 'Tovární značka vozidla',
-            'type': 'Typ',
-            'plate_number': 'Registrační značka vozidla',
-            'fuel_type': 'Typ paliva',
-            'technical_inspection_date': 'Datum příští technické prohlídky',
-            'highway_ticket_validity': 'Dálniční známka platná do:',
-            'is_usable': 'Je použitelné (není v servisu, nepojízdné, apod.)'
-        }
+    labels = {
+        'name': 'Tovární značka vozidla',
+        'type': 'Typ',
+        'plate_number': 'Registrační značka vozidla',
+        'fuel_type': 'Typ paliva',
+        'technical_inspection_date': 'Datum příští technické prohlídky',
+        'highway_ticket_validity': 'Dálniční známka platná do:',
+        'is_usable': 'Je použitelné (není v servisu, nepojízdné, apod.)'
+    }
 
 
 class RealEstatesModelForm(ModelForm):

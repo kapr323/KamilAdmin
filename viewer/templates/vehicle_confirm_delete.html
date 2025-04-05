@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Smazat vozidlo{% endblock %}
+
+{% block content %}
+<h1>Opravdu chcete smazat vozidlo {{ car.name }} {{ car.surname }}?</h1>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn">Ano, smazat.</button>
+  <a href="{% url 'personnel_records' %}" class="btn">Zpět</a>
+</form>
+{% endblock %}
