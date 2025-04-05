@@ -105,40 +105,38 @@ def employee_delete(request, pk):
         return redirect('personnel_records')
     return render(request, 'employee_confirm_delete.html', {'employee': employee})
 
-'''
 def vehicle_create(request):
     if request.method == 'POST':
         print("Formulář byl odeslán")
-        form = EmployeeModelForm(request.POST)
+        form = CarsModelForm(request.POST)
         if form.is_valid():
             print("Formulář je validní")
             form.save()
-            return redirect('personnel_records')
+            return redirect('vehicles_table')
         else:
             print("Formulář není validní")
             print(form.errors)
     else:
-        form = EmployeeModelForm()
+        form = CarsModelForm()
     return render(request, 'vehicle_form.html', {'form': form, 'action': 'Vytvořit'})
 
 def vehicle_update(request, pk):
-    employee = get_object_or_404(Employee, pk=pk)
+    vehicle = get_object_or_404(Cars, pk=pk)
     if request.method == 'POST':
-        form = EmployeeModelForm(request.POST, instance=employee)
+        form = CarsModelForm(request.POST, instance=vehicle)
         if form.is_valid():
             form.save()
-            return redirect('vehicles')
+            return redirect('vehicles_table')
     else:
-        form = EmployeeModelForm(instance=employee)
+        form = CarsModelForm(instance=vehicle)
     return render(request, 'vehicle_form.html', {'form': form, 'action': 'Upravit'})
 
 def vehicle_delete(request, pk):
-    employee = get_object_or_404(Employee, pk=pk)
+    vehicle = get_object_or_404(Cars, pk=pk)
     if request.method == 'POST':
-        employee.delete()
-        return redirect('vehicles')
-    return render(request, 'vehicle_confirm_delete.html', {'vehicle': car})
-'''
+        vehicle.delete()
+        return redirect('vehicles_table')
+    return render(request, 'vehicle_confirm_delete.html', {'vehicle': vehicle})
 
 def property_create(request):
     if request.method == 'POST':
@@ -198,8 +196,38 @@ def vehicle_detail(request, pk):
     car = get_object_or_404(Cars, pk=pk)
     return render(request, 'vehicle_detail.html', {"car": car})
 
-def internal_guidelines(request):
-    return render(request, 'internal_guidelines.html')
+def internal_directives(request):
+    directives = InternalDirectives.objects.all()
+    return render(request, 'internal_directives.html', {'directives': directives})
 
-def submit_certificate(request):
-    return render(request, 'submit_certificate.html')
+def directive_create(request):
+    if request.method == 'POST':
+        form = InternalDirectivesModelForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('internal_directives')
+    else:
+        form = InternalDirectivesModelForm()
+    return render(request, 'directive_form.html', {'form': form, 'action': 'Nahrát'})
+
+def directive_update(request, pk):
+    directive = get_object_or_404(InternalDirectives, pk=pk)
+    if request.method == 'POST':
+        form = InternalDirectivesModelForm(request.POST, request.FILES, instance=directive)
+        if form.is_valid():
+            form.save()
+            return redirect('internal_directives')
+    else:
+        form = InternalDirectivesModelForm(instance=directive)
+    return render(request, 'directive_form.html', {'form': form, 'action': 'Upravit'})
+
+def directive_delete(request, pk):
+    directive = get_object_or_404(InternalDirectives, pk=pk)
+    if request.method == 'POST':
+        directive.delete()
+        return redirect('internal_directives')
+    return render(request, 'directive_confirm_delete.html', {'directive': directive})
+
+def directive_detail(request, pk):
+    directive = get_object_or_404(InternalDirectives, pk=pk)
+    return render(request, 'directive_detail.html', {"directive": directive})

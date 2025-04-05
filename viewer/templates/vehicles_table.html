@@ -5,6 +5,9 @@
 {% block content %}
     <h1>Vozidla</h1>
 <button class="back-button" onclick="history.back()">⬅ Zpět</button>
+<form action="{% url 'vehicle_create' %}" method="get" style="display: inline;">
+    <button type="submit" class="btn">Vytvořit nový záznam</button>
+</form>
 <div class="table-wrapper">
     <table id="table" class="table">
         <thead>
@@ -20,7 +23,7 @@
         </thead>
         <tbody>
             {% for car in cars %}
-                <tr data-href="{% url 'vehicle_detail' car.id %}">
+                <tr data-href="{% url 'vehicle_detail' car.id %}" data-id="{{ car.id }}">
                     <td>{{ car.name }}</td>
                     <td>{{ car.type }}</td>
                     <td>{{ car.plate_number }}</td>

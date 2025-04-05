@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}MORSE{% endblock %}
+
+{% block content %}
+    <h1>Interní dokumenty a směrnice</h1>
+<button class="back-button" onclick="history.back()">⬅ Zpět</button>
+<form action="{% url 'directive_create' %}" method="get" style="display: inline;">
+    <button type="submit" class="btn">Vytvořit nový záznam</button>
+</form><div class="table-wrapper">
+    <table id=table class="table">
+        <thead>
+            <tr>
+                <th data-sort="employee_name">Jméno a Příjmení</th>
+                <th data-sort="category">Kategorie</th>
+                <th data-sort="uploaded_at">Nahráno</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for directive in directives %}
+            <tr data-href="{% url 'directive_detail' directive.id %}" data-id="{{ directive.id }}">
+                <td>{{ directive.name }}</td>
+                <td>{{ directive.effective_date }}</td>
+                <td>{{ directive.uploaded_at|date:"d.m.Y H:i" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

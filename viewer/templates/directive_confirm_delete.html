@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Smazat dokument/směrnici{% endblock %}
+
+{% block content %}
+<h1>Opravdu chcete smazat dokument/směrnici {{ directive.name }} {{ directive.surname }}?</h1>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn">Ano, smazat.</button>
+  <a href="{% url 'internal_directives' %}" class="btn">Zpět</a>
+</form>
+{% endblock %}

@@ -241,9 +241,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         editFunc = `window.location.href='/vehicles/edit/${id}/'`;
                         deleteFunc = `window.location.href='/vehicles/delete/${id}/'`;
                         break;
-                    case '/rooms/':
-                        editFunc = `window.location.href='/rooms/edit/${id}/'`;
-                        deleteFunc = `window.location.href='/rooms/delete/${id}/'`;
+                    case '/internal-directives/':
+                        editFunc = `window.location.href='/internal-directives/edit/${id}/'`;
+                        deleteFunc = `window.location.href='/internal-directives/delete/${id}/'`;
                         break;
                     case '/properties/':
                         editFunc = `window.location.href='/properties/edit/${id}/'`;

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}MORSE{% endblock %}
+
+{% block content %}
+<h1>Detail dokumentu/směrnice</h1>
+<button class="back-button" onclick="history.back()">⬅ Zpět</button>
+<div class="detail-wrapper">
+        <table class="detail-table detail-info-table">
+            <tbody>
+                <tr>
+                    <th>Název</th>
+                    <td>{{ directive.name }}</td>
+                </tr>
+                <tr>
+                    <th>Platné od</th>
+                    <td>{{ directive.effective_date }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+</div>
+{% endblock %}
