@@ -438,3 +438,99 @@ form {
     flex-grow: 1;
     max-width: 700px;
 }
+
+.icon.logout {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    display: block;
+    transition: transform 0.2s ease;
+}
+
+.system-icons {
+    position: absolute;
+    right: 50px;
+    background-color: white;
+    padding: 6px 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.username-label {
+    background-color: transparent;
+    padding: 6px 10px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: black;
+}
+
+.icon-button {
+    background-color: transparent;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 10px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.icon-button:hover {
+    transform: scale(1.2);
+    background-color: white;
+}
+
+.system-logo {
+    position: absolute;
+}
+
+body.login-page {
+    background-color: #212c95;
+    color: white;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-container form {
+    background: white;
+    padding: 50px;
+    border-radius: 8px;
+    color: black;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"],
+.login-container button.btn-login {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+
+.login-container .errors {
+    color: red;
+    margin-bottom: 10px;
+}

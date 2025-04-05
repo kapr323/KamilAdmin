@@ -53,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'kamiladmin.middleware.LoginRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'kamiladmin.urls'
@@ -86,6 +87,9 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login/'
 
 
 # Password validation

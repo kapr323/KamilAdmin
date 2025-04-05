@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}MORSE{% endblock %}</title>
+    {% load static %}
+    <link rel="icon" href="{% static 'img/MORSE.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/viewer.css' %}?v={{ STATIC_VERSION }}">
+</head>
+<body class="login-page">
+<div class="login-container">
+    <div class="logo">
+        <img src="{% static 'img/MORSE.ico' %}" alt="Logo firmy" height="300">
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        {% if form.errors %}
+            <div class="errors">
+                Nesprávné jméno nebo heslo.
+            </div>
+        {% endif %}
+        {{ form.username }}
+        {{ form.password }}
+        <button type="submit btn-login">Přihlásit</button>
+    </form>
+</div>
+</body>
+
+</html>

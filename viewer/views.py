@@ -5,6 +5,7 @@ from datetime import date
 from django.http import JsonResponse
 from .models import *
 from .forms import *
+from django.contrib.auth.decorators import login_required
 
 locale.setlocale(locale.LC_TIME, 'czech')
 from viewer.models import *
