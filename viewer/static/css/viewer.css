@@ -438,3 +438,27 @@ form {
     flex-grow: 1;
     max-width: 700px;
 }
+
+.icon.logout {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    cursor: crosshair;
+    transition: transform 0.2s ease;
+}
+
+.icon.logout:hover {
+    transform: scale(1.2);
+}
+
+.system-icons {
+    position: absolute;
+    right: 50px;
+    background-color: white;
+    padding: 6px;
+    border-radius: 8px;
+}
+
+.system-logo {
+    position: absolute;
+}
