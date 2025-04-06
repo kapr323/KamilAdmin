@@ -238,6 +238,9 @@ class InternalDirectivesModelForm(ModelForm):
         'effective_date': 'Datum účinnosti předpisu od:'
     }
 
+    widgets = {
+        'effective_date': DateInput(attrs={'type': 'date', 'class': 'form-control'}, format='%Y-%m-%d'),
+    }
 
 class CarsModelForm(ModelForm):
     class Meta:
