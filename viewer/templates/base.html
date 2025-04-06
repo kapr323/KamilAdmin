@@ -32,7 +32,7 @@
     </div>
 <div class="system-icons">
     <div class="username-label">Přihlášen(a): {{ user.username }}</div>
-    <form method="post" action="{% url 'logout' %}" style="display:inline;">
+    <form method="post" action="{% url 'logout' %}">
         {% csrf_token %}
         <button type="submit" title="Odhlásit se" class="icon-button">
             <img src="{% static 'img/logout.png' %}" class="icon logout" alt="Odhlásit se">

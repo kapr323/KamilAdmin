@@ -290,14 +290,20 @@ form {
 }
 
 .structure-tree li > a.position {
+    display: block;
+    width: 220px;
+    word-break: break-word;
+    white-space: normal;
+    text-align: center;
     background-color: #f0f0f0;
     color: #000;
     font-weight: bold;
-    padding: 8px 16px;
+    padding: 12px 16px;
     border-radius: 8px;
     transition: 0.3s;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     text-decoration: none;
+    margin: 0 auto;
 }
 
 .structure-tree li > a.position:hover {
@@ -306,11 +312,20 @@ form {
     cursor: pointer;
 }
 
+.structure-tree {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    overflow-x: auto;
+}
+
 .structure-tree ul {
     padding-top: 50px;
     position: relative;
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 20px;
 }
 
 .structure-tree li {
@@ -318,6 +333,7 @@ form {
     position: relative;
     padding: 20px 5px 0 5px;
     text-align: center;
+    width: fit-content;
 }
 
 .table-wrapper {
@@ -528,7 +544,6 @@ body.login-page {
     border-radius: 4px;
     box-sizing: border-box;
 }
-
 
 .login-container .errors {
     color: red;
