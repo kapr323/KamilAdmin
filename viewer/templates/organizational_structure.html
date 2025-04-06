@@ -1,26 +1,62 @@
-{% extends "base.html" %}
+;{% extends "base.html" %}
 
 {% block title %}MORSE{% endblock %}
 
 {% block content %}
     <h1>Organizační struktura</h1>
 <button class="back-button" onclick="history.back()">⬅ Zpět</button>
+
 <div class="structure-tree">
     <ul>
+        <!-- Starosta -->
         <li>
-            <a href="starosta/" class="position">Starosta</a>
+            <a href="{% url 'employee_detail' starosta.id %}" class="position">Starosta</a>
             <ul>
+                <!-- Tajemník -->
                 <li>
                     <a href="{% url 'employee_detail' tajemnik.id %}" class="position">Tajemník</a>
                     <ul>
+                        <!-- Odbor vnitřní správy -->
                         <li>
-                            <a href="odbor-1/" class="position">Odbor vnitřní správy</a>
-                        </li>
-                        <li>
-                            <a href="odbor-2/" class="position">Odbor ekonomiky a správy majetku</a>
+                            <span class="department-title">Odbor vnitřní správy</span>
                             <ul>
                                 <li>
-                                    <a href="oddeleni/" class="position">Oddělení ekonomiky</a>
+                                    <a href="{% url 'employee_detail' vedouci_odboru_vnitrni_spravy.id %}" class="position">Vedoucí odboru vnitřní správy</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'employee_detail' asistentka_tajemnika.id %}" class="position">Asistentka starosty a tajemníka</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- Odbor ekonomiky a správy majetku -->
+                        <li>
+                            <span class="department-title">Odbor ekonomiky a správy majetku</span>
+                            <ul>
+                                <li>
+                                    <a href="{% url 'employee_detail' vedouci_odboru_ekonomiky.id %}" class="position">Vedoucí odboru ekonomiky a správy majetku</a>
+                                    <ul>
+                                        <!-- Větev 1: Referenti -->
+                                        <li>
+                                            <a href="{% url 'employee_detail' referent_spravy_majetku_1.id %}" class="position">Referent správy majetku 1</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'employee_detail' referent_spravy_majetku_2.id %}" class="position">Referent správy majetku 2</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'employee_detail' referent_pokladna.id %}" class="position">Referent – pokladna</a>
+                                        </li>
+
+                                        <!-- Větev 2: Oddělení ekonomiky -->
+                                        <li>
+                                            <a href="{% url 'employee_detail' vedouci_oddeleni_ekonomiky.id %}" class="position">Vedoucí oddělení ekonomiky</a>
+                                            <ul>
+                                                <li>
+                                                    <a href="{% url 'employee_detail' ucetni.id %}" class="position">Účetní</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
                         </li>

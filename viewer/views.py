@@ -60,8 +60,26 @@ def reservation_system(request):
     return render(request, 'reservation_system.html', context)
 
 def organizational_structure(request):
+    starosta = Employee.objects.filter(job_position__name__iexact="Starosta").first()
     tajemnik = Employee.objects.filter(job_position__name__iexact="Tajemník").first()
-    return render(request, 'organizational_structure.html', {'tajemnik': tajemnik})
+    vedouci_odboru_vnitrni_spravy = Employee.objects.filter(job_position__name__iexact="Vedoucí odboru vnitřní správy").first()
+    asistentka_tajemnika = Employee.objects.filter(job_position__name__iexact="Asistentka starosty a tajemníka").first()
+    vedouci_odboru_ekonomiky = Employee.objects.filter(job_position__name__iexact="Vedoucí odboru ekonomiky a správy majetku").first()
+    referent_spravy_majetku_1 = Employee.objects.filter(job_position__name__iexact="Referent správy majetku 1").first()
+    referent_spravy_majetku_2 = Employee.objects.filter(job_position__name__iexact="Referent správy majetku 2").first()
+    referent_pokladna = Employee.objects.filter(job_position__name__iexact="Referent-pokladna").first()
+    vedouci_oddeleni_ekonomiky = Employee.objects.filter(job_position__name__iexact="Vedoucí oddělení ekonomiky").first()
+    ucetni = Employee.objects.filter(job_position__name__iexact="účetní").first()
+    return render(request, 'organizational_structure.html', {'starosta': starosta,
+                                                             'tajemnik': tajemnik,
+                                                             'vedouci_odboru_vnitrni_spravy': vedouci_odboru_vnitrni_spravy,
+                                                             'asistentka_tajemnika': asistentka_tajemnika,
+                                                             'vedouci_odboru_ekonomiky': vedouci_odboru_ekonomiky,
+                                                             'referent_spravy_majetku_1': referent_spravy_majetku_1,
+                                                             'referent_spravy_majetku_2': referent_spravy_majetku_2,
+                                                             'vedouci_oddeleni_ekonomiky': vedouci_oddeleni_ekonomiky,
+                                                             'referent_pokladna': referent_pokladna,
+                                                             'ucetni': ucetni,})
 
 def personnel_records(request):
     employees = Employee.objects.all()
