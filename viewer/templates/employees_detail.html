@@ -37,7 +37,19 @@
                 </tr>
             </tbody>
         </table>
-    </div>
+
+        <div class="competencies-section">
+        <h2>Požadované osobní kompetence pro pozici: {{ emp.job_position.name }}</h2>
+        <ul>
+            {% for competency in competencies %}
+                <li>
+                    <strong>{{ competency.name }}</strong><br>
+                    <small>{{ competency.description }}</small>
+                </li>
+            {% empty %}
+                <li>Pro tuto pozici nejsou přiřazeny žádné kompetence.</li>
+            {% endfor %}
+        </ul>
     </div>
 </div>
 {% endblock %}

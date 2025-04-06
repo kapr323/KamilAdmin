@@ -88,7 +88,8 @@ def personnel_records(request):
 
 def employee_detail(request, pk):
     emp = get_object_or_404(Employee, pk=pk)
-    return render(request, 'employees_detail.html', {'emp': emp})
+    competencies = emp.job_position.personal_competencies.all() if emp.job_position else []
+    return render(request, 'employees_detail.html', {'emp': emp, 'competencies': competencies})
 
 def employee_create(request):
     if request.method == 'POST':
@@ -250,3 +251,9 @@ def directive_delete(request, pk):
 def directive_detail(request, pk):
     directive = get_object_or_404(InternalDirectives, pk=pk)
     return render(request, 'directive_detail.html', {"directive": directive})
+
+
+def login_success(request):
+    if request.user.must_change_password:
+        return redirect('password_change')
+    return redirect('dashboard')

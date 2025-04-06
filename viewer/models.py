@@ -1,25 +1,12 @@
 from enum import unique
 
 from django.db import models
-from django.db.models import Model, CharField, DateField, IntegerField, ForeignKey, SET_NULL, BooleanField, TextChoices
+from django.db.models import Model, CharField, DateField, IntegerField, ForeignKey, SET_NULL, BooleanField, TextChoices, \
+    TextField
 from django.core.validators import MinValueValidator, EmailValidator
 
 
 # Create your models here.
-class JobPosition(Model):
-    name = CharField(max_length=100, null=False, blank=False, unique=False)
-    grade = IntegerField(default=8)
-
-    class Meta:
-        ordering = ['name']
-
-    def __repr__(self):
-        return self.name
-
-    def __str__(self):
-        return self.name
-
-
 class Employee(Model):
     class EducationLevel(TextChoices):
         SECONDARY_EDUCATION = 'Střední vzdělání s maturitou'
@@ -125,14 +112,29 @@ class Contract(Model):
 
 
 class PersonalCompetence(Model):
-    name = CharField(max_length=50, null=False, blank=False, unique=False)
-    valid_until = DateField(null=False, blank=False, unique=False)
+    name = CharField(max_length=100, null=False, blank=False, unique=False)
+    description = TextField(blank=True)
 
     class Meta:
         ordering = ['name']
 
     def __repr__(self):
         return f"({self.name})"
+
+    def __str__(self):
+        return self.name
+
+class JobPosition(Model):
+    name = CharField(max_length=100, null=False, blank=False, unique=False)
+    description = models.TextField(blank=True)
+    personal_competencies = models.ManyToManyField(PersonalCompetence, blank=True)
+    grade = IntegerField(default=8)
+
+    class Meta:
+        ordering = ['name']
+
+    def __repr__(self):
+        return self.name
 
     def __str__(self):
         return self.name
@@ -144,6 +146,7 @@ class InternalDirectives(Model):
         DIRECTIVES = 'Směrnice'
         RULES = 'Nařízení'
 
+    type = CharField(max_length=50, choices=InternalDirectiveChoices.choices, default=InternalDirectiveChoices.REGULATIONS)
     name = CharField(max_length=100, null=False, blank=False, unique=True)
     effective_date = DateField(null=False, blank=False, unique=False)
 
