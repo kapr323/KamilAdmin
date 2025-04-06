@@ -230,12 +230,11 @@ form {
     cursor: default;
 }
 
-.building-list {
+.vehicles-list {
     max-width: 500px;
 }
 
-.building,
-.room {
+.vehicle {
     position: relative;
     display: flex;
     align-items: center;
@@ -252,27 +251,32 @@ form {
     cursor: pointer;
 }
 
-.building:hover,
-.room:hover {
+.vehicle:hover {
     background-color: #d0d0d0;
 }
 
-.building.selected,
-.room.selected {
+.vehicle.selected {
     background-color: #212c95;
     color: white;
     font-weight: bold;
 }
 
-.room-list {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out;
-    margin-left: 20px;
+.vehicle-label {
+    flex-grow: 1;
+    margin-left: 8px;
 }
 
-.room-list.expanded {
-    max-height: 500px;
+.vehicle-status {
+    margin-left: auto;
+    font-weight: bold;
+}
+
+.vehicle-status.usable {
+    color: green;
+}
+
+.vehicle-status.not-usable {
+    color: red;
 }
 
 .tooltip {

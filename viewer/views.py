@@ -60,6 +60,64 @@ def reservation_system(request):
         }
     return render(request, 'reservation_system.html', context)
 
+def properties_reservations(request):
+    today = date.today()
+    year = int(request.GET.get("year", date.today().year))
+    month = int(request.GET.get("month", date.today().month))
+    cal = calendar.Calendar(firstweekday=0)
+    month_days = cal.monthdayscalendar(year, month)
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return JsonResponse({
+            "year": year,
+            "month": month,
+            "month_name": calendar.month_name[month].capitalize(),
+            "weeks": month_days,
+            "today_day": today.day,
+            "today_month": today.month,
+            "today_year": today.year
+        })
+    else:
+        context = {
+            "year": year,
+            "month": month,
+            "month_name": calendar.month_name[month].capitalize(),
+            "month_days": month_days,
+            "today_day": today.day,
+            "today_month": today.month,
+            "today_year": today.year
+        }
+    return render(request, 'properties_reservations.html', context)
+
+def vehicles_reservations(request):
+    today = date.today()
+    year = int(request.GET.get("year", date.today().year))
+    month = int(request.GET.get("month", date.today().month))
+    cal = calendar.Calendar(firstweekday=0)
+    month_days = cal.monthdayscalendar(year, month)
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return JsonResponse({
+            "year": year,
+            "month": month,
+            "month_name": calendar.month_name[month].capitalize(),
+            "weeks": month_days,
+            "selected_day": today.day,
+            "selected_month": today.month,
+            "selected_year": today.year
+        })
+    else:
+        context = {
+            "year": year,
+            "month": month,
+            "month_name": calendar.month_name[month].capitalize(),
+            "month_days": month_days,
+            "selected_day": today.day,
+            "selected_month": today.month,
+            "selected_year": today.year,
+            'vehicles': Cars.objects.all()
+        }
+
+    return render(request, 'vehicles_reservations.html', context)
+
 def organizational_structure(request):
     starosta = Employee.objects.filter(job_position__name__iexact="Starosta").first()
     tajemnik = Employee.objects.filter(job_position__name__iexact="Tajemník").first()

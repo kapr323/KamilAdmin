@@ -4,13 +4,10 @@
     <div class="tile-content">👷‍♂️ <br>Personalistika </div>
   </div>
   <div class="tile" onclick="showSubtiles('properties')">
-    <div class="tile-content">🏚️️ <br>Nemovitosti </div>
+    <div class="tile-content">🏢️ <br>Nemovitosti </div>
   </div>
   <div class="tile" onclick="showSubtiles('vehicles')">
     <div class="tile-content">🚗️ <br>Vozidla </div>
-  </div>
-  <div class="tile" onclick="showSubtiles('reservations')">
-    <div class="tile-content">📅 <br>Rezervace </div>
   </div>
   <div class="tile">
     <a href="internal-directives/" class="tile-content">Interní dokumenty a směrnice</a>
@@ -32,13 +29,6 @@
       <a href={% url 'personnel_records' %} class="tile-content">Evidence zaměstnanců</a>
     </div>
   </div>
-  <div id="reservations" class="tiles" style="display: none;">
-    <div class="tile">
-      <a href="{% url 'reservation_system' %}" class="tile-link">
-        <div class="tile-content"> Rezervační systém zasedacích místností a sálů </div>
-      </a>
-    </div>
-  </div>
   <div id="operational-logs" class="tiles" style="display: none;">
     <div class="tile">
       <a href={% url 'properties' %} class="tile-content">Nemovitosti</a>
@@ -52,18 +42,18 @@
   </div>
   <div id="properties" class="tiles" style="display: none;">
     <div class="tile">
-      <a href={% url 'properties' %} class="tile-content">Karty nemovitostí</a>
+      <a href={% url 'properties' %} class="tile-content">📋Karty nemovitostí</a>
     </div>
     <div class="tile">
-      <a href={% url 'reservation_system' %} class="tile-content">Rezervace</a>
+      <a href={% url 'reservation_system_properties' %} class="tile-content">📅Rezervace</a>
     </div>
   </div>
   <div id="vehicles" class="tiles" style="display: none;">
     <div class="tile">
-      <a href={% url 'vehicles_table' %} class="tile-content">Karty vozidel</a>
+      <a href={% url 'vehicles_table' %} class="tile-content">📋Karty vozidel</a>
     </div>
     <div class="tile">
-      <a href={% url 'reservation_system' %} class="tile-content">Rezervace</a>
+      <a href={% url 'reservation_system_vehicles' %} class="tile-content">📅Rezervace</a>
     </div>
   </div>
 </div> {% endblock %}

@@ -52,9 +52,9 @@ document.addEventListener("DOMContentLoaded", function() {
                             div.dataset.day = day;
 
                             if (
-                                day === data.today_day &&
-                                data.month === data.today_month &&
-                                data.year === data.today_year
+                                day === data.selected_day &&
+                                data.month === data.selected_month &&
+                                data.year === data.selected_year
                             ) {
                                 div.classList.add("today");
                                 div.classList.add("selected");

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}MORSE{% endblock %}
+
+{% block content %}
+<h1>Rezervace vozidel</h1>
+<button class="back-button" onclick="history.back()">⬅ Zpět</button>
+<div class="calendar">
+    <p id="selected-date">Vybrané datum: {{ selected_day }}.{{ month }}.{{ year }}</p>
+    <h2 id="calendar-title">{{ month_name }} {{ year }}</h2>
+    <div id="calendar-controls">
+    <button id="prev-month">Předchozí měsíc</button>
+    <button id="next-month">Následující měsíc</button>
+</div>
+    <div class="calendar-header">
+        <div>Po</div>
+        <div>Út</div>
+        <div>St</div>
+        <div>Čt</div>
+        <div>Pá</div>
+        <div>So</div>
+        <div>Ne</div>
+    </div>
+    <div class="calendar-body" id="calendar-body"></div>
+</div>
+
+<div class="vehicles-list">
+    {% for vehicle in vehicles %}
+    <div class="vehicle{% if vehicle.is_usable %} usable{% else %} not-usable{% endif %}" data-id="{{ vehicle.id }}">
+        <input type="checkbox" class="vehicle-checkbox" {% if not vehicle.is_usable %}disabled{% endif %} />
+        <span class="vehicle-label">
+            🚗️ {{ vehicle.name }} (SPZ {{ vehicle.plate_number }})
+        </span>
+        <span class="vehicle-status {% if vehicle.is_usable %}usable{% else %}not-usable{% endif %}">
+            {% if vehicle.is_usable %}✅ DOSTUPNÉ{% else %}❌ NEDOSTUPNÉ{% endif %}
+        </span>
+    </div>
+{% endfor %}
+
+</div>
+
+
+{% endblock %}
