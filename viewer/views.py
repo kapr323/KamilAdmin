@@ -72,9 +72,9 @@ def properties_reservations(request):
             "month": month,
             "month_name": calendar.month_name[month].capitalize(),
             "weeks": month_days,
-            "today_day": today.day,
-            "today_month": today.month,
-            "today_year": today.year
+            "selected_day": today.day,
+            "selected_month": today.month,
+            "selected_year": today.year
         })
     else:
         context = {
@@ -82,9 +82,10 @@ def properties_reservations(request):
             "month": month,
             "month_name": calendar.month_name[month].capitalize(),
             "month_days": month_days,
-            "today_day": today.day,
-            "today_month": today.month,
-            "today_year": today.year
+            "selected_day": today.day,
+            "selected_month": today.month,
+            "selected_year": today.year,
+            'properties': RealEstates.objects.all()
         }
     return render(request, 'properties_reservations.html', context)
 
@@ -117,6 +118,8 @@ def vehicles_reservations(request):
         }
 
     return render(request, 'vehicles_reservations.html', context)
+
+
 
 def organizational_structure(request):
     starosta = Employee.objects.filter(job_position__name__iexact="Starosta").first()

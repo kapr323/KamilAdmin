@@ -12,9 +12,6 @@
   <div class="tile">
     <a href="internal-directives/" class="tile-content">Interní dokumenty a směrnice</a>
   </div>
-  <div class="tile" onclick="showSubtiles('operational-logs')">
-    <div class="tile-content">Provozní deníky</div>
-  </div>
   <div class="tile">
     <a href={% url 'admin:index' %} class="tile-content">Administrace</a>
   </div>
@@ -27,17 +24,6 @@
     </div>
     <div class="tile">
       <a href={% url 'personnel_records' %} class="tile-content">Evidence zaměstnanců</a>
-    </div>
-  </div>
-  <div id="operational-logs" class="tiles" style="display: none;">
-    <div class="tile">
-      <a href={% url 'properties' %} class="tile-content">Nemovitosti</a>
-    </div>
-    <div class="tile">
-      <a href={% url 'rooms_table' %} class="tile-content">Místnosti</a>
-    </div>
-    <div class="tile">
-      <a href={% url 'vehicles_table' %} class="tile-content">Vozidla</a>
     </div>
   </div>
   <div id="properties" class="tiles" style="display: none;">
