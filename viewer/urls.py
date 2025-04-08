@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.contrib.auth.views import LoginView, LogoutView
 
 from viewer.forms import section_view
@@ -39,4 +39,5 @@ urlpatterns = [
     path('vehicles/edit/<int:pk>/', vehicle_update, name='vehicle_update'),
     path('vehicles/delete/<int:pk>/', vehicle_delete, name='vehicle_delete'),
     path('vehicles/<int:pk>/', vehicle_detail, name="vehicle_detail"),
+    path('accounts/', include('accounts.urls')),
 ]

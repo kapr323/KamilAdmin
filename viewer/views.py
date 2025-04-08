@@ -4,6 +4,7 @@ import locale
 from datetime import date
 from django.http import JsonResponse
 from .forms import InternalDirectivesModelForm, CarsModelForm, RealEstatesModelForm, EmployeeModelForm
+from django.contrib.auth.decorators import login_required
 
 locale.setlocale(locale.LC_TIME, 'czech')
 from viewer.models import InternalDirectives, Cars, RealEstates, Employee
@@ -68,20 +69,36 @@ def vehicles_reservations(request):
     return render(request, 'vehicles_reservations.html', calendar_data)
 
 def organizational_structure(request):
-    positions = [
-        ('starosta', "Starosta"),
-        ('tajemnik', "Tajemník"),
-        ('asistentka_tajemnika', "Asistentka starosty a tajemníka"),
-        ('vedouci_odboru_ekonomiky', "Vedoucí odboru ekonomiky a správy majetku"),
-        ('referent_spravy_majetku_1', "Referent správy majetku 1"),
-        ('referent_spravy_majetku_2', "Referent správy majetku 2"),
-        ('referent_pokladna', "Referent-pokladna"),
-        ('vedouci_oddeleni_ekonomiky', "Vedoucí oddělení ekonomiky"),
-        ('vedouci_odboru_vnitrni_spravy', "Vedoucí odboru vnitřní správy"),
-        ('ucetni', "účetní")
-    ]
-    return render(request, 'organizational_structure.html', context = {key: Employee.objects.filter(job_position__name__iexact=label).first() for key, label in positions}
-)
+    starosta = Employee.objects.filter(job_position__name__iexact="Starosta").first()
+    tajemnik = Employee.objects.filter(job_position__name__iexact="Tajemník").first()
+    vedouci_odboru_vnitrni_spravy = Employee.objects.filter(job_position__name__iexact="Vedoucí odboru vnitřní správy").first()
+    asistentka_tajemnika = Employee.objects.filter(job_position__name__iexact="Asistentka starosty a tajemníka").first()
+    vedouci_odboru_ekonomiky = Employee.objects.filter(job_position__name__iexact="Vedoucí odboru ekonomiky a správy majetku").first()
+    referent_spravy_majetku_1 = Employee.objects.filter(job_position__name__iexact="Referent správy majetku 1").first()
+    referent_spravy_majetku_2 = Employee.objects.filter(job_position__name__iexact="Referent správy majetku 2").first()
+    referent_pokladna = Employee.objects.filter(job_position__name__iexact="Referent-pokladna").first()
+    vedouci_oddeleni_ekonomiky = Employee.objects.filter(job_position__name__iexact="Vedoucí oddělení ekonomiky").first()
+    ucetni = Employee.objects.filter(job_position__name__iexact="Účetní").first()
+
+    context = {
+        'starosta': starosta,
+        'tajemnik': tajemnik,
+        'vedouci_odboru_vnitrni_spravy': vedouci_odboru_vnitrni_spravy,
+        'asistentka_tajemnika': asistentka_tajemnika,
+        'vedouci_odboru_ekonomiky': vedouci_odboru_ekonomiky,
+        'referent_spravy_majetku_1': referent_spravy_majetku_1,
+        'referent_spravy_majetku_2': referent_spravy_majetku_2,
+        'vedouci_oddeleni_ekonomiky': vedouci_oddeleni_ekonomiky,
+         'referent_pokladna': referent_pokladna,
+         'ucetni': ucetni,
+    }
+
+ # Nastavení výchozích hodnot nebo upravení kontextu, pokud je některý z objektů None
+    for key, value in context.items():
+        if value is None:
+            context[key] = "Není k dispozici"
+
+    return render(request, 'organizational_structure.html', context)
 
 def personnel_records(request):
     employees = Employee.objects.all()

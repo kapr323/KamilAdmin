@@ -144,6 +144,8 @@ class InternalDirectives(Model):
         DIRECTIVES = 'Směrnice'
         RULES = 'Nařízení'
 
+    type = CharField(max_length=50, choices=InternalDirectiveChoices.choices,
+                     default=InternalDirectiveChoices.REGULATIONS)
     name = CharField(max_length=100, null=False, blank=False, unique=True)
     effective_date = DateField(null=False, blank=False, unique=False)
 

@@ -10,21 +10,29 @@
     <ul>
         <!-- Starosta -->
         <li>
-            <a href="{% url 'employee_detail' starosta.id %}" class="position">Starosta</a>
+            {% if starosta %}
+                <a href="{% url 'employee_detail' starosta.id %}" class="position">Starosta</a>
+            {% endif %}
             <ul>
                 <!-- Tajemník -->
                 <li>
-                    <a href="{% url 'employee_detail' tajemnik.id %}" class="position">Tajemník</a>
+                    {% if tajemnik %}
+                        <a href="{% url 'employee_detail' tajemnik.id %}" class="position">Tajemník</a>
+                    {% endif %}
                     <ul>
                         <!-- Odbor vnitřní správy -->
                         <li>
                             <span class="department-title">Odbor vnitřní správy</span>
                             <ul>
                                 <li>
-                                    <a href="{% url 'employee_detail' vedouci_odboru_vnitrni_spravy.id %}" class="position">Vedoucí odboru vnitřní správy</a>
+                                    {% if vedouci_odboru_vnitrni_spravy %}
+                                        <a href="{% url 'employee_detail' vedouci_odboru_vnitrni_spravy.id %}" class="position">Vedoucí odboru vnitřní správy</a>
+                                    {% endif %}
                                 </li>
                                 <li>
-                                    <a href="{% url 'employee_detail' asistentka_tajemnika.id %}" class="position">Asistentka starosty a tajemníka</a>
+                                    {% if asistentka_tajemnika %}
+                                        <a href="{% url 'employee_detail' asistentka_tajemnika.id %}" class="position">Asistentka starosty a tajemníka</a>
+                                    {% endif %}
                                 </li>
                             </ul>
                         </li>
@@ -34,29 +42,41 @@
                             <span class="department-title">Odbor ekonomiky a správy majetku</span>
                             <ul>
                                 <li>
-                                    <a href="{% url 'employee_detail' vedouci_odboru_ekonomiky.id %}" class="position">Vedoucí odboru ekonomiky a správy majetku</a>
-                                    <ul>
-                                        <!-- Větev 1: Referenti -->
-                                        <li>
-                                            <a href="{% url 'employee_detail' referent_spravy_majetku_1.id %}" class="position">Referent správy majetku 1</a>
-                                        </li>
-                                        <li>
-                                            <a href="{% url 'employee_detail' referent_spravy_majetku_2.id %}" class="position">Referent správy majetku 2</a>
-                                        </li>
-                                        <li>
-                                            <a href="{% url 'employee_detail' referent_pokladna.id %}" class="position">Referent – pokladna</a>
-                                        </li>
+                                    {% if vedouci_odboru_ekonomiky %}
+                                        <a href="{% url 'employee_detail' vedouci_odboru_ekonomiky.id %}" class="position">Vedoucí odboru ekonomiky a správy majetku</a>
+                                        <ul>
+                                            <!-- Větev 1: Referenti -->
+                                            <li>
+                                                {% if referent_spravy_majetku_1 %}
+                                                    <a href="{% url 'employee_detail' referent_spravy_majetku_1.id %}" class="position">Referent správy majetku 1</a>
+                                                {% endif %}
+                                            </li>
+                                            <li>
+                                                {% if referent_spravy_majetku_2 %}
+                                                    <a href="{% url 'employee_detail' referent_spravy_majetku_2.id %}" class="position">Referent správy majetku 2</a>
+                                                {% endif %}
+                                            </li>
+                                            <li>
+                                                {% if referent_pokladna %}
+                                                    <a href="{% url 'employee_detail' referent_pokladna.id %}" class="position">Referent – pokladna</a>
+                                                {% endif %}
+                                            </li>
 
-                                        <!-- Větev 2: Oddělení ekonomiky -->
-                                        <li>
-                                            <a href="{% url 'employee_detail' vedouci_oddeleni_ekonomiky.id %}" class="position">Vedoucí oddělení ekonomiky</a>
-                                            <ul>
-                                                <li>
-                                                    <a href="{% url 'employee_detail' ucetni.id %}" class="position">Účetní</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
+                                            <!-- Větev 2: Oddělení ekonomiky -->
+                                            <li>
+                                                {% if vedouci_oddeleni_ekonomiky %}
+                                                    <a href="{% url 'employee_detail' vedouci_oddeleni_ekonomiky.id %}" class="position">Vedoucí oddělení ekonomiky</a>
+                                                    <ul>
+                                                        <li>
+                                                            {% if ucetni %}
+                                                                <a href="{% url 'employee_detail' ucetni.id %}" class="position">Účetní</a>
+                                                            {% endif %}
+                                                        </li>
+                                                    </ul>
+                                                {% endif %}
+                                            </li>
+                                        </ul>
+                                    {% endif %}
                                 </li>
                             </ul>
                         </li>

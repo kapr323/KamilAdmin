@@ -6,11 +6,6 @@ from django.contrib.admin import ModelAdmin
 from viewer.models import *
 
 
-class KamilAdmin(ModelAdmin):
-    @staticmethod
-    def cleanup_description(modeladmin, request, queryset):
-        queryset.update(description=None)
-
 class EmployeeForm(forms.ModelForm):
         class Meta:
             model = Employee

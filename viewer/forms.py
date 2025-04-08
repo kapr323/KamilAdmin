@@ -226,6 +226,10 @@ class PersonalCompetenceModelForm(ModelForm):
             'name': 'Název a typ požadovaného vzdělání/kurzu'
         }
 
+        widgets = {
+            'effective_date': DateInput(attrs={'type': 'date', 'class': 'form-control'}, format='%Y-%m-%d'),
+        }
+
 
 class InternalDirectivesModelForm(ModelForm):
     class Meta:

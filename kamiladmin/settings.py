@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'viewer',
     'django_celery_results',
     'django_celery_beat',
+    'accounts',
     'django_dump_load_utf8',
 ]
 
@@ -61,8 +62,8 @@ ROOT_URLCONF = 'kamiladmin.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        'DIRS': [BASE_DIR / 'templates'],  # Tady nastavíš složku pro šablony
+        'APP_DIRS': True,   # Toto by mělo být True, aby se šablony hledaly i v aplikacích
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -84,13 +85,18 @@ WSGI_APPLICATION = 'kamiladmin.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',    # Nová databáze
+    },
+    'old': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db_old.sqlite3',  # název souboru staré databáze
     }
 }
 
 LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = '/login/'
+# LOGIN_URL = '/login/'
 
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -128,7 +134,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATIC_VERSION = "1.0"
+STATIC_VERSION = "1.2"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

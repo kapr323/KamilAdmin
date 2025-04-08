@@ -1,4 +1,14 @@
 {% extends "base.html" %} {% block title %}MORSE{% endblock %} {% block content %} <h1>Odkazy</h1>
+
+
+{% if user.must_change_password %}
+    <div class="alert alert-warning">
+      <p>Pro bezpečnost je potřeba, abyste změnili své heslo.</p>
+      <a href="{% url 'change_password' %}" class="btn btn-warning">Změnit heslo</a>
+    </div>
+  {% endif %}
+
+
 <div id="main-tiles" class="tiles">
   <div class="tile" onclick="showSubtiles('personalistics')">
     <div class="tile-content">👷‍♂️ <br>Personalistika </div>
