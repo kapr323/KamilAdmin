@@ -52,7 +52,9 @@
                                             <a href="{% url 'employee_detail' vedouci_oddeleni_ekonomiky.id %}" class="position">Vedoucí oddělení ekonomiky</a>
                                             <ul>
                                                 <li>
-                                                    <a href="{% url 'employee_detail' ucetni.id %}" class="position">Účetní</a>
+                                                    {% if ucetni %}
+                                                        <a href="{% url 'employee_detail' ucetni.id %}" class="position">Účetní</a>
+                                                    {% endif %}
                                                 </li>
                                             </ul>
                                         </li>

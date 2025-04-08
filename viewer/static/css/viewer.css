@@ -581,3 +581,10 @@ body.login-page {
     color: red;
     margin-bottom: 10px;
 }
+
+
+@media (max-width: 600px) {
+    .position, .department-title {
+        max-width: 100%;
+    }
+}

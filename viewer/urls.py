@@ -1,11 +1,13 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.contrib.auth.views import LoginView, LogoutView
 
 from viewer.forms import section_view
 from viewer.views import *
 
-urlpatterns = [
+urlpatterns = ([
     path('', home, name='home'),
     path('login/', LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
@@ -39,4 +41,9 @@ urlpatterns = [
     path('vehicles/edit/<int:pk>/', vehicle_update, name='vehicle_update'),
     path('vehicles/delete/<int:pk>/', vehicle_delete, name='vehicle_delete'),
     path('vehicles/<int:pk>/', vehicle_detail, name="vehicle_detail"),
-]
+])
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # Tento kód zajistí, že všechny soubory, které se nachází v adresáři media/, budou dostupné na URL, která začíná /media/.

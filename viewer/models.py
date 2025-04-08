@@ -5,21 +5,6 @@ from django.db.models import Model, CharField, DateField, IntegerField, ForeignK
 from django.core.validators import MinValueValidator, EmailValidator
 
 
-# Create your models here.
-class JobPosition(Model):
-    name = CharField(max_length=100, null=False, blank=False, unique=False)
-    grade = IntegerField(default=8)
-
-    class Meta:
-        ordering = ['name']
-
-    def __repr__(self):
-        return self.name
-
-    def __str__(self):
-        return self.name
-
-
 class Employee(Model):
     class EducationLevel(TextChoices):
         SECONDARY_EDUCATION = 'Střední vzdělání s maturitou'
@@ -31,18 +16,21 @@ class Employee(Model):
         WORK_AGREEMENT = 'Dohoda o pracovní činnosti'
         PERFORMANCE_WORK_AGREEMENT = 'Dohoda o provedení práce'
         PART_TIME_JOB = 'Částečný pracovní úvazek'
+        VACANT_REPRESENTATIVE = 'Uvolněný zastupitel'
 
     name = CharField(max_length=20, null=False, blank=False, unique=False)
     surname = CharField(max_length=32, null=False, blank=False, unique=False)
     title_before_name = CharField(max_length=20, null=True, blank=True, unique=False)
     title_after_name = CharField(max_length=20, null=True, blank=True, unique=False)
     personal_number = models.PositiveIntegerField(validators=[MinValueValidator(1)], verbose_name='Osobní číslo')
-    job_position = ForeignKey("JobPosition", null=True, blank=False, unique=False, on_delete=SET_NULL, related_name='employee_job_position')
+    job_position = ForeignKey("JobPosition", null=True, blank=False, unique=False, on_delete=SET_NULL,
+                              related_name='employee_job_position')
     date_of_birth = DateField(null=False, blank=False, unique=False)
     place_of_birth = CharField(max_length=40, null=False, blank=False, unique=False)
     nationality = CharField(max_length=20, null=False, blank=False, unique=False)
     address = CharField(max_length=100, null=False, blank=False, unique=False)
-    email = models.EmailField(max_length=100, unique=False, blank=False, null=False, default='', validators=[EmailValidator()])
+    email = models.EmailField(max_length=100, unique=False, blank=False, null=False, default='',
+                              validators=[EmailValidator()])
     start_date_of_employment = DateField(null=False, blank=False, unique=False)
     contract_from = DateField(null=False, blank=False, unique=False, default=None)
     contract_until = DateField(null=False, blank=False, unique=False, default=None)
@@ -51,8 +39,13 @@ class Employee(Model):
                                                                             choices=[(i, str(i)) for i in range(12)])
     initial_creditable_work_experience_days = models.PositiveIntegerField(default=0,
                                                                           choices=[(i, str(i)) for i in range(31)])
-    education_level = CharField(max_length=50, choices=EducationLevel.choices, default=EducationLevel.SECONDARY_EDUCATION)
-    type_of_employment = CharField(max_length=50, choices=TypeOfEmployment.choices, default=TypeOfEmployment.MAIN_EMPLOYMENT_RELATIONSHIP)
+    education_level = CharField(max_length=50, choices=EducationLevel.choices,
+                                default=EducationLevel.SECONDARY_EDUCATION)
+    type_of_employment = CharField(max_length=50, choices=TypeOfEmployment.choices,
+                                   default=TypeOfEmployment.MAIN_EMPLOYMENT_RELATIONSHIP)
+    image = models.ImageField(upload_to='employee_images/', null=True,
+                              blank=True)  # Přidání obrázku
+
 
     def total_initial_creditable_work_experience_in_days(self):
         return (self.initial_creditable_work_experience_years * 365 +
@@ -111,8 +104,8 @@ class Contract(Model):
         PERFORMANCE_WORK_AGREEMENT = 'Dohoda o provedení práce'
         PART_TIME_JOB = 'Částečný pracovní úvazek'
 
-
-    name = CharField(max_length=32, choices=ContractChoices.choices, default=ContractChoices.MAIN_EMPLOYMENT_RELATIONSHIP)
+    name = CharField(max_length=32, choices=ContractChoices.choices,
+                     default=ContractChoices.MAIN_EMPLOYMENT_RELATIONSHIP)
 
     class Meta:
         ordering = ['name']
@@ -138,9 +131,25 @@ class PersonalCompetence(Model):
         return self.name
 
 
+# Create your models here.
+class JobPosition(Model):
+    name = CharField(max_length=100, null=False, blank=False, unique=False)
+    grade = IntegerField(default=8)
+    personal_competencies = models.ManyToManyField(PersonalCompetence, blank=True)
+
+    class Meta:
+        ordering = ['name']
+
+    def __repr__(self):
+        return self.name
+
+    def __str__(self):
+        return self.name
+
+
 class InternalDirectives(Model):
     class InternalDirectiveChoices(TextChoices):
-        REGULATIONS =  'Řád'
+        REGULATIONS = 'Řád'
         DIRECTIVES = 'Směrnice'
         RULES = 'Nařízení'
 

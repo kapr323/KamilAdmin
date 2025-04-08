@@ -26,7 +26,11 @@ class EmployeeAdmin(admin.ModelAdmin):
     form = EmployeeForm
     # Register your models here.
 
-admin.site.register(JobPosition)
+
+@admin.register(JobPosition)
+class JobPositionAdmin(admin.ModelAdmin):
+    filter_horizontal = ('personal_competencies',)
+
 admin.site.register(SalaryGrade)
 admin.site.register(Employee, EmployeeAdmin)
 admin.site.register(Contract)

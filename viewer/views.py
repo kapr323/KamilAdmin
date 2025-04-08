@@ -3,6 +3,7 @@ import calendar
 import locale
 from datetime import date
 from django.http import JsonResponse
+from django import forms
 from .forms import InternalDirectivesModelForm, CarsModelForm, RealEstatesModelForm, EmployeeModelForm
 
 locale.setlocale(locale.LC_TIME, 'czech')
@@ -78,7 +79,7 @@ def organizational_structure(request):
         ('referent_pokladna', "Referent-pokladna"),
         ('vedouci_oddeleni_ekonomiky', "Vedoucí oddělení ekonomiky"),
         ('vedouci_odboru_vnitrni_spravy', "Vedoucí odboru vnitřní správy"),
-        ('ucetni', "účetní")
+        ('ucetni', "Účetní"),
     ]
     return render(request, 'organizational_structure.html', context = {key: Employee.objects.filter(job_position__name__iexact=label).first() for key, label in positions}
 )
@@ -88,8 +89,13 @@ def personnel_records(request):
     return render(request, 'personnel_records_table.html', {'employees': employees})
 
 def employee_detail(request, pk):
-    emp = get_object_or_404(Employee, pk=pk)
-    return render(request, 'employees_detail.html', {'emp': emp})
+    employee = get_object_or_404(Employee, pk=pk)
+    competencies = employee.job_position.personal_competencies.all() if employee.job_position else []
+    return render(request, 'employees_detail.html', {
+        'employee': employee,
+        'competencies': competencies
+    })
+
 
 def process_form(request, form_class, template, redirect_url, instance=None, action="Uložit"):
     form = form_class(request.POST or None, request.FILES or None, instance=instance)
@@ -107,13 +113,23 @@ def process_delete(request, instance, template, redirect_url, context_name):
 
 
 def employee_create(request):
-    return process_form(
-        request,
-        form_class=EmployeeModelForm,
-        template='employee_form.html',
-        redirect_url='personnel_records',
-        action='Vytvořit'
-    )
+    if request.method == 'POST':
+        form = EmployeeModelForm(request.POST, request.FILES)  # Přidání request.FILES pro nahrávání souborů
+        if form.is_valid():
+            form.save()
+            return redirect('employee_list')  # Předpokládám, že máte nějaký seznam zaměstnanců
+    else:
+        form = EmployeeModelForm()
+
+    return render(request, 'employee_form.html', {'form': form})
+
+    # return process_form(
+    #     request,
+    #     form_class=EmployeeModelForm,
+    #     template='employee_form.html',
+    #     redirect_url='personnel_records',
+    #     action='Vytvořit'
+    # )
 
 def employee_update(request, pk):
     employee = get_object_or_404(Employee, pk=pk)

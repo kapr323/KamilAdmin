@@ -58,6 +58,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'kamiladmin.urls'
 
+# URL adresa pro přístup k médiím (např. obrázkům) přes webový prohlížeč
+MEDIA_URL = '/media/'
+
+# Cesta v systému souborů, kde budou média fyzicky uložena
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

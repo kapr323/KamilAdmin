@@ -37,7 +37,7 @@ class Employee(Model):
 class EmployeeModelForm(ModelForm):
     class Meta:
         model = Employee
-        fields = '__all__'
+        fields = '__all__'  # Nezapomeňte zahrnout 'image' do tohoto seznamu polí
 
         labels = {
             'name': 'Jméno',
@@ -58,16 +58,18 @@ class EmployeeModelForm(ModelForm):
             'initial_creditable_work_experience_months': 'Počet měsíců započitatelné praxe',
             'initial_creditable_work_experience_days': 'Počet let započitatelné days',
             'education_level': 'Maximální dosažené vzdělání',
-            'type_of_employment': 'Druh pracovního poměru'
-            }
+            'type_of_employment': 'Druh pracovního poměru',
+            'image': 'Fotografie'  # Pokud je pole pro obrázek definováno v modelu
+        }
 
         widgets = {
-            'date_of_birth': DateInput(attrs={'type': 'date', 'class': 'form-control'}, format='%Y-%m-%d'),
-            'start_date_of_employment': DateInput(attrs={'type': 'date', 'class': 'form-control'}, format='%Y-%m-%d'),
-            'contract_from': DateInput(attrs={'type': 'date', 'class': 'form-control'}, format='%Y-%m-%d'),
-            'contract_until': DateInput(attrs={'type': 'date', 'class': 'form-control'}, format='%Y-%m-%d'),
+            'date_of_birth': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}, format='%Y-%m-%d'),
+            'start_date_of_employment': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}, format='%Y-%m-%d'),
+            'contract_from': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}, format='%Y-%m-%d'),
+            'contract_until': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}, format='%Y-%m-%d'),
             'personal_number': forms.NumberInput(attrs={'min': '1'}),
         }
+
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
