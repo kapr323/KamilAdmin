@@ -4,10 +4,10 @@ import locale
 from datetime import date
 from django.http import JsonResponse
 from django import forms
-from .forms import InternalDirectivesModelForm, CarsModelForm, RealEstatesModelForm, EmployeeModelForm
+from .forms import InternalDirectivesModelForm, CarsModelForm, RealEstatesModelForm, EmployeeModelForm, EmployeePersonalCompetenceForm
 
 locale.setlocale(locale.LC_TIME, 'czech')
-from viewer.models import InternalDirectives, Cars, RealEstates, Employee
+from viewer.models import *
 
 def get_calendar(request):
     today = date.today()
@@ -90,10 +90,25 @@ def personnel_records(request):
 
 def employee_detail(request, pk):
     employee = get_object_or_404(Employee, pk=pk)
-    competencies = employee.job_position.personal_competencies.all() if employee.job_position else []
+    position_competencies = employee.job_position.personal_competencies.all()
+
+    competencies_data = []
+
+    for comp in position_competencies:
+        epc = EmployeePersonalCompetence.objects.filter(employee=employee, competence=comp).first()
+
+        if not epc:
+            epc = EmployeePersonalCompetence(
+                employee=employee,
+                competence=comp,  # klíčové – aby se dalo z `competence.pk` brát ID!
+                certificate=None
+            )
+
+        competencies_data.append(epc)
+
     return render(request, 'employees_detail.html', {
         'employee': employee,
-        'competencies': competencies
+        'competencies': competencies_data,
     })
 
 
@@ -151,6 +166,32 @@ def employee_delete(request, pk):
         redirect_url='personnel_records',
         context_name='employee'
     )
+
+
+def upload_employee_certificate(request, employee_pk, competence_pk):
+    employee = get_object_or_404(Employee, pk=employee_pk)
+    competence = get_object_or_404(PersonalCompetence, pk=competence_pk)
+
+    # Najdeme nebo vytvoříme vztah zaměstnance a kompetence
+    employee_competence, created = EmployeePersonalCompetence.objects.get_or_create(
+        employee=employee,
+        competence=competence
+    )
+
+    if request.method == 'POST' and 'certificate' in request.FILES:
+        # Uložení certifikátu do správného modelu
+        employee_competence.certificate = request.FILES['certificate']
+        employee_competence.save()
+
+        print(f"Certifikát uložen pro {employee} – {competence.name}")
+
+        return redirect('employee_detail', pk=employee.pk)
+
+    return render(request, 'upload_employee_certificate.html', {
+        'employee': employee,
+        'competence': competence
+    })
+
 
 def vehicle_create(request):
     return process_form(
@@ -231,6 +272,20 @@ def vehicle_detail(request, pk):
 def internal_directives(request):
     directives = InternalDirectives.objects.all()
     return render(request, 'internal_directives.html', {'directives': directives})
+
+
+def upload_internal_directive(request, pk):
+    directive = get_object_or_404(InternalDirectives, pk=pk)
+
+    # Zpracování nahrání dokumentu
+    if request.method == 'POST' and 'document' in request.FILES:
+        directive.document = request.FILES['document']
+        directive.save()
+
+        return redirect('internal_directive_detail', pk=directive.pk)
+
+    return render(request, 'upload_internal_directives.html', {'directive': directive})
+
 
 def directive_create(request):
     return process_form(

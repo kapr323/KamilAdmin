@@ -229,6 +229,21 @@ class PersonalCompetenceModelForm(ModelForm):
         }
 
 
+class EmployeePersonalCompetenceForm(forms.ModelForm):
+    class Meta:
+        model = EmployeePersonalCompetence
+        fields = ['competence', 'certificate', 'valid_until']
+
+    certificate = forms.FileField(required=False, label='Certifikát')  # Umožní nahrání souboru certifikátu
+    valid_until = forms.DateField(required=False, widget=forms.TextInput(attrs={'type': 'date'}))  # Platnost certifikátu
+
+
+class CertificateUploadForm(forms.ModelForm):
+    class Meta:
+        model = EmployeePersonalCompetence
+        fields = ['certificate']
+
+
 class InternalDirectivesModelForm(ModelForm):
     class Meta:
         model = InternalDirectives

@@ -1,26 +1,31 @@
 {% extends "base.html" %}
 
-{% block title %}MORSE{% endblock %}
+{% block title %}Detail Dokumentu{% endblock %}
 
 {% block content %}
-<h1>Detail dokumentu/směrnice</h1>
-<button class="back-button" onclick="history.back()">⬅ Zpět</button>
-<div class="detail-wrapper">
-        <table class="detail-table detail-info-table">
-            <tbody>
-                <tr>
-                    <th>Druh předpisu</th>
-                    <td>{{ directive.type }}</td>
-                </tr>
-                <tr>
-                    <th>Název směrnice/předpisu</th>
-                    <td>{{ directive.name }}</td>
-                </tr>
-                <tr>
-                    <th>Datum účinnosti předpisu od:</th>
-                    <td>{{ directive.effective_date }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+  <h1>Detail dokumentu/směrnice</h1>
+  <button class="back-button" onclick="history.back()">⬅ Zpět</button>
+
+  <table>
+    <tr>
+      <td><strong>Druh předpisu:</strong></td>
+      <td>{{ directive.type }}</td>
+    </tr>
+    <tr>
+      <td><strong>Název směrnice/předpisu:</strong></td>
+      <td>{{ directive.name }}</td>
+    </tr>
+    <tr>
+      <td><strong>Datum účinnosti předpisu od:</strong></td>
+      <td>{{ directive.effective_date|date:"d.m.Y" }}</td>
+    </tr>
+  </table>
+
+  <!-- Odkaz na zobrazení PDF v novém okně -->
+  {% if directive.document %}
+    <h3>PDF dokument:</h3>
+    <a href="{{ directive.document.url }}" target="_blank">Klikněte zde pro zobrazení dokumentu</a>
+  {% else %}
+    <p>Dokument není k dispozici.</p>
+  {% endif %}
 {% endblock %}

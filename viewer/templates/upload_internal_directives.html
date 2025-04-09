@@ -1,0 +1,14 @@
+<!-- upload_internal_directive.html -->
+{% extends "base.html" %}
+
+{% block title %}Upload Dokumentu{% endblock %}
+
+{% block content %}
+  <h1>Upload Interního Dokumentu</h1>
+  <form action="{% url 'upload_internal_directive' directive.pk %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="document">Vyberte PDF soubor:</label>
+    <input type="file" id="document" name="document" accept=".pdf" required><br><br>
+    <button type="submit">Upload Directive</button>
+  </form>
+{% endblock %}

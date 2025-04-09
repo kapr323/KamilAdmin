@@ -41,17 +41,40 @@
     </table>
 </div>
 
-<h2>Osobní kompetence pro pozici: {{ employee.job_position.name }}</h2>
+<h2>Osobní kompetence pro pozici:
+    {% if employee.job_position %}
+        {{ employee.job_position.name }}
+    {% else %}
+        Pozice není přiřazena
+    {% endif %}
+</h2>
+
 <ul>
     {% for competency in competencies %}
-        <li>
-            <strong>{{ competency.name }}</strong><br>
-            <small>{{ competency.description }}</small>
-        </li>
-    {% empty %}
-        <li>Pro tuto pozici nejsou přiřazeny žádné kompetence.</li>
-    {% endfor %}
+    <li>
+        <strong>{{ competency.name }}</strong><br>
+        <small>Platné do: {{ competency.valid_until }}</small><br>
+
+        {% if competency.certificate %}
+            <a href="{{ competency.certificate.url }}" target="_blank">📄 Certifikát</a><br>
+            ✅ <label><input type="checkbox" checked disabled> Splněno</label>
+        {% else %}
+            ❌ <label><input type="checkbox" disabled> Nesplněno</label><br>
+
+            <!-- Odkaz pro nahrání certifikátu, pokud má kompetence přiřazený platný PK -->
+            {% if competency.pk %}
+                <a href="{% url 'upload_employee_certificate' employee_pk=employee.pk competence_pk=competency.pk %}">
+                    📤 Nahraj PDF certifikátu
+                </a>
+            {% else %}
+                <p>Kompetence není přiřazena nebo není platná.</p>
+            {% endif %}
+        {% endif %}
+    </li>
+{% empty %}
+    <li>Pro tuto pozici nejsou přiřazeny žádné kompetence.</li>
+{% endfor %}
 </ul>
 
-{% endblock %}
 
+{% endblock %}

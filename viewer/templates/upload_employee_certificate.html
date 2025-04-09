@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <h1>Nahrát certifikát pro: {{ employee.first_name }} {{ employee.last_name }}</h1>
+
+        <h3>Kompetence: {{ competence.name }}</h3>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="certificate">Vyberte PDF certifikát:</label><br>
+                <input type="file" name="certificate" id="certificate" accept="application/pdf" required><br><br>
+            </div>
+
+            <button type="submit" class="btn btn-primary">📤 Nahrát certifikát</button>
+        </form>
+
+        <br>
+        <a href="{% url 'employee_detail' pk=employee.pk %}" class="btn btn-secondary">⬅️ Zpět na detail zaměstnance</a>
+    </div>
+{% endblock %}

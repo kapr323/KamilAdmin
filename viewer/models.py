@@ -1,7 +1,8 @@
 from enum import unique
 
 from django.db import models
-from django.db.models import Model, CharField, DateField, IntegerField, ForeignKey, SET_NULL, BooleanField, TextChoices
+from django.db.models import Model, CharField, DateField, IntegerField, ForeignKey, SET_NULL, BooleanField, TextChoices, \
+    ManyToManyField, FileField
 from django.core.validators import MinValueValidator, EmailValidator
 
 
@@ -23,7 +24,7 @@ class Employee(Model):
     title_before_name = CharField(max_length=20, null=True, blank=True, unique=False)
     title_after_name = CharField(max_length=20, null=True, blank=True, unique=False)
     personal_number = models.PositiveIntegerField(validators=[MinValueValidator(1)], verbose_name='Osobní číslo')
-    job_position = ForeignKey("JobPosition", null=True, blank=False, unique=False, on_delete=SET_NULL,
+    job_position = ForeignKey('JobPosition', null=True, blank=True, on_delete=SET_NULL,
                               related_name='employee_job_position')
     date_of_birth = DateField(null=False, blank=False, unique=False)
     place_of_birth = CharField(max_length=40, null=False, blank=False, unique=False)
@@ -118,8 +119,9 @@ class Contract(Model):
 
 
 class PersonalCompetence(Model):
-    name = CharField(max_length=50, null=False, blank=False, unique=False)
-    valid_until = DateField(null=False, blank=False, unique=False)
+    name = CharField(max_length=50)
+    valid_until = DateField()
+    job_position = models.ForeignKey('JobPosition', on_delete=models.CASCADE, related_name='competencies', null=True, blank=True)
 
     class Meta:
         ordering = ['name']
@@ -131,11 +133,28 @@ class PersonalCompetence(Model):
         return self.name
 
 
+class EmployeePersonalCompetence(Model):
+    employee = ForeignKey('Employee', on_delete=models.CASCADE)
+    competence = ForeignKey('PersonalCompetence', on_delete=models.CASCADE)
+    certificate = FileField(upload_to='certificates/', blank=True, null=True)
+    valid_until = DateField(null=True, blank=True)  # Platnost certifikátu
+
+    class Meta:
+        ordering = ['competence']
+
+    @property
+    def fulfilled(self):
+        return bool(self.certificate)
+
+    def __str__(self):
+        return f"{self.employee} – {self.competence}"
+
+
 # Create your models here.
 class JobPosition(Model):
-    name = CharField(max_length=100, null=False, blank=False, unique=False)
+    name = CharField(max_length=100)
     grade = IntegerField(default=8)
-    personal_competencies = models.ManyToManyField(PersonalCompetence, blank=True)
+    personal_competencies = ManyToManyField('PersonalCompetence', related_name='job_positions')
 
     class Meta:
         ordering = ['name']
@@ -153,8 +172,10 @@ class InternalDirectives(Model):
         DIRECTIVES = 'Směrnice'
         RULES = 'Nařízení'
 
-    name = CharField(max_length=100, null=False, blank=False, unique=True)
-    effective_date = DateField(null=False, blank=False, unique=False)
+    name = models.CharField(max_length=100, null=False, blank=False, unique=True)
+    effective_date = models.DateField(null=False, blank=False)
+    document = models.FileField(upload_to='internal_documents/', blank=True, null=True)  # Přidání pole pro nahrání PDF
+    description = models.TextField(blank=True, null=True)  # Popis dokumentu
 
     class Meta:
         ordering = ['name']

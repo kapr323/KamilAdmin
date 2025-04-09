@@ -27,9 +27,17 @@ class EmployeeAdmin(admin.ModelAdmin):
     # Register your models here.
 
 
+@admin.register(EmployeePersonalCompetence)
+class EmployeePersonalCompetenceAdmin(admin.ModelAdmin):
+    list_display = ('employee', 'competence', 'fulfilled')
+    list_filter = ('competence',)
+    search_fields = ('employee__name', 'employee__surname', 'competence__name')
+
+
 @admin.register(JobPosition)
 class JobPositionAdmin(admin.ModelAdmin):
-    filter_horizontal = ('personal_competencies',)
+    list_display = ['name', 'grade']
+    filter_horizontal = ['personal_competencies']
 
 admin.site.register(SalaryGrade)
 admin.site.register(Employee, EmployeeAdmin)
