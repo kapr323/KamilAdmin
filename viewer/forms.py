@@ -70,7 +70,6 @@ class EmployeeModelForm(ModelForm):
             'personal_number': forms.NumberInput(attrs={'min': '1'}),
         }
 
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         date_fields = ['date_of_birth', 'start_date_of_employment', 'contract_from', 'contract_until']
@@ -182,6 +181,17 @@ def section_view(request):
     else:
         form = EmployeeModelForm()
     return JsonResponse({'error': 'Invalid input or method.'}, status=400)
+
+
+class AgreementWorkerModelForm(EmployeeModelForm):
+    class Meta(EmployeeModelForm.Meta):
+        model = AgreementWorker  # Model pro pracovníky s dohodami
+        fields = '__all__'  # Pokud máš stejné pole jako pro Employee, jinak upravit podle potřeby
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['type_of_employment'].queryset = AgreementWorker.TypeOfEmployment.choices[
+                                                             1:3]  # Pouze DPČ a DPP
 
 
 class JobPositionModelForm(ModelForm):

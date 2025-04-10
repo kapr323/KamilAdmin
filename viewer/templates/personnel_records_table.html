@@ -5,7 +5,7 @@
 {% block content %}
     <h1>Evidence zaměstnanců</h1>
 <button class="back-button" onclick="history.back()">⬅ Zpět</button>
-<form action="{% url 'employee_create' %}" method="get" style="display: inline;">
+<form action="{% url 'add_employee' %}" method="get" style="display: inline;">
     <button type="submit" class="btn">Vytvořit nový záznam</button>
 </form>
 <div class="table-wrapper">

@@ -5,38 +5,35 @@
 {% block content %}
 <h1>Detail zaměstnance</h1>
 <button class="back-button" onclick="history.back()">⬅ Zpět</button>
+
 <div class="detail-wrapper">
     <div class="photo-container">
         {% if employee.image %}
-            <!-- Správné zobrazení obrázku, pokud je dostupný -->
             <img src="{{ employee.image.url }}" alt="Foto zaměstnance">
         {% else %}
-            <!-- Pokud obrázek není dostupný -->
             Foto není k dispozici
         {% endif %}
     </div>
+
     <table class="detail-table detail-info-table">
         <tbody>
-            <tr>
-                <th>Jméno</th>
-                <td>{{ employee.name }}</td>
-            </tr>
-            <tr>
-                <th>Příjmení</th>
-                <td>{{ employee.surname }}</td>
-            </tr>
-            <tr>
-                <th>Osobní číslo</th>
-                <td>{{ employee.personal_number }}</td>
-            </tr>
-            <tr>
-                <th>Pozice</th>
-                <td>{{ employee.job_position }}</td>
-            </tr>
-            <tr>
-                <th>Datum začátku zaměstnaneckého poměru</th>
-                <td>{{ employee.start_date_of_employment }}</td>
-            </tr>
+            <tr><th>Jméno</th><td>{{ employee.name }}</td></tr>
+            <tr><th>Příjmení</th><td>{{ employee.surname }}</td></tr>
+            <tr><th>Titul před jménem</th><td>{{ employee.title_before_name }}</td></tr>
+            <tr><th>Titul za jménem</th><td>{{ employee.title_after_name }}</td></tr>
+            <tr><th>Osobní číslo</th><td>{{ employee.personal_number }}</td></tr>
+            <tr><th>Pozice</th><td>{{ employee.job_position }}</td></tr>
+            <tr><th>Datum narození</th><td>{{ employee.date_of_birth }}</td></tr>
+            <tr><th>Místo narození</th><td>{{ employee.place_of_birth }}</td></tr>
+            <tr><th>Národnost</th><td>{{ employee.nationality }}</td></tr>
+            <tr><th>Adresa trvalého bydliště</th><td>{{ employee.address }}</td></tr>
+            <tr><th>Email</th><td>{{ employee.email }}</td></tr>
+            <tr><th>Telefonní číslo</th><td>{{ employee.phone_number }}</td></tr>
+            <tr><th>V zaměstnání od</th><td>{{ employee.start_date_of_employment }}</td></tr>
+            <tr><th>Smlouva od</th><td>{{ employee.contract_from }}</td></tr>
+            <tr><th>Platnost smlouvy do</th><td>{{ employee.contract_until }}</td></tr>
+            <tr><th>Dosažené vzdělání</th><td>{{ employee.education_level }}</td></tr>
+            <tr><th>Typ zaměstnaneckého poměru</th><td>{{ employee.type_of_employment }}</td></tr>
         </tbody>
     </table>
 </div>
@@ -51,30 +48,27 @@
 
 <ul>
     {% for competency in competencies %}
-    <li>
-        <strong>{{ competency.name }}</strong><br>
-        <small>Platné do: {{ competency.valid_until }}</small><br>
+        <li>
+            <strong>{{ competency.competence.name }}</strong><br>
+            <small>Platné do: {{ competency.valid_until|default:competency.competence.valid_until }}</small><br>
 
-        {% if competency.certificate %}
-            <a href="{{ competency.certificate.url }}" target="_blank">📄 Certifikát</a><br>
-            ✅ <label><input type="checkbox" checked disabled> Splněno</label>
-        {% else %}
-            ❌ <label><input type="checkbox" disabled> Nesplněno</label><br>
-
-            <!-- Odkaz pro nahrání certifikátu, pokud má kompetence přiřazený platný PK -->
-            {% if competency.pk %}
-                <a href="{% url 'upload_employee_certificate' employee_pk=employee.pk competence_pk=competency.pk %}">
-                    📤 Nahraj PDF certifikátu
-                </a>
+            {% if competency.certificate %}
+                <a href="{{ competency.certificate.url }}" target="_blank">📄 Certifikát</a><br>
+                ✅ <label><input type="checkbox" checked disabled> Splněno</label>
             {% else %}
-                <p>Kompetence není přiřazena nebo není platná.</p>
+                ❌ <label><input type="checkbox" disabled> Nesplněno</label><br>
+
+                {% if competency.competence.pk %}
+                    <a href="{% url 'upload_employee_certificate' employee_pk=employee.pk competence_pk=competency.competence.pk %}">
+                        📤 Nahraj PDF certifikátu
+                    </a>
+                {% else %}
+                    <p>Kompetence není přiřazena nebo není platná.</p>
+                {% endif %}
             {% endif %}
-        {% endif %}
-    </li>
-{% empty %}
-    <li>Pro tuto pozici nejsou přiřazeny žádné kompetence.</li>
-{% endfor %}
+        </li>
+    {% empty %}
+        <li>Pro tuto pozici nejsou přiřazeny žádné kompetence.</li>
+    {% endfor %}
 </ul>
-
-
 {% endblock %}

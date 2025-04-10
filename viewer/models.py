@@ -1,9 +1,18 @@
+import re
 from enum import unique
 
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import Model, CharField, DateField, IntegerField, ForeignKey, SET_NULL, BooleanField, TextChoices, \
     ManyToManyField, FileField
 from django.core.validators import MinValueValidator, EmailValidator
+
+
+# Funkce pro validaci telefonního čísla
+def validate_phone_number(value):
+    # Regex pro validaci telefonního čísla ve formátu +420 a 9 číslic
+    if not re.match(r'^\+420\d{9}$', value):
+        raise ValidationError('Telefonní číslo musí začínat +420 a následovat 9 číslic.')
 
 
 class Employee(Model):
@@ -32,6 +41,12 @@ class Employee(Model):
     address = CharField(max_length=100, null=False, blank=False, unique=False)
     email = models.EmailField(max_length=100, unique=False, blank=False, null=False, default='',
                               validators=[EmailValidator()])
+    phone_number = models.CharField(
+        max_length=13,  # Maximální délka pro +420 a 9 číslic
+        blank=True,  # Telefonní číslo není povinné
+        null=True,  # Telefonní číslo může být prázdné
+        validators=[validate_phone_number]  # Přidání validace
+    )
     start_date_of_employment = DateField(null=False, blank=False, unique=False)
     contract_from = DateField(null=False, blank=False, unique=False, default=None)
     contract_until = DateField(null=False, blank=False, unique=False, default=None)
@@ -96,6 +111,19 @@ class SalaryGrade(Model):
 
     def __str__(self):
         return f"{self.grade}-{self.step}"
+
+    # Použijeme stejný model jako pro Employee, přidáme filtr pro DPČ a DPP
+class AgreementWorker(Employee):  # Vytvoření podtřídy pro pracovníky s dohodami
+    class Meta:
+        verbose_name = "Pracovník s dohodou"
+        verbose_name_plural = "Pracovníci s dohodami"
+
+    def save(self, *args, **kwargs):
+        if self.type_of_employment not in [self.TypeOfEmployment.WORK_AGREEMENT,
+                                               self.TypeOfEmployment.PERFORMANCE_WORK_AGREEMENT]:
+            raise ValidationError(
+                    "Pracovník musí mít typ pracovního poměru 'Dohoda o pracovní činnosti' nebo 'Dohoda o provedení práce'.")
+        super().save(*args, **kwargs)
 
 
 class Contract(Model):

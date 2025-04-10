@@ -1,13 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
 import calendar
 import locale
-from datetime import date
-from django.http import JsonResponse
-from django import forms
-from .forms import InternalDirectivesModelForm, CarsModelForm, RealEstatesModelForm, EmployeeModelForm, EmployeePersonalCompetenceForm
+
+from .forms import *
+
 
 locale.setlocale(locale.LC_TIME, 'czech')
 from viewer.models import *
+from django.shortcuts import render, redirect
+from .forms import EmployeeModelForm
+
 
 def get_calendar(request):
     today = date.today()
@@ -85,7 +87,11 @@ def organizational_structure(request):
 )
 
 def personnel_records(request):
-    employees = Employee.objects.all()
+    # Zobrazíme zaměstnance s hlavním pracovním poměrem nebo částečným pracovním úvazkem
+    employees = Employee.objects.filter(type_of_employment__in=[
+        Employee.TypeOfEmployment.MAIN_EMPLOYMENT_RELATIONSHIP,
+        Employee.TypeOfEmployment.PART_TIME_JOB
+    ])
     return render(request, 'personnel_records_table.html', {'employees': employees})
 
 def employee_detail(request, pk):
@@ -127,24 +133,17 @@ def process_delete(request, instance, template, redirect_url, context_name):
     return render(request, template, {context_name: instance})
 
 
-def employee_create(request):
+def add_employee(request):
     if request.method == 'POST':
-        form = EmployeeModelForm(request.POST, request.FILES)  # Přidání request.FILES pro nahrávání souborů
+        form = EmployeeModelForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('employee_list')  # Předpokládám, že máte nějaký seznam zaměstnanců
+            form.save()  # Uloží nový záznam zaměstnance
+            return redirect('employee_list')  # Po uložení přesměruje na seznam
     else:
         form = EmployeeModelForm()
 
-    return render(request, 'employee_form.html', {'form': form})
+    return render(request, 'employees_detail.html', {'form': form})
 
-    # return process_form(
-    #     request,
-    #     form_class=EmployeeModelForm,
-    #     template='employee_form.html',
-    #     redirect_url='personnel_records',
-    #     action='Vytvořit'
-    # )
 
 def employee_update(request, pk):
     employee = get_object_or_404(Employee, pk=pk)
@@ -192,6 +191,49 @@ def upload_employee_certificate(request, employee_pk, competence_pk):
         'competence': competence
     })
 
+
+# def employee_list(request):
+#     employees = Employee.objects.filter(type_of_employment=Employee.TypeOfEmployment.MAIN_EMPLOYMENT_RELATIONSHIP)
+#     return render(request, 'employee_list.html', {'employees': employees})
+
+
+# Zobrazení pro seznam pracovníků s dohodami (DPČ/DPP)
+def agreement_workers_list(request):
+    workers = AgreementWorker.objects.filter(type_of_employment__in=[AgreementWorker.TypeOfEmployment.WORK_AGREEMENT, AgreementWorker.TypeOfEmployment.PERFORMANCE_WORK_AGREEMENT])
+    return render(request, 'agreement_workers_list.html', {'workers': workers})
+
+# Přidání pracovníka s dohodou
+def add_agreement_worker(request):
+    return process_form(
+        request,
+        form_class=AgreementWorkerModelForm,
+        template='employee_form.html',  # Použijeme stejný formulář jako pro zaměstnance
+        redirect_url='agreement_workers_list',  # Přesměrování na seznam pracovníků s dohodami
+        action='Přidat'
+    )
+
+# Aktualizace pracovníka s dohodou
+def agreement_worker_update(request, pk):
+    worker = get_object_or_404(AgreementWorker, pk=pk)
+    return process_form(
+        request,
+        form_class=AgreementWorkerModelForm,
+        template='employee_form.html',
+        redirect_url='agreement_workers_list',
+        instance=worker,
+        action='Upravit'
+    )
+
+# Smazání pracovníka s dohodou
+def agreement_worker_delete(request, pk):
+    worker = get_object_or_404(AgreementWorker, pk=pk)
+    return process_delete(
+        request=request,
+        instance=worker,
+        template='employee_confirm_delete.html',
+        redirect_url='agreement_workers_list',
+        context_name='worker'
+    )
 
 def vehicle_create(request):
     return process_form(

@@ -1,11 +1,16 @@
 {% extends "base.html" %}
-{% block title %}{{ action }} zaměstnance{% endblock %}
+
+{% block title %}Přidat zaměstnance{% endblock %}
 
 {% block content %}
-<h1>{{ action }} zaměstnance</h1>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit" class="btn">{{ action }}</button>
+<h1>Vytvořit nového zaměstnance</h1>
+<button class="back-button" onclick="history.back()">⬅ Zpět</button>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {{ form.as_p }}  <!-- Zobrazí formulář jako odstavce (formulářová pole) -->
+
+    <button type="submit">Uložit zaměstnance</button>
 </form>
 {% endblock %}

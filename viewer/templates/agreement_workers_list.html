@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Pracovníci s dohodami{% endblock %}
+
+{% block content %}
+<h1>Seznam pracovníků s dohodami (DPČ, DPP)</h1>
+
+<a href="{% url 'add_agreement_worker' %}">Přidat nového pracovníka</a>
+
+<table class="worker-table">
+    <thead>
+        <tr>
+            <th>Jméno</th>
+            <th>Příjmení</th>
+            <th>Typ pracovního poměru</th>
+            <th>Akce</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for worker in workers %}
+        <tr>
+            <td>{{ worker.name }}</td>
+            <td>{{ worker.surname }}</td>
+            <td>{{ worker.get_type_of_employment_display }}</td>
+            <td>
+                <a href="{% url 'agreement_worker_update' pk=worker.pk %}">Upravit</a> |
+                <a href="{% url 'agreement_worker_delete' pk=worker.pk %}">Smazat</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">Žádní pracovníci s dohodami nejsou zaregistrováni.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -7,7 +7,6 @@ from models import Employee
 def send_work_anniversary_email():
     """
     Posílá e-maily zaměstnancům k pracovnímu výročí.
-    TODO: nutno nastavit emailovou adresu pro odesílání
     """
     today = date.today()
     employees = Employee.objects.filter(start_date_of_employment__month=today.month, start_date_of_employment__day=today.day)
@@ -15,8 +14,8 @@ def send_work_anniversary_email():
     for employee in employees:
         send_mail(
             subject="Gratulujeme k pracovnímu výročí! 🎉",
-            message=f"Ahoj {employee.name},\n\nDnes slavíš {today.year - employee.start_date_of_employment.year}. pracovní výročí! 🎉",
-            from_email="noreply@firma.cz",
+            message=f"Dobrý den {employee.name},\n\nDnes slavíte {today.year - employee.start_date_of_employment.year}. pracovní výročí, gratuluji! 🎉",
+            from_email="kamil.dvorak@email.cz.cz",
             recipient_list=[employee.email],
             fail_silently=False,
         )
