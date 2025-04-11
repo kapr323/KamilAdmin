@@ -1,35 +1,43 @@
 {% extends "base.html" %}
 
-{% block title %}Pracovníci s dohodami{% endblock %}
+{% block title %}MORSE{% endblock %}
 
 {% block content %}
-<h1>Seznam pracovníků s dohodami (DPČ, DPP)</h1>
-
-<a href="{% url 'add_agreement_worker' %}">Přidat nového pracovníka</a>
-
-<table class="worker-table">
-    <thead>
-        <tr>
-            <th>Jméno</th>
-            <th>Příjmení</th>
-            <th>Typ pracovního poměru</th>
-            <th>Akce</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for worker in workers %}
-        <tr>
-            <td>{{ worker.name }}</td>
-            <td>{{ worker.surname }}</td>
-            <td>{{ worker.get_type_of_employment_display }}</td>
-            <td>
-                <a href="{% url 'agreement_worker_update' pk=worker.pk %}">Upravit</a> |
-                <a href="{% url 'agreement_worker_delete' pk=worker.pk %}">Smazat</a>
-            </td>
-        </tr>
-        {% empty %}
-        <tr><td colspan="4">Žádní pracovníci s dohodami nejsou zaregistrováni.</td></tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <h1>Evidence pracovníků na dohodu</h1>
+    <button class="back-button" onclick="history.back()">⬅ Zpět</button>
+    <form action="{% url 'add_agreement_worker' %}" method="get" style="display: inline;">
+        <button type="submit" class="btn">Vytvořit nový záznam</button>
+    </form>
+    <div class="table-wrapper">
+        <table id="table" class="table">
+            <thead>
+                <tr>
+                    <th data-sort="name">Jméno</th>
+                    <th data-sort="surname">Příjmení</th>
+                    <th data-sort="Název-of-contract">Název dohody</th>
+                    <th data-sort="contract-from">Smlouva od</th>
+                    <th data-sort="contract-until">Platnost smlouvy do</th>
+                    <th data-sort="type-of-agreement">Typ dohody</th>
+                    <th data-sort="hourly-wage">Hodinová mzda</th>
+                    <th></th>  <!-- Pro akce upravit a smazat -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for worker in agreement_workers %}
+                    <tr data-href="{% url 'agreement_worker_detail' worker.id %}" data-id="{{ worker.id }}">
+                        <td>{{ worker.name }}</td>
+                        <td>{{ worker.surname }}</td>
+                        <td>{{ worker.name_of_contract }}</td>
+                        <td>{{ worker.contract_from }}</td>
+                        <td>{{ worker.contract_until }}</td>
+                        <td>{{ worker.type_of_agreement }}</td>
+                        <td>{{ worker.hourly_wage }}</td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="6">Žádní pracovníci na dohodu nejsou.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div id="menu-dropdown" class="menu-dropdown" style="display: none;"></div>
 {% endblock %}

@@ -23,8 +23,6 @@ class Employee(Model):
 
     class TypeOfEmployment(TextChoices):
         MAIN_EMPLOYMENT_RELATIONSHIP = "Hlavní pracovní poměr"
-        WORK_AGREEMENT = 'Dohoda o pracovní činnosti'
-        PERFORMANCE_WORK_AGREEMENT = 'Dohoda o provedení práce'
         PART_TIME_JOB = 'Částečný pracovní úvazek'
         VACANT_REPRESENTATIVE = 'Uvolněný zastupitel'
 
@@ -112,38 +110,60 @@ class SalaryGrade(Model):
     def __str__(self):
         return f"{self.grade}-{self.step}"
 
-    # Použijeme stejný model jako pro Employee, přidáme filtr pro DPČ a DPP
-class AgreementWorker(Employee):  # Vytvoření podtřídy pro pracovníky s dohodami
+
+    # Použijeme stejný model jako pro Employee
+class AgreementWorker(Model):  # Vytvoření podtřídy pro pracovníky s dohodami
+    class TypeOfAgreement(TextChoices):
+        WORK_AGREEMENT = 'Dohoda o pracovní činnosti'
+        PERFORMANCE_WORK_AGREEMENT = 'Dohoda o provedení práce'
+
+    id = models.AutoField(primary_key=True)
+
+    # Nastavíme propojení mezi AgreementWorker a Employee, ale ne dědění
+    employee = models.OneToOneField('Employee', on_delete=models.CASCADE)
+
+    # Povinné pole pro jméno a příjmení
+    name = CharField(max_length=20, null=False, blank=False)
+    surname = CharField(max_length=32, null=False, blank=False)
+
+    # Titul před a po jménu
+    title_before_name = CharField(max_length=20, null=True, blank=True)
+    title_after_name = CharField(max_length=20, null=True, blank=True)
+
+    # Osobní údaje
+    date_of_birth = DateField(null=False, blank=False)
+    place_of_birth = CharField(max_length=40, null=False, blank=False)
+    address = CharField(max_length=100, null=True, blank=True)
+
+    # Kontaktní informace
+    email = models.EmailField(max_length=100, null=True, blank=True, default='', validators=[EmailValidator()])
+    phone_number = models.CharField(max_length=13, blank=True, null=True, validators=[validate_phone_number])
+
+    # Typ dohody a platnost
+    type_of_agreement = CharField(max_length=32, choices=TypeOfAgreement.choices,
+                                    default=TypeOfAgreement.PERFORMANCE_WORK_AGREEMENT)
+    contract_from = DateField(null=False, blank=False)
+    contract_until = DateField(null=False, blank=False)
+
+    # Hodinová mzda
+    hourly_wage = models.DecimalField(null=True, max_digits=5, decimal_places=0)
+
     class Meta:
         verbose_name = "Pracovník s dohodou"
         verbose_name_plural = "Pracovníci s dohodami"
 
     def save(self, *args, **kwargs):
-        if self.type_of_employment not in [self.TypeOfEmployment.WORK_AGREEMENT,
-                                               self.TypeOfEmployment.PERFORMANCE_WORK_AGREEMENT]:
+        if self.type_of_agreement not in [self.TypeOfAgreement.WORK_AGREEMENT, self.TypeOfAgreement.PERFORMANCE_WORK_AGREEMENT]:
             raise ValidationError(
-                    "Pracovník musí mít typ pracovního poměru 'Dohoda o pracovní činnosti' nebo 'Dohoda o provedení práce'.")
+                "Pracovník musí mít typ pracovního poměru 'Dohoda o pracovní činnosti' nebo 'Dohoda o provedení práce'."
+            )
         super().save(*args, **kwargs)
 
-
-class Contract(Model):
-    class ContractChoices(TextChoices):
-        MAIN_EMPLOYMENT_RELATIONSHIP = "Hlavní pracovní poměr"
-        WORK_AGREEMENT = 'Dohoda o pracovní činnosti'
-        PERFORMANCE_WORK_AGREEMENT = 'Dohoda o provedení práce'
-        PART_TIME_JOB = 'Částečný pracovní úvazek'
-
-    name = CharField(max_length=32, choices=ContractChoices.choices,
-                     default=ContractChoices.MAIN_EMPLOYMENT_RELATIONSHIP)
-
-    class Meta:
-        ordering = ['name']
-
     def __repr__(self):
-        return f"({self.name})"
+        return f"({self.name} {self.surname})"
 
     def __str__(self):
-        return self.name
+        return f"{self.name} {self.surname}"
 
 
 class PersonalCompetence(Model):
@@ -231,7 +251,7 @@ class Cars(Model):
     plate_number = CharField(max_length=15, null=False, blank=False, unique=False)
     fuel_type = CharField(max_length=20, choices=FuelType.choices, default=FuelType.ELECTRIC)
     technical_inspection_date = DateField(null=False, blank=False, unique=False)
-    highway_ticket_validity = DateField(null=False, blank=False, unique=False)
+    highway_ticket_validity = DateField(null=True, blank=True, unique=False)
     is_usable = BooleanField(default=False)
 
     class Meta:

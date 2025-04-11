@@ -90,7 +90,8 @@ def personnel_records(request):
     # Zobrazíme zaměstnance s hlavním pracovním poměrem nebo částečným pracovním úvazkem
     employees = Employee.objects.filter(type_of_employment__in=[
         Employee.TypeOfEmployment.MAIN_EMPLOYMENT_RELATIONSHIP,
-        Employee.TypeOfEmployment.PART_TIME_JOB
+        Employee.TypeOfEmployment.PART_TIME_JOB,
+        Employee.TypeOfEmployment.VACANT_REPRESENTATIVE
     ])
     return render(request, 'personnel_records_table.html', {'employees': employees})
 
@@ -138,11 +139,11 @@ def add_employee(request):
         form = EmployeeModelForm(request.POST)
         if form.is_valid():
             form.save()  # Uloží nový záznam zaměstnance
-            return redirect('employee_list')  # Po uložení přesměruje na seznam
+            return redirect('personnel_records')  # Po uložení přesměruje na seznam
     else:
         form = EmployeeModelForm()
 
-    return render(request, 'employees_detail.html', {'form': form})
+    return render(request, 'add_employee.html', {'form': form})
 
 
 def employee_update(request, pk):
@@ -165,6 +166,22 @@ def employee_delete(request, pk):
         redirect_url='personnel_records',
         context_name='employee'
     )
+
+
+def your_view(request):
+    # Vytvoření formuláře
+    form = WorkExperienceForm(request.POST or None)
+
+    # Pokud je formulář odeslán, zpracuj data
+    if form.is_valid():
+        # Zpracuj formulářová data (pokud je potřeba)
+        years = form.cleaned_data.get('initial_creditable_work_experience_years')
+        months = form.cleaned_data.get('initial_creditable_work_experience_months')
+        days = form.cleaned_data.get('initial_creditable_work_experience_days')
+
+        # Můžeš s těmito daty dál pracovat, např. uložit je do databáze
+
+    return render(request, 'add_employee.html', {'form': form})
 
 
 def upload_employee_certificate(request, employee_pk, competence_pk):
@@ -192,37 +209,42 @@ def upload_employee_certificate(request, employee_pk, competence_pk):
     })
 
 
-# def employee_list(request):
-#     employees = Employee.objects.filter(type_of_employment=Employee.TypeOfEmployment.MAIN_EMPLOYMENT_RELATIONSHIP)
-#     return render(request, 'employee_list.html', {'employees': employees})
-
-
 # Zobrazení pro seznam pracovníků s dohodami (DPČ/DPP)
 def agreement_workers_list(request):
-    workers = AgreementWorker.objects.filter(type_of_employment__in=[AgreementWorker.TypeOfEmployment.WORK_AGREEMENT, AgreementWorker.TypeOfEmployment.PERFORMANCE_WORK_AGREEMENT])
+    # Načti všechny pracovníky na dohodu
+    workers = AgreementWorker.objects.all()
     return render(request, 'agreement_workers_list.html', {'workers': workers})
 
 # Přidání pracovníka s dohodou
 def add_agreement_worker(request):
-    return process_form(
-        request,
-        form_class=AgreementWorkerModelForm,
-        template='employee_form.html',  # Použijeme stejný formulář jako pro zaměstnance
-        redirect_url='agreement_workers_list',  # Přesměrování na seznam pracovníků s dohodami
-        action='Přidat'
-    )
+    if request.method == 'POST':
+        form = AgreementWorkerForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('agreement_workers_list')
+    else:
+        form = AgreementWorkerForm()
+    return render(request, 'add_agreement_worker.html', {'form': form})
+
+
+def agreement_worker_detail(request, pk):
+    worker = get_object_or_404(AgreementWorker, pk=pk)
+    return render(request, 'agreement_worker_detail.html', {'worker': worker})
+
 
 # Aktualizace pracovníka s dohodou
 def agreement_worker_update(request, pk):
     worker = get_object_or_404(AgreementWorker, pk=pk)
-    return process_form(
-        request,
-        form_class=AgreementWorkerModelForm,
-        template='employee_form.html',
-        redirect_url='agreement_workers_list',
-        instance=worker,
-        action='Upravit'
-    )
+    if request.method == 'POST':
+        form = AgreementWorkerForm(request.POST, instance=worker)
+        if form.is_valid():
+            form.save()
+            return redirect('agreement_workers_list')
+    else:
+        form = AgreementWorkerForm(instance=worker)
+
+    return render(request, 'add_agreement_worker.html', {'form': form, 'action': 'Upravit'})
+
 
 # Smazání pracovníka s dohodou
 def agreement_worker_delete(request, pk):
@@ -230,7 +252,7 @@ def agreement_worker_delete(request, pk):
     return process_delete(
         request=request,
         instance=worker,
-        template='employee_confirm_delete.html',
+        template='agreement_worker_confirm_delete.html',
         redirect_url='agreement_workers_list',
         context_name='worker'
     )

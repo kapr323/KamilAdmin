@@ -41,7 +41,7 @@ class JobPositionAdmin(admin.ModelAdmin):
 
 admin.site.register(SalaryGrade)
 admin.site.register(Employee, EmployeeAdmin)
-admin.site.register(Contract)
+admin.site.register(AgreementWorker)
 admin.site.register(PersonalCompetence)
 admin.site.register(InternalDirectives)
 admin.site.register(Cars)

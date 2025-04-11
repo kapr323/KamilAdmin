@@ -1,0 +1,963 @@
+﻿[
+{
+  "model": "viewer.employee",
+  "pk": 12,
+  "fields": {
+    "name": "Karel",
+    "surname": "Vlada°",
+    "title_before_name": null,
+    "title_after_name": null,
+    "personal_number": 11,
+    "job_position": 2,
+    "date_of_birth": "1900-01-01",
+    "place_of_birth": "Praha",
+    "nationality": "╚eskß",
+    "address": "Braniborskß 23, 19111 Praha 9",
+    "email": "starosta@praha.bechovice.cz",
+    "phone_number": "+420607895234",
+    "start_date_of_employment": "2022-10-01",
+    "contract_from": "2022-10-01",
+    "contract_until": "2024-10-31",
+    "initial_creditable_work_experience_years": 0,
+    "initial_creditable_work_experience_months": 0,
+    "initial_creditable_work_experience_days": 0,
+    "education_level": "MagisterskÚ vysokoÜkolskÚ vzdýlßnÝ",
+    "type_of_employment": "HlavnÝ pracovnÝ pomýr",
+    "image": "employee_images/Karel_Vlada°.jpg"
+  }
+},
+{
+  "model": "viewer.employee",
+  "pk": 13,
+  "fields": {
+    "name": "Kamil",
+    "surname": "Dvo°ßk",
+    "title_before_name": "Ing., Bc.",
+    "title_after_name": "MBA",
+    "personal_number": 1,
+    "job_position": 3,
+    "date_of_birth": "1971-06-17",
+    "place_of_birth": "┌stÝ nad Labem",
+    "nationality": "╚eskß",
+    "address": "Nouzova 3, 190 15  9 - Satalice",
+    "email": "kamil.dvorak@email.cz",
+    "phone_number": "+420603256987",
+    "start_date_of_employment": "2025-01-01",
+    "contract_from": "2025-01-01",
+    "contract_until": "2049-12-31",
+    "initial_creditable_work_experience_years": 23,
+    "initial_creditable_work_experience_months": 10,
+    "initial_creditable_work_experience_days": 12,
+    "education_level": "MagisterskÚ vysokoÜkolskÚ vzdýlßnÝ",
+    "type_of_employment": "HlavnÝ pracovnÝ pomýr",
+    "image": "employee_images/Kamil_Dvo°ßk.jpg"
+  }
+},
+{
+  "model": "viewer.employee",
+  "pk": 14,
+  "fields": {
+    "name": "Jana",
+    "surname": "Novßkovß",
+    "title_before_name": "Ing.",
+    "title_after_name": null,
+    "personal_number": 2,
+    "job_position": 4,
+    "date_of_birth": "1979-08-18",
+    "place_of_birth": "Plze˛",
+    "nationality": "╚eskß",
+    "address": "╚eskobrodskß 12 19011 Praha 9",
+    "email": "jana.novakova@praha-bechovice.cz",
+    "phone_number": "+420737988655",
+    "start_date_of_employment": "2015-09-01",
+    "contract_from": "2015-09-01",
+    "contract_until": "2049-12-31",
+    "initial_creditable_work_experience_years": 18,
+    "initial_creditable_work_experience_months": 7,
+    "initial_creditable_work_experience_days": 18,
+    "education_level": "MagisterskÚ vysokoÜkolskÚ vzdýlßnÝ",
+    "type_of_employment": "HlavnÝ pracovnÝ pomýr",
+    "image": "employee_images/Jana_Novßkovß.jpg"
+  }
+},
+{
+  "model": "viewer.employee",
+  "pk": 15,
+  "fields": {
+    "name": "Renata",
+    "surname": "Pýknß",
+    "title_before_name": "Mgr.",
+    "title_after_name": null,
+    "personal_number": 3,
+    "job_position": 5,
+    "date_of_birth": "1993-03-19",
+    "place_of_birth": "Praha",
+    "nationality": "╚eskß",
+    "address": "TerezißnskÚ NßmýstÝ 1256, 160 05 Praha 6",
+    "email": "renata.pekna@seznam.cz",
+    "phone_number": "+420546235698",
+    "start_date_of_employment": "2016-04-27",
+    "contract_from": "2016-04-27",
+    "contract_until": "2049-12-31",
+    "initial_creditable_work_experience_years": 21,
+    "initial_creditable_work_experience_months": 11,
+    "initial_creditable_work_experience_days": 6,
+    "education_level": "MagisterskÚ vysokoÜkolskÚ vzdýlßnÝ",
+    "type_of_employment": "HlavnÝ pracovnÝ pomýr",
+    "image": "employee_images/Renata_Pýknß.jpg"
+  }
+},
+{
+  "model": "viewer.employee",
+  "pk": 16,
+  "fields": {
+    "name": "Rudolf",
+    "surname": "JelÝnek",
+    "title_before_name": "Ing.",
+    "title_after_name": null,
+    "personal_number": 4,
+    "job_position": 10,
+    "date_of_birth": "1964-05-25",
+    "place_of_birth": "Olomouc",
+    "nationality": "╚eskß",
+    "address": "Lipnickß 25 19011 Praha",
+    "email": "rudolf.jelinek@praha-bechovice.cz",
+    "phone_number": "+420231456987",
+    "start_date_of_employment": "2010-05-01",
+    "contract_from": "2010-05-01",
+    "contract_until": "2049-12-31",
+    "initial_creditable_work_experience_years": 26,
+    "initial_creditable_work_experience_months": 5,
+    "initial_creditable_work_experience_days": 28,
+    "education_level": "MagisterskÚ vysokoÜkolskÚ vzdýlßnÝ",
+    "type_of_employment": "HlavnÝ pracovnÝ pomýr",
+    "image": "employee_images/Rudolf_JelÝnek.jpg"
+  }
+},
+{
+  "model": "viewer.employee",
+  "pk": 17,
+  "fields": {
+    "name": "Kristřna",
+    "surname": "Pracovitß",
+    "title_before_name": null,
+    "title_after_name": null,
+    "personal_number": 5,
+    "job_position": 9,
+    "date_of_birth": "1978-02-16",
+    "place_of_birth": "Prachatice",
+    "nationality": "╚eskß",
+    "address": "Lipnickß 25 19011 Praha",
+    "email": "kristina.pracovita@praha-bechovice.cz",
+    "phone_number": "+420788233455",
+    "start_date_of_employment": "2021-10-15",
+    "contract_from": "2021-10-15",
+    "contract_until": "2049-12-31",
+    "initial_creditable_work_experience_years": 26,
+    "initial_creditable_work_experience_months": 8,
+    "initial_creditable_work_experience_days": 15,
+    "education_level": "St°ednÝ vzdýlßnÝ s maturitou",
+    "type_of_employment": "HlavnÝ pracovnÝ pomýr",
+    "image": "employee_images/Kristřna_pracovitß.jpg"
+  }
+},
+{
+  "model": "viewer.employee",
+  "pk": 18,
+  "fields": {
+    "name": "VÝt",
+    "surname": "D°ÝŔ",
+    "title_before_name": null,
+    "title_after_name": null,
+    "personal_number": 6,
+    "job_position": 6,
+    "date_of_birth": "1985-07-20",
+    "place_of_birth": "Liberec",
+    "nationality": "╚eskß",
+    "address": "TerezißnskÚ NßmýstÝ 1256, 160 05 Praha 6",
+    "email": "vitek@seznam.cz",
+    "phone_number": "+420604123566",
+    "start_date_of_employment": "2005-07-01",
+    "contract_from": "2005-07-01",
+    "contract_until": "2049-12-31",
+    "initial_creditable_work_experience_years": 18,
+    "initial_creditable_work_experience_months": 11,
+    "initial_creditable_work_experience_days": 7,
+    "education_level": "St°ednÝ vzdýlßnÝ s maturitou",
+    "type_of_employment": "HlavnÝ pracovnÝ pomýr",
+    "image": "employee_images/VÝt_D°ÝŔ.jpg"
+  }
+},
+{
+  "model": "viewer.employee",
+  "pk": 19,
+  "fields": {
+    "name": "Őßrka",
+    "surname": "Drobnß",
+    "title_before_name": null,
+    "title_after_name": null,
+    "personal_number": 7,
+    "job_position": 7,
+    "date_of_birth": "1993-10-30",
+    "place_of_birth": "Praha",
+    "nationality": "╚eskß",
+    "address": "Pra×skÚho povstßnÝ 2654/12, 11205 Praha 5",
+    "email": "sarka.drobna@centrum.cz",
+    "phone_number": "+420777256326",
+    "start_date_of_employment": "2016-12-01",
+    "contract_from": "2016-12-01",
+    "contract_until": "2049-12-31",
+    "initial_creditable_work_experience_years": 11,
+    "initial_creditable_work_experience_months": 8,
+    "initial_creditable_work_experience_days": 27,
+    "education_level": "St°ednÝ vzdýlßnÝ s maturitou",
+    "type_of_employment": "HlavnÝ pracovnÝ pomýr",
+    "image": "employee_images/Őßrka_Drobnß.jpg"
+  }
+},
+{
+  "model": "viewer.employee",
+  "pk": 20,
+  "fields": {
+    "name": "Lucie",
+    "surname": "Őetrnß",
+    "title_before_name": null,
+    "title_after_name": null,
+    "personal_number": 8,
+    "job_position": 11,
+    "date_of_birth": "1980-08-18",
+    "place_of_birth": "TrenŔÝn",
+    "nationality": "╚eskß",
+    "address": "TerezißnskÚ NßmýstÝ 1256, 160 05 Praha 6",
+    "email": "lucie.setrna@seznam.cz",
+    "phone_number": "+420226598123",
+    "start_date_of_employment": "2017-01-01",
+    "contract_from": "2017-01-01",
+    "contract_until": "2049-12-31",
+    "initial_creditable_work_experience_years": 23,
+    "initial_creditable_work_experience_months": 6,
+    "initial_creditable_work_experience_days": 27,
+    "education_level": "St°ednÝ vzdýlßnÝ s maturitou",
+    "type_of_employment": "HlavnÝ pracovnÝ pomýr",
+    "image": "employee_images/Lucie_Őetrnß.jpg"
+  }
+},
+{
+  "model": "viewer.employee",
+  "pk": 21,
+  "fields": {
+    "name": "Jana",
+    "surname": "Hladkß",
+    "title_before_name": null,
+    "title_after_name": null,
+    "personal_number": 9,
+    "job_position": 8,
+    "date_of_birth": "1900-01-01",
+    "place_of_birth": "Prßce",
+    "nationality": "╚eskß",
+    "address": "Pra×skÚho povstßnÝ 2654/12, 11205 Praha 5",
+    "email": "jana.hladka@centrum.cz",
+    "phone_number": "+420266356987",
+    "start_date_of_employment": "2020-11-01",
+    "contract_from": "2020-11-01",
+    "contract_until": "2049-12-31",
+    "initial_creditable_work_experience_years": 19,
+    "initial_creditable_work_experience_months": 9,
+    "initial_creditable_work_experience_days": 16,
+    "education_level": "St°ednÝ vzdýlßnÝ s maturitou",
+    "type_of_employment": "HlavnÝ pracovnÝ pomýr",
+    "image": "employee_images/Jana_Hladkß.jpg"
+  }
+},
+{
+  "model": "viewer.employee",
+  "pk": 22,
+  "fields": {
+    "name": "Kamila",
+    "surname": "Őikovnß",
+    "title_before_name": null,
+    "title_after_name": null,
+    "personal_number": 50,
+    "job_position": null,
+    "date_of_birth": "1979-05-27",
+    "place_of_birth": "Prachatice",
+    "nationality": "╚eskß",
+    "address": "Nßdra×nÝ 437, 41100 Litomý°ice",
+    "email": "kamila.sikovna@centrum.cz",
+    "phone_number": "+420602322411",
+    "start_date_of_employment": "2025-01-01",
+    "contract_from": "2025-01-01",
+    "contract_until": "2025-12-31",
+    "initial_creditable_work_experience_years": 0,
+    "initial_creditable_work_experience_months": 0,
+    "initial_creditable_work_experience_days": 0,
+    "education_level": "St°ednÝ vzdýlßnÝ s maturitou",
+    "type_of_employment": "Dohoda o provedenÝ prßce",
+    "image": ""
+  }
+},
+{
+  "model": "viewer.salarygrade",
+  "pk": 1,
+  "fields": {
+    "grade": 1,
+    "step": 8
+  }
+},
+{
+  "model": "viewer.salarygrade",
+  "pk": 2,
+  "fields": {
+    "grade": 2,
+    "step": 8
+  }
+},
+{
+  "model": "viewer.salarygrade",
+  "pk": 3,
+  "fields": {
+    "grade": 3,
+    "step": 8
+  }
+},
+{
+  "model": "viewer.salarygrade",
+  "pk": 4,
+  "fields": {
+    "grade": 4,
+    "step": 8
+  }
+},
+{
+  "model": "viewer.salarygrade",
+  "pk": 5,
+  "fields": {
+    "grade": 5,
+    "step": 8
+  }
+},
+{
+  "model": "viewer.salarygrade",
+  "pk": 6,
+  "fields": {
+    "grade": 6,
+    "step": 8
+  }
+},
+{
+  "model": "viewer.salarygrade",
+  "pk": 7,
+  "fields": {
+    "grade": 7,
+    "step": 8
+  }
+},
+{
+  "model": "viewer.salarygrade",
+  "pk": 8,
+  "fields": {
+    "grade": 8,
+    "step": 8
+  }
+},
+{
+  "model": "viewer.salarygrade",
+  "pk": 9,
+  "fields": {
+    "grade": 9,
+    "step": 8
+  }
+},
+{
+  "model": "viewer.salarygrade",
+  "pk": 10,
+  "fields": {
+    "grade": 10,
+    "step": 8
+  }
+},
+{
+  "model": "viewer.salarygrade",
+  "pk": 11,
+  "fields": {
+    "grade": 11,
+    "step": 8
+  }
+},
+{
+  "model": "viewer.salarygrade",
+  "pk": 12,
+  "fields": {
+    "grade": 12,
+    "step": 8
+  }
+},
+{
+  "model": "viewer.salarygrade",
+  "pk": 13,
+  "fields": {
+    "grade": 1,
+    "step": 9
+  }
+},
+{
+  "model": "viewer.salarygrade",
+  "pk": 14,
+  "fields": {
+    "grade": 2,
+    "step": 9
+  }
+},
+{
+  "model": "viewer.salarygrade",
+  "pk": 15,
+  "fields": {
+    "grade": 3,
+    "step": 9
+  }
+},
+{
+  "model": "viewer.salarygrade",
+  "pk": 16,
+  "fields": {
+    "grade": 4,
+    "step": 9
+  }
+},
+{
+  "model": "viewer.salarygrade",
+  "pk": 17,
+  "fields": {
+    "grade": 5,
+    "step": 9
+  }
+},
+{
+  "model": "viewer.salarygrade",
+  "pk": 18,
+  "fields": {
+    "grade": 6,
+    "step": 9
+  }
+},
+{
+  "model": "viewer.salarygrade",
+  "pk": 19,
+  "fields": {
+    "grade": 7,
+    "step": 9
+  }
+},
+{
+  "model": "viewer.salarygrade",
+  "pk": 20,
+  "fields": {
+    "grade": 8,
+    "step": 9
+  }
+},
+{
+  "model": "viewer.salarygrade",
+  "pk": 21,
+  "fields": {
+    "grade": 9,
+    "step": 9
+  }
+},
+{
+  "model": "viewer.salarygrade",
+  "pk": 22,
+  "fields": {
+    "grade": 10,
+    "step": 9
+  }
+},
+{
+  "model": "viewer.salarygrade",
+  "pk": 23,
+  "fields": {
+    "grade": 11,
+    "step": 9
+  }
+},
+{
+  "model": "viewer.salarygrade",
+  "pk": 24,
+  "fields": {
+    "grade": 12,
+    "step": 9
+  }
+},
+{
+  "model": "viewer.personalcompetence",
+  "pk": 1,
+  "fields": {
+    "name": "ZOZ - ˙ŔetnictvÝ a platy zamýstnanc¨",
+    "valid_until": "2050-12-31",
+    "job_position": null
+  }
+},
+{
+  "model": "viewer.personalcompetence",
+  "pk": 2,
+  "fields": {
+    "name": "ZOZ - poplatky",
+    "valid_until": "2050-12-31",
+    "job_position": null
+  }
+},
+{
+  "model": "viewer.personalcompetence",
+  "pk": 3,
+  "fields": {
+    "name": "ZOZ - ve°ejnÚ zakßzky",
+    "valid_until": "2050-12-31",
+    "job_position": null
+  }
+},
+{
+  "model": "viewer.personalcompetence",
+  "pk": 4,
+  "fields": {
+    "name": "ZVV - vedoucÝ pracovnÝci",
+    "valid_until": "2050-12-31",
+    "job_position": null
+  }
+},
+{
+  "model": "viewer.personalcompetence",
+  "pk": 5,
+  "fields": {
+    "name": "ZOZ - sprßvnÝ °ßd",
+    "valid_until": "2050-12-31",
+    "job_position": null
+  }
+},
+{
+  "model": "viewer.personalcompetence",
+  "pk": 6,
+  "fields": {
+    "name": "ZOZ - spisovß slu×ba",
+    "valid_until": "2050-12-31",
+    "job_position": null
+  }
+},
+{
+  "model": "viewer.personalcompetence",
+  "pk": 7,
+  "fields": {
+    "name": "ZOZ - Ochrana p°Ýrody",
+    "valid_until": "2050-12-31",
+    "job_position": null
+  }
+},
+{
+  "model": "viewer.personalcompetence",
+  "pk": 8,
+  "fields": {
+    "name": "ZOZ - Ekonomika a sprßva obce",
+    "valid_until": "2050-12-31",
+    "job_position": null
+  }
+},
+{
+  "model": "viewer.personalcompetence",
+  "pk": 9,
+  "fields": {
+    "name": "ZOZ - Czech Point",
+    "valid_until": "2050-12-31",
+    "job_position": null
+  }
+},
+{
+  "model": "viewer.personalcompetence",
+  "pk": 10,
+  "fields": {
+    "name": "ZkouÜka vstupnÝho vzdýlßvßnÝ",
+    "valid_until": "2050-12-31",
+    "job_position": null
+  }
+},
+{
+  "model": "viewer.personalcompetence",
+  "pk": 11,
+  "fields": {
+    "name": "Po×ßrnÝ ochrana",
+    "valid_until": "2050-12-31",
+    "job_position": null
+  }
+},
+{
+  "model": "viewer.personalcompetence",
+  "pk": 12,
+  "fields": {
+    "name": "BOZP",
+    "valid_until": "2050-12-31",
+    "job_position": null
+  }
+},
+{
+  "model": "viewer.personalcompetence",
+  "pk": 13,
+  "fields": {
+    "name": "ěidiŔ-referent",
+    "valid_until": "2050-12-31",
+    "job_position": null
+  }
+},
+{
+  "model": "viewer.personalcompetence",
+  "pk": 14,
+  "fields": {
+    "name": "ZOZ - stavebnÝ zßkon",
+    "valid_until": "2050-12-31",
+    "job_position": null
+  }
+},
+{
+  "model": "viewer.employeepersonalcompetence",
+  "pk": 1,
+  "fields": {
+    "employee": 13,
+    "competence": 12,
+    "certificate": "certificates/PotvrzenÝ_˙°adu_prßce_wbt8iZP.pdf",
+    "valid_until": null
+  }
+},
+{
+  "model": "viewer.jobposition",
+  "pk": 2,
+  "fields": {
+    "name": "Starosta",
+    "grade": 12,
+    "personal_competencies": [
+      12,
+      11,
+      13
+    ]
+  }
+},
+{
+  "model": "viewer.jobposition",
+  "pk": 3,
+  "fields": {
+    "name": "TajemnÝk",
+    "grade": 12,
+    "personal_competencies": [
+      12,
+      11,
+      4,
+      10,
+      13
+    ]
+  }
+},
+{
+  "model": "viewer.jobposition",
+  "pk": 4,
+  "fields": {
+    "name": "VedoucÝ odboru ekonomiky a sprßvy majetku",
+    "grade": 11,
+    "personal_competencies": [
+      12,
+      11,
+      8,
+      10,
+      13
+    ]
+  }
+},
+{
+  "model": "viewer.jobposition",
+  "pk": 5,
+  "fields": {
+    "name": "VedoucÝ odboru vnit°nÝ sprßvy",
+    "grade": 11,
+    "personal_competencies": [
+      12,
+      11,
+      9,
+      5,
+      10,
+      13
+    ]
+  }
+},
+{
+  "model": "viewer.jobposition",
+  "pk": 6,
+  "fields": {
+    "name": "Referent sprßvy majetku 1",
+    "grade": 10,
+    "personal_competencies": []
+  }
+},
+{
+  "model": "viewer.jobposition",
+  "pk": 7,
+  "fields": {
+    "name": "Referent sprßvy majetku 2",
+    "grade": 10,
+    "personal_competencies": [
+      12,
+      11,
+      7,
+      14,
+      10,
+      13
+    ]
+  }
+},
+{
+  "model": "viewer.jobposition",
+  "pk": 8,
+  "fields": {
+    "name": "Referent-pokladna",
+    "grade": 9,
+    "personal_competencies": [
+      12,
+      11,
+      2,
+      10
+    ]
+  }
+},
+{
+  "model": "viewer.jobposition",
+  "pk": 9,
+  "fields": {
+    "name": "Asistentka starosty a tajemnÝka",
+    "grade": 9,
+    "personal_competencies": [
+      12,
+      11,
+      9,
+      10,
+      13
+    ]
+  }
+},
+{
+  "model": "viewer.jobposition",
+  "pk": 10,
+  "fields": {
+    "name": "VedoucÝ oddýlenÝ ekonomiky",
+    "grade": 10,
+    "personal_competencies": [
+      12,
+      11,
+      8,
+      1,
+      10,
+      13
+    ]
+  }
+},
+{
+  "model": "viewer.jobposition",
+  "pk": 11,
+  "fields": {
+    "name": "┌ŔetnÝ",
+    "grade": 9,
+    "personal_competencies": [
+      12,
+      11,
+      9,
+      1,
+      10
+    ]
+  }
+},
+{
+  "model": "viewer.jobposition",
+  "pk": 12,
+  "fields": {
+    "name": "Uvolnýnř zastupitel",
+    "grade": 12,
+    "personal_competencies": [
+      12,
+      11,
+      13
+    ]
+  }
+},
+{
+  "model": "viewer.internaldirectives",
+  "pk": 1,
+  "fields": {
+    "name": "OrganizaŔnÝ °ßd",
+    "effective_date": "2025-01-01",
+    "document": "",
+    "description": null
+  }
+},
+{
+  "model": "viewer.internaldirectives",
+  "pk": 2,
+  "fields": {
+    "name": "PracovnÝ °ßd",
+    "effective_date": "2025-01-01",
+    "document": "",
+    "description": null
+  }
+},
+{
+  "model": "viewer.internaldirectives",
+  "pk": 3,
+  "fields": {
+    "name": "SkartaŔnÝ a spisovř °ßd",
+    "effective_date": "2025-01-01",
+    "document": "",
+    "description": null
+  }
+},
+{
+  "model": "viewer.internaldirectives",
+  "pk": 4,
+  "fields": {
+    "name": "JednacÝ °ßd",
+    "effective_date": "2025-01-01",
+    "document": "internal_documents/OckovaciCertifikat_v9KQ5Us.pdf",
+    "description": null
+  }
+},
+{
+  "model": "viewer.internaldirectives",
+  "pk": 5,
+  "fields": {
+    "name": "Podpisovř °ßd",
+    "effective_date": "2025-01-01",
+    "document": "",
+    "description": null
+  }
+},
+{
+  "model": "viewer.internaldirectives",
+  "pk": 6,
+  "fields": {
+    "name": "Smýrnice o ochraný osobnÝch ˙daj¨",
+    "effective_date": "2025-01-01",
+    "document": "",
+    "description": null
+  }
+},
+{
+  "model": "viewer.internaldirectives",
+  "pk": 7,
+  "fields": {
+    "name": "Smýrnice o bezpeŔnosti a ochraný zdravÝ p°i prßci (BOZP)",
+    "effective_date": "2025-01-01",
+    "document": "",
+    "description": null
+  }
+},
+{
+  "model": "viewer.internaldirectives",
+  "pk": 8,
+  "fields": {
+    "name": "Smýrnice o dalÜÝm vzdýlßvßnÝ a odbornÚm r¨stu zamýstnanc¨",
+    "effective_date": "2025-01-01",
+    "document": "",
+    "description": null
+  }
+},
+{
+  "model": "viewer.internaldirectives",
+  "pk": 9,
+  "fields": {
+    "name": "Smýrnice o hodnocenÝ zamýstnanc¨",
+    "effective_date": "2025-01-01",
+    "document": "",
+    "description": null
+  }
+},
+{
+  "model": "viewer.internaldirectives",
+  "pk": 10,
+  "fields": {
+    "name": "Smýrnice o tvorbý rozpoŔtu a hospoda°enÝ s prost°edky",
+    "effective_date": "2025-01-01",
+    "document": "",
+    "description": null
+  }
+},
+{
+  "model": "viewer.internaldirectives",
+  "pk": 11,
+  "fields": {
+    "name": "Smýrnice pro zadßvßnÝ ve°ejnřch zakßzek",
+    "effective_date": "2025-01-01",
+    "document": "",
+    "description": null
+  }
+},
+{
+  "model": "viewer.cars",
+  "pk": 1,
+  "fields": {
+    "name": "Tesla",
+    "type": "OsobnÝ vozidlo",
+    "plate_number": "EL9 8383",
+    "fuel_type": "2025-11-30",
+    "technical_inspection_date": "2025-12-31",
+    "highway_ticket_validity": null,
+    "is_usable": false
+  }
+},
+{
+  "model": "viewer.cars",
+  "pk": 2,
+  "fields": {
+    "name": "Hiunday",
+    "type": "OsobnÝ vozidlo",
+    "plate_number": "EL6 2316",
+    "fuel_type": "2026-03-31",
+    "technical_inspection_date": "2025-12-31",
+    "highway_ticket_validity": null,
+    "is_usable": false
+  }
+},
+{
+  "model": "viewer.cars",
+  "pk": 3,
+  "fields": {
+    "name": "Őkoda Octavia",
+    "type": "OsobnÝ vozidlo",
+    "plate_number": "3A5 5968",
+    "fuel_type": "2026-07-31",
+    "technical_inspection_date": "2025-12-31",
+    "highway_ticket_validity": null,
+    "is_usable": false
+  }
+},
+{
+  "model": "viewer.realestates",
+  "pk": 1,
+  "fields": {
+    "name": "ZasedacÝ mÝstnost starosty",
+    "type": "╚eskobrodskß 3",
+    "address": "1",
+    "is_usable": false
+  }
+},
+{
+  "model": "viewer.realestates",
+  "pk": 2,
+  "fields": {
+    "name": "Velkß zasedacÝ mÝstnost ┌M╚",
+    "type": "╚eskobrodskß 3",
+    "address": "1",
+    "is_usable": false
+  }
+},
+{
+  "model": "viewer.realestates",
+  "pk": 3,
+  "fields": {
+    "name": "HudebnÝ Stodola",
+    "type": "╚eskobrodskß 1",
+    "address": "1",
+    "is_usable": false
+  }
+}
+]

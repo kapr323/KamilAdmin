@@ -1,5 +1,5 @@
 from django.core.validators import validate_email
-from django.forms import ModelForm, DateInput
+from django.forms import ModelForm, DateInput, Field
 
 from kamiladmin.settings import DEBUG
 from django.core.exceptions import ValidationError
@@ -7,7 +7,7 @@ from django.http import JsonResponse
 from datetime import datetime, date
 from django import forms
 
-from viewer.models import *
+from .models import *
 
 """
 class Employee(Model):
@@ -32,6 +32,24 @@ class Employee(Model):
     education_level = CharField(max_length=20, null=False, blank=False, unique=False)
     type_of_employment = CharField(max_length=20, null=False, blank=False, unique=False)
 """
+
+
+class WorkExperienceForm(forms.Form):
+    initial_creditable_work_experience_years = forms.ChoiceField(
+        choices=[(str(i), str(i)) for i in range(101)],  # 0 až 100 let
+        label="Započitatelná doba praxe - roky",
+        required=False
+    )
+    initial_creditable_work_experience_months = forms.ChoiceField(
+        choices=[(str(i), str(i)) for i in range(12)],  # 0 až 11 měsíců
+        label="Započitatelná doba praxe - měsíce",
+        required=False
+    )
+    initial_creditable_work_experience_days = forms.ChoiceField(
+        choices=[(str(i), str(i)) for i in range(31)],  # 0 až 30 dní
+        label="Započitatelná doba praxe - dny",
+        required=False
+    )
 
 
 class EmployeeModelForm(ModelForm):
@@ -183,15 +201,60 @@ def section_view(request):
     return JsonResponse({'error': 'Invalid input or method.'}, status=400)
 
 
-class AgreementWorkerModelForm(EmployeeModelForm):
-    class Meta(EmployeeModelForm.Meta):
-        model = AgreementWorker  # Model pro pracovníky s dohodami
-        fields = '__all__'  # Pokud máš stejné pole jako pro Employee, jinak upravit podle potřeby
+class AgreementWorkerForm(forms.ModelForm):
+    class Meta:
+        model = AgreementWorker
+        fields = ['name', 'surname', 'title_before_name', 'title_after_name', 'date_of_birth',
+                  'place_of_birth', 'address', 'email', 'phone_number', 'type_of_agreement',
+                  'contract_from', 'contract_until', 'hourly_wage']
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['type_of_employment'].queryset = AgreementWorker.TypeOfEmployment.choices[
-                                                             1:3]  # Pouze DPČ a DPP
+    def clean_hourly_wage(self):
+        hourly_wage = self.cleaned_data.get('hourly_wage')
+        if hourly_wage <= 0:
+            raise forms.ValidationError("Hodinová mzda musí být kladná.")
+        return hourly_wage
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if email:
+            try:
+                validate_email(email)
+            except ValidationError:
+                raise forms.ValidationError("Zadejte platnou e-mailovou adresu.")
+        return email
+
+    def clean_name(self):
+        initial = self.cleaned_data['name']
+        result = initial
+        if initial:
+            result = initial.capitalize()
+        return result
+
+    def clean_surname(self):
+        initial = self.cleaned_data['surname']
+        result = initial
+        if initial:
+            result = initial.capitalize()
+        return result
+
+    def clean_date_of_birth(self):
+        initial = self.cleaned_data['date_of_birth']
+        if DEBUG:
+            print(f"initial date of birth: '{initial}'")
+        if initial and initial > date.today():
+            raise ValidationError("Datum narození nesmí být v budoucnosti")
+        return initial
+
+    def clean(self):
+        cleaned_data = super().clean()
+        initial_name = cleaned_data['name']
+        initial_surname = cleaned_data['surname']
+        if DEBUG:
+            print(f"initial_name = '{initial_name}', "
+                  f"initial_surname = '{initial_surname}'")
+        if not initial_name and not initial_surname:
+            raise ValidationError("Je nutné zadat jméno a příjmení.")
+        return cleaned_data
 
 
 class JobPositionModelForm(ModelForm):
@@ -216,16 +279,6 @@ class SalaryModelForm(ModelForm):
         labels = {
             'grade': 'Platová třída',
             'step': 'Platový stupeň'
-        }
-
-
-class ContractModelForm(ModelForm):
-    class Meta:
-        model = Contract
-        fields = '__all__'
-
-        labels = {
-            'name': 'Druh pracovního poměru'
         }
 
 

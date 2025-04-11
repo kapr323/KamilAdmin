@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Smazat zaměstnance{% endblock %}
+
+{% block content %}
+<h2>Opravdu si přejete smazat pracovníka {{ worker.name }} {{ worker.surname }}?</h2>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Smazat</button>
+    <a href="{% url 'agreement_workers_list' %}" class="btn btn-secondary">Zrušit</a>
+</form>
+{% endblock %}

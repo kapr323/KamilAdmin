@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}MORSE{% endblock %}
+
+{% block content %}
+<h1>Detail pracovníka</h1>
+<button class="back-button" onclick="history.back()">⬅ Zpět</button>
+
+
+    <table class="detail-table detail-info-table">
+        <tbody>
+            <tr><th>Jméno:</th><td> {{ worker.name }}</td></tr>
+            <tr><th>Příjmení:</th><td> {{ worker.surname }}</td></tr>
+            <tr><th>Název dohody:</th><td> {{ worker.name_of_contract }}</td></tr>
+            <tr><th>Smlouva od:</th><td> {{ worker.contract_from }}</td></tr>
+            <tr><th>Platnost smlouvy do:</th><td> {{ worker.contract_until }} </td></tr>
+            <tr><th>Typ smlouvy:</th><td> {{ worker.type_of_employment }}</td></tr>
+            <tr><th>Hodinová mzda:</th><td> {{ worker.hourly_wage }}</td></tr>
+        </tbody>
+    </table>
+
+{% endblock %}

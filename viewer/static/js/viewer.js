@@ -249,6 +249,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         editFunc = `window.location.href='/properties/edit/${id}/'`;
                         deleteFunc = `window.location.href='/properties/delete/${id}/'`;
                         break;
+                    case '/agreement-workers/':
+                        editFunc = `window.location.href='/agreement-workers/edit/${id}/'`;
+                        deleteFunc = `window.location.href='/agreement-workers/delete/${id}/'`;
+                        break;
                     default:
                         editFunc = `editItem(${id})`;
                         deleteFunc = `deleteItem(${id})`;

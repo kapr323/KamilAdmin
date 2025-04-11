@@ -4,70 +4,108 @@
 
 {% block content %}
     <h1>Organizační struktura</h1>
-<button class="back-button" onclick="history.back()">⬅ Zpět</button>
+    <button class="back-button" onclick="history.back()">⬅ Zpět</button>
 
-<div class="structure-tree">
-    <ul>
-        <!-- Starosta -->
-        <li>
-            <a href="{% url 'employee_detail' starosta.id %}" class="position">Starosta</a>
-            <ul>
-                <!-- Tajemník -->
-                <li>
-                    <a href="{% url 'employee_detail' tajemnik.id %}" class="position">Tajemník</a>
-                    <ul>
-                        <!-- Odbor vnitřní správy -->
-                        <li>
-                            <span class="department-title">Odbor vnitřní správy</span>
-                            <ul>
-                                <li>
-                                    <a href="{% url 'employee_detail' vedouci_odboru_vnitrni_spravy.id %}" class="position">Vedoucí odboru vnitřní správy</a>
-                                </li>
-                                <li>
-                                    <a href="{% url 'employee_detail' asistentka_tajemnika.id %}" class="position">Asistentka starosty a tajemníka</a>
-                                </li>
-                            </ul>
-                        </li>
+    <div class="structure-tree">
+        <ul>
+            <!-- Starosta -->
+            <li>
+                {% if starosta %}
+                    <a href="{% url 'employee_detail' starosta.id %}" class="position">{{ starosta.job_position.name }}</a>
+                {% else %}
+                    <span>Starosta</span>
+                {% endif %}
+                <ul>
+                    <!-- Tajemník -->
+                    <li>
+                        {% if tajemnik %}
+                            <a href="{% url 'employee_detail' tajemnik.id %}" class="position">{{ tajemnik.job_position.name }}</a>
+                        {% else %}
+                            <span>Tajemník</span>
+                        {% endif %}
+                        <ul>
+                            <!-- Odbor vnitřní správy -->
+                            <li>
+                                <span class="department-title">Odbor vnitřní správy</span>
+                                <ul>
+                                    <li>
+                                        {% if vedouci_odboru_vnitrni_spravy %}
+                                            <a href="{% url 'employee_detail' vedouci_odboru_vnitrni_spravy.id %}" class="position">{{ vedouci_odboru_vnitrni_spravy.job_position.name }}</a>
+                                        {% else %}
+                                            <span>Vedoucí odboru vnitřní správy</span>
+                                        {% endif %}
+                                    </li>
+                                    <li>
+                                        {% if asistentka_tajemnika %}
+                                            <a href="{% url 'employee_detail' asistentka_tajemnika.id %}" class="position">{{ asistentka_tajemnika.job_position.name }}</a>
+                                        {% else %}
+                                            <span>Asistentka starosty a tajemníka</span>
+                                        {% endif %}
+                                    </li>
+                                </ul>
+                            </li>
 
-                        <!-- Odbor ekonomiky a správy majetku -->
-                        <li>
-                            <span class="department-title">Odbor ekonomiky a správy majetku</span>
-                            <ul>
-                                <li>
-                                    <a href="{% url 'employee_detail' vedouci_odboru_ekonomiky.id %}" class="position">Vedoucí odboru ekonomiky a správy majetku</a>
-                                    <ul>
-                                        <!-- Větev 1: Referenti -->
-                                        <li>
-                                            <a href="{% url 'employee_detail' referent_spravy_majetku_1.id %}" class="position">Referent správy majetku 1</a>
-                                        </li>
-                                        <li>
-                                            <a href="{% url 'employee_detail' referent_spravy_majetku_2.id %}" class="position">Referent správy majetku 2</a>
-                                        </li>
-                                        <li>
-                                            <a href="{% url 'employee_detail' referent_pokladna.id %}" class="position">Referent – pokladna</a>
-                                        </li>
+                            <!-- Odbor ekonomiky a správy majetku -->
+                            <li>
+                                <span class="department-title">Odbor ekonomiky a správy majetku</span>
+                                <ul>
+                                    <li>
+                                        {% if vedouci_odboru_ekonomiky %}
+                                            <a href="{% url 'employee_detail' vedouci_odboru_ekonomiky.id %}" class="position">{{ vedouci_odboru_ekonomiky.job_position.name }}</a>
+                                        {% else %}
+                                            <span>Vedoucí odboru ekonomiky a správy majetku</span>
+                                        {% endif %}
+                                        <ul>
+                                            <!-- Větev 1: Referenti -->
+                                            <li>
+                                                {% if referent_spravy_majetku_1 %}
+                                                    <a href="{% url 'employee_detail' referent_spravy_majetku_1.id %}" class="position">{{ referent_spravy_majetku_1.job_position.name }}</a>
+                                                {% else %}
+                                                    <span>Referent správy majetku 1</span>
+                                                {% endif %}
+                                            </li>
+                                            <li>
+                                                {% if referent_spravy_majetku_2 %}
+                                                    <a href="{% url 'employee_detail' referent_spravy_majetku_2.id %}" class="position">{{ referent_spravy_majetku_2.job_position.name }}</a>
+                                                {% else %}
+                                                    <span>Referent správy majetku 2</span>
+                                                {% endif %}
+                                            </li>
+                                            <li>
+                                                {% if referent_pokladna %}
+                                                    <a href="{% url 'employee_detail' referent_pokladna.id %}" class="position">{{ referent_pokladna.job_position.name }}</a>
+                                                {% else %}
+                                                    <span>Referent – pokladna</span>
+                                                {% endif %}
+                                            </li>
 
-                                        <!-- Větev 2: Oddělení ekonomiky -->
-                                        <li>
-                                            <a href="{% url 'employee_detail' vedouci_oddeleni_ekonomiky.id %}" class="position">Vedoucí oddělení ekonomiky</a>
-                                            <ul>
-                                                <li>
-                                                    {% if ucetni %}
-                                                        <a href="{% url 'employee_detail' ucetni.id %}" class="position">Účetní</a>
-                                                    {% endif %}
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-    </ul>
-</div>
-
+                                            <!-- Větev 2: Oddělení ekonomiky -->
+                                            <li>
+                                                {% if vedouci_oddeleni_ekonomiky %}
+                                                    <a href="{% url 'employee_detail' vedouci_oddeleni_ekonomiky.id %}" class="position">{{ vedouci_oddeleni_ekonomiky.job_position.name }}</a>
+                                                {% else %}
+                                                    <span>Vedoucí oddělení ekonomiky</span>
+                                                {% endif %}
+                                                <ul>
+                                                    <li>
+                                                        {% if ucetni %}
+                                                            <a href="{% url 'employee_detail' ucetni.id %}" class="position">{{ ucetni.job_position.name }}</a>
+                                                        {% else %}
+                                                            <span>Účetní</span>
+                                                        {% endif %}
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 
 {% endblock %}
+

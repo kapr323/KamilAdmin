@@ -36,6 +36,13 @@ urlpatterns = ([
     path('personnel-records/delete/<int:pk>/', employee_delete, name='employee_delete'),
     path('personnel-records/detail/<int:pk>/', employee_detail, name='employee_detail'),
     # Zahrňte cesty z aplikace viewer s jiným prefixem
+    path('agreement-workers/', agreement_workers_list, name='agreement_workers_list'),  # Seznam pracovníků s dohodami
+    path('agreement-workers/add/', add_agreement_worker, name='add_agreement_worker'),  # Přidání pracovníka
+    path('agreement-workers/edit/<int:pk>/', agreement_worker_update, name='agreement_worker_update'),
+    # Úprava pracovníka
+    path('agreement-workers/delete/<int:pk>/', agreement_worker_delete, name='agreement_worker_delete'),
+    # Smazání pracovníka
+    path('agreement-workers/<int:pk>/', agreement_worker_detail, name='agreement_worker_detail'),
     path('properties/', properties_table, name='properties'),
     path('properties/add/', property_create, name='property_create'),
     path('properties/edit/<int:pk>/', property_update, name='property_update'),
@@ -47,11 +54,7 @@ urlpatterns = ([
     path('vehicles/delete/<int:pk>/', vehicle_delete, name='vehicle_delete'),
     path('vehicles/<int:pk>/', vehicle_detail, name="vehicle_detail"),
     path('employee/<int:employee_pk>/competence/<int:competence_pk>/upload/', upload_employee_certificate, name='upload_employee_certificate'),
-    path('agreement-workers/', agreement_workers_list, name='agreement_workers_list'),  # Seznam pracovníků s dohodami
-    path('agreement-workers/add/', add_agreement_worker, name='add_agreement_worker'),  # Přidání pracovníka
-    path('agreement-workers/edit/<int:pk>/', agreement_worker_update, name='agreement_worker_update'),  # Úprava pracovníka
-    path('agreement-workers/delete/<int:pk>/', agreement_worker_delete, name='agreement_worker_delete'),  # Smazání pracovníka
-   ])
+])
 
 
 if settings.DEBUG:

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Upravit pracovníka na dohodu{% endblock %}
+
+{% block content %}
+    <h1>{{ action }}</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_name">Jméno</label>
+            {{ form.name }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_surname">Příjmení</label>
+            {{ form.surname }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_name_of_contract">Název dohody</label>
+            {{ form.name_of_contract }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_contract_from">Smlouva od</label>
+            {{ form.contract_from }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_contract_until">Platnost smlouvy do</label>
+            {{ form.contract_until }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_type_of_employment">Typ pracovního poměru</label>
+            {{ form.type_of_employment }}
+        </div>
+
+        <div class="form-group">
+        <label for="hourly_wage">Hodinová mzda:</label>
+        {{ form.hourly_wage }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">{{ action }}</button>
+    </form>
+    <a href="{% url 'agreement_workers_list' %}">Zpět na seznam pracovníků na dohodu</a>
+{% endblock %}
