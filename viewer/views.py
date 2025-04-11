@@ -4,7 +4,6 @@ import locale
 
 from .forms import *
 
-
 locale.setlocale(locale.LC_TIME, 'czech')
 from viewer.models import *
 from django.shortcuts import render, redirect

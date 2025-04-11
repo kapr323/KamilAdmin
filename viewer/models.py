@@ -7,6 +7,8 @@ from django.db.models import Model, CharField, DateField, IntegerField, ForeignK
     ManyToManyField, FileField
 from django.core.validators import MinValueValidator, EmailValidator
 
+from django.contrib.auth.models import User, Permission
+
 
 # Funkce pro validaci telefonního čísla
 def validate_phone_number(value):
@@ -26,6 +28,7 @@ class Employee(Model):
         PART_TIME_JOB = 'Částečný pracovní úvazek'
         VACANT_REPRESENTATIVE = 'Uvolněný zastupitel'
 
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True, related_name='employee')
     name = CharField(max_length=20, null=False, blank=False, unique=False)
     surname = CharField(max_length=32, null=False, blank=False, unique=False)
     title_before_name = CharField(max_length=20, null=True, blank=True, unique=False)
@@ -37,7 +40,7 @@ class Employee(Model):
     place_of_birth = CharField(max_length=40, null=False, blank=False, unique=False)
     nationality = CharField(max_length=20, null=False, blank=False, unique=False)
     address = CharField(max_length=100, null=False, blank=False, unique=False)
-    email = models.EmailField(max_length=100, unique=False, blank=False, null=False, default='',
+    email = models.EmailField(max_length=100, unique=True, blank=False, null=False, default='',
                               validators=[EmailValidator()])
     phone_number = models.CharField(
         max_length=13,  # Maximální délka pro +420 a 9 číslic
@@ -203,6 +206,8 @@ class JobPosition(Model):
     name = CharField(max_length=100)
     grade = IntegerField(default=8)
     personal_competencies = ManyToManyField('PersonalCompetence', related_name='job_positions')
+    permissions = models.ManyToManyField(Permission, blank=True,
+                                         related_name='job_positions')
 
     class Meta:
         ordering = ['name']
@@ -284,3 +289,22 @@ class RealEstates(Model):
 
     def __str__(self):
         return self.name
+
+
+class RolePermissions(models.Model):
+    ROLE_CHOICES = [
+        ('admin', 'Admin'),
+        ('secretary', 'Tajemník'),
+        ('mayor', 'Starosta'),
+        ('department_head', 'Vedoucí odboru'),
+        ('employee', 'Zaměstnanec'),
+    ]
+
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES)
+    model_name = models.CharField(max_length=100)
+    field_name = models.CharField(max_length=100)
+    can_view = models.BooleanField(default=False)
+    can_edit = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.role} - {self.model_name} - {self.field_name}"

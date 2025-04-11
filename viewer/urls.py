@@ -6,6 +6,7 @@ from django.urls import path, include
 from django.contrib.auth.views import LoginView, LogoutView
 
 from viewer.forms import section_view
+from viewer.task import send_test_email
 from viewer.views import *
 from viewer.views import internal_directives, add_employee
 
@@ -54,6 +55,7 @@ urlpatterns = ([
     path('vehicles/delete/<int:pk>/', vehicle_delete, name='vehicle_delete'),
     path('vehicles/<int:pk>/', vehicle_detail, name="vehicle_detail"),
     path('employee/<int:employee_pk>/competence/<int:competence_pk>/upload/', upload_employee_certificate, name='upload_employee_certificate'),
+    path('test-email/', send_test_email, name='test_email'),
 ])
 
 

@@ -37,7 +37,7 @@ class EmployeePersonalCompetenceAdmin(admin.ModelAdmin):
 @admin.register(JobPosition)
 class JobPositionAdmin(admin.ModelAdmin):
     list_display = ['name', 'grade']
-    filter_horizontal = ['personal_competencies']
+    filter_horizontal = ['personal_competencies', 'permissions']
 
 admin.site.register(SalaryGrade)
 admin.site.register(Employee, EmployeeAdmin)
