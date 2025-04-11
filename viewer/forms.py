@@ -55,7 +55,7 @@ class WorkExperienceForm(forms.Form):
 class EmployeeModelForm(ModelForm):
     class Meta:
         model = Employee
-        fields = '__all__'  # Nezapomeňte zahrnout 'image' do tohoto seznamu polí
+        fields = '__all__'
 
         labels = {
             'name': 'Jméno',
@@ -77,7 +77,7 @@ class EmployeeModelForm(ModelForm):
             'initial_creditable_work_experience_days': 'Počet let započitatelné days',
             'education_level': 'Maximální dosažené vzdělání',
             'type_of_employment': 'Druh pracovního poměru',
-            'image': 'Fotografie'  # Pokud je pole pro obrázek definováno v modelu
+            'image': 'Fotografie'
         }
 
         widgets = {
@@ -100,31 +100,31 @@ class EmployeeModelForm(ModelForm):
             raise forms.ValidationError('Osobní číslo musí být větší než 0.')
         return number
 
-    def clean_email(self):
-        email = self.cleaned_data.get('email')
-        if email:
-            try:
-                validate_email(email)
-            except ValidationError:
-                raise forms.ValidationError("Zadejte platnou e-mailovou adresu.")
-        return email
+    # def clean_email(self):
+    #     email = self.cleaned_data.get('email')
+    #     if email:
+    #         try:
+    #             validate_email(email)
+    #         except ValidationError:
+    #             raise forms.ValidationError("Zadejte platnou e-mailovou adresu.")
+    #     return email
 
     def clean_name(self):
-        initial = self.cleaned_data['name']
+        initial = self.cleaned_data.get('name')
         result = initial
         if initial:
             result = initial.capitalize()
         return result
 
     def clean_surname(self):
-        initial = self.cleaned_data['surname']
+        initial = self.cleaned_data.get('surname')
         result = initial
         if initial:
             result = initial.capitalize()
         return result
 
     def clean_date_of_birth(self):
-        initial = self.cleaned_data['date_of_birth']
+        initial = self.cleaned_data.get('date_of_birth')
         if DEBUG:
             print(f"initial date of birth: '{initial}'")
         if initial and initial > date.today():
@@ -133,8 +133,8 @@ class EmployeeModelForm(ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        initial_name = cleaned_data['name']
-        initial_surname = cleaned_data['surname']
+        initial_name = cleaned_data.get('name')
+        initial_surname = cleaned_data.get('surname')
         if DEBUG:
             print(f"initial_name = '{initial_name}', "
                   f"initial_surname = '{initial_surname}'")
@@ -144,9 +144,9 @@ class EmployeeModelForm(ModelForm):
 
 
 def calculate_total_creditable_work_experience(employee):
-    current_date = datetime.now()
+    current_date = date.today()
     days_since_start = (current_date - employee.start_date_of_employment).days
-    total_creditable_work_experience = ((employee.total_initial_experience_in_days()) + days_since_start) // 365
+    total_creditable_work_experience = ((employee.total_initial_creditable_work_experience_in_days() + days_since_start)) // 365
     return total_creditable_work_experience
 
 
@@ -178,8 +178,8 @@ def assign_salary_grade_step(value):
         (19, 23, '9'),
         (23, 27, '10'),
         (27, 32, '11'),
-        (32, float('12'), 'other')
-    ]# Pro jakékoli větší hodnoty
+        (32, float('inf'), 'other')
+    ]
 
     for lower_bound, upper_bound, section in sections:
         if lower_bound <= value < upper_bound:
@@ -189,6 +189,8 @@ def assign_salary_grade_step(value):
 
 
 def section_view(request):
+    print("METHOD:", request.method)
+    print("POST:", request.POST)
     if request.method == 'POST':
         form = EmployeeModelForm(request.POST)
         if form.is_valid():

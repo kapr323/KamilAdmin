@@ -70,7 +70,7 @@ class Employee(Model):
         ordering = ['surname', 'name']
 
     def __repr__(self):
-        return f"({self.name, self.surname, self.personal_number})"
+        return f"{self.name} {self.surname} ({self.personal_number})"
 
     def __str__(self):
         return f"{self.name} ({self.surname}) {self.personal_number}"
@@ -105,7 +105,7 @@ class SalaryGrade(Model):
         ordering = ['grade']
 
     def __repr__(self):
-        return f"({self.grade, self.step})"
+        return f"{self.grade}-{self.step}"
 
     def __str__(self):
         return f"{self.grade}-{self.step}"
@@ -195,7 +195,7 @@ class EmployeePersonalCompetence(Model):
         return bool(self.certificate)
 
     def __str__(self):
-        return f"{self.employee} – {self.competence}"
+        return f"{self.employee} - {self.competence}"
 
 
 # Create your models here.
