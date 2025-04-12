@@ -2,12 +2,12 @@ from django.core.validators import validate_email
 from django.forms import ModelForm, DateInput, Field
 
 from kamiladmin.settings import DEBUG
-from django.core.exceptions import ValidationError
 from django.http import JsonResponse
 from datetime import datetime, date
 from django import forms
 
 from .models import *
+
 
 """
 class Employee(Model):

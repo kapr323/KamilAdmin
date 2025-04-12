@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'viewer',
-    'kamiladmin',
     'django_celery_results',
     'django_celery_beat',
     'django_dump_load_utf8',

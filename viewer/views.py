@@ -112,8 +112,11 @@ def employee_detail(request, pk):
 
         competencies_data.append(epc)
 
+    employee2 = Employee.objects.get(user=request.user)
+
     return render(request, 'employees_detail.html', {
         'employee': employee,
+        'employee2': employee2,
         'competencies': competencies_data,
     })
 

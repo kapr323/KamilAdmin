@@ -1,11 +1,8 @@
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib import admin
-from django.contrib.admin import views
 from django.urls import path, include
 from django.contrib.auth.views import LoginView, LogoutView
 
-from viewer.forms import section_view
 from viewer.task import send_test_email
 from viewer.views import *
 from viewer.views import internal_directives, add_employee

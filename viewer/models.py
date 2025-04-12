@@ -1,5 +1,4 @@
 import re
-from enum import unique
 
 from django.core.exceptions import ValidationError
 from django.db import models
