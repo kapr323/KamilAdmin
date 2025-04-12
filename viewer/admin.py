@@ -11,20 +11,23 @@ class KamilAdmin(ModelAdmin):
     def cleanup_description(modeladmin, request, queryset):
         queryset.update(description=None)
 
-class EmployeeForm(forms.ModelForm):
-        class Meta:
-            model = Employee
-            fields = '__all__'
-            widgets = {
-                'date_of_birth': SelectDateWidget(years=range(1900, 2050)),  # Rozsah let
-                'start_date_of_employment': SelectDateWidget(years=range(1900, 2050)),
-                'contract_from': SelectDateWidget(years=range(1900, 2050)),
-                'contract_until': SelectDateWidget(years=range(1900, 2050)),
-            }
 
+class EmployeeForm(forms.ModelForm):
+    class Meta:
+        model = Employee
+        fields = '__all__'
+        widgets = {
+            'date_of_birth': SelectDateWidget(years=range(1900, 2050)),
+            'start_date_of_employment': SelectDateWidget(years=range(1900, 2050)),
+            'contract_from': SelectDateWidget(years=range(1900, 2050)),
+            'contract_until': SelectDateWidget(years=range(1900, 2050)),
+        }
+
+
+@admin.register(Employee)
 class EmployeeAdmin(admin.ModelAdmin):
     form = EmployeeForm
-    # Register your models here.
+    list_display = ['user', 'name', 'surname', 'job_position']
 
 
 @admin.register(EmployeePersonalCompetence)
@@ -39,8 +42,8 @@ class JobPositionAdmin(admin.ModelAdmin):
     list_display = ['name', 'grade']
     filter_horizontal = ['personal_competencies']
 
+
 admin.site.register(SalaryGrade)
-admin.site.register(Employee, EmployeeAdmin)
 admin.site.register(AgreementWorker)
 admin.site.register(PersonalCompetence)
 admin.site.register(InternalDirectives)

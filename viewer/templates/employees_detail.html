@@ -21,6 +21,8 @@
             <tr><th>Příjmení</th><td>{{ employee.surname }}</td></tr>
             <tr><th>Titul před jménem</th><td>{{ employee.title_before_name }}</td></tr>
             <tr><th>Titul za jménem</th><td>{{ employee.title_after_name }}</td></tr>
+            {% load user_groups %}
+            {% if request.user|in_group:"tajemnik" %}
             <tr><th>Osobní číslo</th><td>{{ employee.personal_number }}</td></tr>
             <tr><th>Pozice</th><td>{{ employee.job_position }}</td></tr>
             <tr><th>Datum narození</th><td>{{ employee.date_of_birth }}</td></tr>
@@ -34,6 +36,7 @@
             <tr><th>Platnost smlouvy do</th><td>{{ employee.contract_until }}</td></tr>
             <tr><th>Dosažené vzdělání</th><td>{{ employee.education_level }}</td></tr>
             <tr><th>Typ zaměstnaneckého poměru</th><td>{{ employee.type_of_employment }}</td></tr>
+            {% endif %}
         </tbody>
     </table>
 </div>

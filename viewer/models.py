@@ -6,6 +6,7 @@ from django.db import models
 from django.db.models import Model, CharField, DateField, IntegerField, ForeignKey, SET_NULL, BooleanField, TextChoices, \
     ManyToManyField, FileField
 from django.core.validators import MinValueValidator, EmailValidator
+from django.contrib.auth.models import User
 
 
 # Funkce pro validaci telefonního čísla
@@ -16,6 +17,7 @@ def validate_phone_number(value):
 
 
 class Employee(Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     class EducationLevel(TextChoices):
         SECONDARY_EDUCATION = 'Střední vzdělání s maturitou'
         BACHELOR_UNIVERSITY_DEGREE = 'Vysokoškolské vzdělání bakalářské'
