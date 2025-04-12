@@ -222,9 +222,8 @@ class InternalDirectives(Model):
 
     name = models.CharField(max_length=100, null=False, blank=False, unique=True)
     effective_date = models.DateField(null=False, blank=False)
-    document = models.FileField(upload_to='internal_documents/', blank=True, null=True)  # Přidání pole pro nahrání PDF
-    description = models.TextField(blank=True, null=True)  # Popis dokumentu
-    type = models.CharField(max_length=20)
+    document = models.FileField(upload_to='internal_documents/', blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
 
     class Meta:
         ordering = ['name']
