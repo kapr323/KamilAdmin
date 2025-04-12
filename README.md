@@ -1,22 +1,67 @@
-# KamilAdmin
-Municipal Office Resource System for Effective use (MORSE)
-This is a management tool designed to support the administration of small municipal offices, local governments, and city districts. The application aims to streamline daily operations, enhance efficiency, and provide a structured approach to handling administrative tasks.
+# MORSE (Municipal Office Resource System for its Effectivity)
+MORSE je nástroj pro správu agend malých městských úřadů, samospráv a městských částí. Cílem projektu je zjednodušit každodenní provoz úřadu, zvýšit efektivitu a nabídnout moderní systém pro evidenci a správu procesů.
 
-# Hlavní funkce
-- Hlavní stránka
-- Funkční oblasti
-  - Personalistika
-  - Přehled interních směrnic
-  - Provozní sestava nemovitostí
-  - Rezervace budov a místností
-  - Rezervace a správa služebních vozidel/majetku
-- Uživatelská struktura účtů
+# Vývojářský tým
+- Kamil Dvořák
+- Martin Kaprál
 
 # Technologie
+- Python
 - Django
-- SQLite3 nebo MySQL
+- SQLite3
+- Celery
 
-# Základní entity
+# Instalace
+1. Naklonujeme si repozitář v terminálu pomocí ```
+   git clone https://github.com/kapr323/KamilAdmin.git```,
+2. přejdeme do složky pomocí ```cd KamilAdmin```, pokud v ní ještě nejsme,
+3. aktivujeme virtuální prostředí a nainstalujeme požadavky:
+```
+   python -m venv venv
+   venv\Scripts\activate
+   pip install -r requirements.txt
+```
+4. Spustíme vývojový server:
+```
+  python manage.py migrate
+  python manage.py runserver
+```
+
+# Plánované moduly a featury
+- [ ] Personalistika
+  - [x] Evidence zaměstnanců
+  - [x] Organizační struktura úřadu
+  - [ ] Automatizace nástupu/odchodu zaměstnance
+  - [ ] Upozornění na školení, lékařské prohlídky, platnost smluv
+- [x] Interní směrnice a předpisy
+  - [x] Archiv a přehled dokumentů
+  - [x] Potvrzení seznámení ze strany zaměstnanců
+- [ ] Provozní deníky a správa budov
+  - [x] Evidence nemovitostí
+  - [x] Evidence vozidel
+  - [ ] Evidence místností
+- [ ] Rezervace
+  - [ ] Rezervace nemovitostí
+  - [ ] Rezervace vozidel
+  - [ ] Rezervace nemovitostí
+- [ ] Autorizace
+  - [ ] Uživatelské účty
+  - [ ] Uživatelská oprávnění
+- [ ] E-mailová služba
+  - [ ] Posílání notifikací
+    - [ ] Pracovní výročí
+    - [ ] Životní výročí
+    - [ ] Konce smluv
+    - [ ] Školení a certifikáty
+
+# Provedení testů
+Testy lze provést příkazem ```coverage run -m pytest```
+Následně si lze vytvořit v HTML report pomocí ```coverage html```, který zobrazí přehledně pokrytí testů.
+
+# Licence
+MIT Licence
+
+# Podrobnější popis a poznámky pro vývoj
 - Personalistika
   - Osobní spis na kartě zaměstnance, tedy přehled informací k zaměstnanci se 
 snadnou a intuitivní editací jeho osobních údajů, informací a smluv.
@@ -94,9 +139,3 @@ smluv
   - Založení účtu – tajemník
   - Nastavení přístupových oprávnění do jednotlivých oblastí podle pracovního 
 zařazení (viz. Organizační struktura)
-
-professional_competence = odborná způsobilost (potřebná úroveň vzdělání, kurzy, atd.)
-
-Postup práce:
-1. Vytvoření databáze (employees a cars) + Hlavní stránka s rozcestníkem/odkazy
-?. Admin panel

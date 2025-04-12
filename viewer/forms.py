@@ -4,34 +4,10 @@ from django.forms import ModelForm, DateInput, Field
 from kamiladmin.settings import DEBUG
 from django.core.exceptions import ValidationError
 from django.http import JsonResponse
-from datetime import datetime, date
+from datetime import date
 from django import forms
 
 from .models import *
-
-"""
-class Employee(Model):
-    name = CharField(max_length=20, null=False, blank=False, unique=False)
-    surname = CharField(max_length=32, null=False, blank=False, unique=False)
-    title_before_name = CharField(max_length=20, null=True, blank=True, unique=False)
-    title_after_name = CharField(max_length=20, null=True, blank=True, unique=False)
-    personal_number = IntegerField(null=False, blank=True, unique=True)
-    job_position = ForeignKey("JobPosition", null=True, blank=False, unique=False, on_delete=SET_NULL, related_name='employee_job_position')
-    date_of_birth = DateField(null=False, blank=False, unique=False)
-    place_of_birth = CharField(max_length=40, null=False, blank=False, unique=False)
-    nationality = CharField(max_length=20, null=False, blank=False, unique=False)
-    address = CharField(max_length=100, null=False, blank=False, unique=False)
-    start_date_of_employment = DateField(null=False, blank=False, unique=False)
-    contract_from = DateField(null=False, blank=False, unique=False, default=None)
-    contract_until = DateField(null=False, blank=False, unique=False, default=None)
-    initial_creditable_work_experience_years = models.PositiveIntegerField(default=0)
-    initial_creditable_work_experience_months = models.PositiveIntegerField(default=0,
-                                                                            choices=[(i, str(i)) for i in range(12)])
-    initial_creditable_work_experience_days = models.PositiveIntegerField(default=0,
-                                                                          choices=[(i, str(i)) for i in range(31)])
-    education_level = CharField(max_length=20, null=False, blank=False, unique=False)
-    type_of_employment = CharField(max_length=20, null=False, blank=False, unique=False)
-"""
 
 
 class WorkExperienceForm(forms.Form):
@@ -100,15 +76,6 @@ class EmployeeModelForm(ModelForm):
             raise forms.ValidationError('Osobní číslo musí být větší než 0.')
         return number
 
-    # def clean_email(self):
-    #     email = self.cleaned_data.get('email')
-    #     if email:
-    #         try:
-    #             validate_email(email)
-    #         except ValidationError:
-    #             raise forms.ValidationError("Zadejte platnou e-mailovou adresu.")
-    #     return email
-
     def clean_name(self):
         initial = self.cleaned_data.get('name')
         result = initial
@@ -142,13 +109,11 @@ class EmployeeModelForm(ModelForm):
             raise ValidationError("Je nutné zadat jméno a příjmení.")
         return cleaned_data
 
-
 def calculate_total_creditable_work_experience(employee):
     current_date = date.today()
     days_since_start = (current_date - employee.start_date_of_employment).days
     total_creditable_work_experience = ((employee.total_initial_creditable_work_experience_in_days() + days_since_start)) // 365
     return total_creditable_work_experience
-
 
 section_data = {
     '1': ['step1'],
@@ -186,22 +151,6 @@ def assign_salary_grade_step(value):
             return section, section_data.get(section, [])
 
     return 'unknown', []
-
-
-def section_view(request):
-    print("METHOD:", request.method)
-    print("POST:", request.POST)
-    if request.method == 'POST':
-        form = EmployeeModelForm(request.POST)
-        if form.is_valid():
-            employee = form.save(commit=False)
-            total_creditable_work_experience = calculate_total_creditable_work_experience(employee)
-            section, fields = assign_salary_grade_step(total_creditable_work_experience)
-            return JsonResponse({'total_creditable_work_experience': total_creditable_work_experience, 'section': section, 'fields': fields})
-    else:
-        form = EmployeeModelForm()
-    return JsonResponse({'error': 'Invalid input or method.'}, status=400)
-
 
 class AgreementWorkerForm(forms.ModelForm):
     class Meta:
