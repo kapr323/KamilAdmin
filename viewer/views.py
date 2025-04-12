@@ -139,7 +139,7 @@ def add_employee(request):
         form = EmployeeModelForm(request.POST)
         if form.is_valid():
             form.save()  # Uloží nový záznam zaměstnance
-            return redirect('personnel_records')  # Po uložení přesměruje na seznam
+            return redirect('personnel_records_table')  # Po uložení přesměruje na seznam
     else:
         form = EmployeeModelForm()
 
@@ -152,7 +152,7 @@ def employee_update(request, pk):
         request,
         form_class=EmployeeModelForm,
         template='employee_form.html',
-        redirect_url='personnel_records',
+        redirect_url='personnel_records_table',
         instance=employee,
         action='Upravit'
     )
@@ -163,7 +163,7 @@ def employee_delete(request, pk):
         request=request,
         instance=employee,
         template='employee_confirm_delete.html',
-        redirect_url='personnel_records',
+        redirect_url='personnel_records_table',
         context_name='employee'
     )
 
@@ -356,7 +356,7 @@ def directive_create(request):
         request,
         form_class=InternalDirectivesModelForm,
         template='directive_form.html',
-        redirect_url='internal_directives',
+        redirect_url='internal_directive_list',
         action='Nahrát'
     )
 
@@ -366,7 +366,7 @@ def directive_update(request, pk):
         request,
         form_class=InternalDirectivesModelForm,
         template='directive_form.html',
-        redirect_url='internal_directives',
+        redirect_url='internal_directive_list',
         instance=directive,
         action='Upravit'
     )
@@ -377,21 +377,13 @@ def directive_delete(request, pk):
         request,
         instance=directive,
         template='directive_confirm_delete.html',
-        redirect_url='internal_directives',
+        redirect_url='internal_directive_list',
         context_name='directive'
     )
 
 def directive_detail(request, pk):
     directive = get_object_or_404(InternalDirectives, pk=pk)
     return render(request, 'directive_detail.html', {"directive": directive})
-
-def rooms_table(request):
-    rooms = [
-        {
-            "name": ""
-        }
-    ]
-    return render(request, 'rooms_table.html')
 
 def section_view(request):
     print("METHOD:", request.method)
