@@ -139,7 +139,7 @@ def add_employee(request):
         form = EmployeeModelForm(request.POST)
         if form.is_valid():
             form.save()  # Uloží nový záznam zaměstnance
-            return redirect('personnel_records')  # Po uložení přesměruje na seznam
+            return redirect('personnel_records_table')  # Po uložení přesměruje na seznam
     else:
         form = EmployeeModelForm()
 
@@ -152,7 +152,7 @@ def employee_update(request, pk):
         request,
         form_class=EmployeeModelForm,
         template='employee_form.html',
-        redirect_url='personnel_records',
+        redirect_url='personnel_records_table',
         instance=employee,
         action='Upravit'
     )
@@ -163,23 +163,18 @@ def employee_delete(request, pk):
         request=request,
         instance=employee,
         template='employee_confirm_delete.html',
-        redirect_url='personnel_records',
+        redirect_url='personnel_records_table',
         context_name='employee'
     )
 
 
-def your_view(request):
-    # Vytvoření formuláře
+def add_employee_view(request):
     form = WorkExperienceForm(request.POST or None)
 
-    # Pokud je formulář odeslán, zpracuj data
     if form.is_valid():
-        # Zpracuj formulářová data (pokud je potřeba)
         years = form.cleaned_data.get('initial_creditable_work_experience_years')
         months = form.cleaned_data.get('initial_creditable_work_experience_months')
         days = form.cleaned_data.get('initial_creditable_work_experience_days')
-
-        # Můžeš s těmito daty dál pracovat, např. uložit je do databáze
 
     return render(request, 'add_employee.html', {'form': form})
 
@@ -188,14 +183,12 @@ def upload_employee_certificate(request, employee_pk, competence_pk):
     employee = get_object_or_404(Employee, pk=employee_pk)
     competence = get_object_or_404(PersonalCompetence, pk=competence_pk)
 
-    # Najdeme nebo vytvoříme vztah zaměstnance a kompetence
     employee_competence, created = EmployeePersonalCompetence.objects.get_or_create(
         employee=employee,
         competence=competence
     )
 
     if request.method == 'POST' and 'certificate' in request.FILES:
-        # Uložení certifikátu do správného modelu
         employee_competence.certificate = request.FILES['certificate']
         employee_competence.save()
 
@@ -356,7 +349,7 @@ def directive_create(request):
         request,
         form_class=InternalDirectivesModelForm,
         template='directive_form.html',
-        redirect_url='internal_directives',
+        redirect_url='internal_directive_list',
         action='Nahrát'
     )
 
@@ -366,7 +359,7 @@ def directive_update(request, pk):
         request,
         form_class=InternalDirectivesModelForm,
         template='directive_form.html',
-        redirect_url='internal_directives',
+        redirect_url='internal_directive_list',
         instance=directive,
         action='Upravit'
     )
@@ -377,32 +370,10 @@ def directive_delete(request, pk):
         request,
         instance=directive,
         template='directive_confirm_delete.html',
-        redirect_url='internal_directives',
+        redirect_url='internal_directive_list',
         context_name='directive'
     )
 
 def directive_detail(request, pk):
     directive = get_object_or_404(InternalDirectives, pk=pk)
     return render(request, 'directive_detail.html', {"directive": directive})
-
-def rooms_table(request):
-    rooms = [
-        {
-            "name": ""
-        }
-    ]
-    return render(request, 'rooms_table.html')
-
-def section_view(request):
-    print("METHOD:", request.method)
-    print("POST:", request.POST)
-    if request.method == 'POST':
-        form = EmployeeModelForm(request.POST)
-        if form.is_valid():
-            employee = form.save(commit=False)
-            total_creditable_work_experience = calculate_total_creditable_work_experience(employee)
-            section, fields = assign_salary_grade_step(total_creditable_work_experience)
-            return JsonResponse({'total_creditable_work_experience': total_creditable_work_experience, 'section': section, 'fields': fields})
-    else:
-        form = EmployeeModelForm()
-    return JsonResponse({'error': 'Invalid input or method.'}, status=400)

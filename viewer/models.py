@@ -1,5 +1,4 @@
 import re
-from enum import unique
 
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -42,10 +41,10 @@ class Employee(Model):
     email = models.EmailField(max_length=100, unique=False, blank=False, null=False, default='',
                               validators=[EmailValidator()])
     phone_number = models.CharField(
-        max_length=13,  # Maximální délka pro +420 a 9 číslic
-        blank=True,  # Telefonní číslo není povinné
-        null=True,  # Telefonní číslo může být prázdné
-        validators=[validate_phone_number]  # Přidání validace
+        max_length=13,
+        blank=True,
+        null=True,
+        validators=[validate_phone_number]
     )
     start_date_of_employment = DateField(null=False, blank=False, unique=False)
     contract_from = DateField(null=False, blank=False, unique=False, default=None)
@@ -60,7 +59,7 @@ class Employee(Model):
     type_of_employment = CharField(max_length=50, choices=TypeOfEmployment.choices,
                                    default=TypeOfEmployment.MAIN_EMPLOYMENT_RELATIONSHIP)
     image = models.ImageField(upload_to='employee_images/', null=True,
-                              blank=True)  # Přidání obrázku
+                              blank=True)
 
 
     def total_initial_creditable_work_experience_in_days(self):
@@ -113,41 +112,33 @@ class SalaryGrade(Model):
         return f"{self.grade}-{self.step}"
 
 
-    # Použijeme stejný model jako pro Employee
-class AgreementWorker(Model):  # Vytvoření podtřídy pro pracovníky s dohodami
+class AgreementWorker(Model):
     class TypeOfAgreement(TextChoices):
         WORK_AGREEMENT = 'Dohoda o pracovní činnosti'
         PERFORMANCE_WORK_AGREEMENT = 'Dohoda o provedení práce'
 
     id = models.AutoField(primary_key=True)
 
-    # Nastavíme propojení mezi AgreementWorker a Employee, ale ne dědění
     employee = models.OneToOneField('Employee', on_delete=models.CASCADE)
 
-    # Povinné pole pro jméno a příjmení
     name = CharField(max_length=20, null=False, blank=False)
     surname = CharField(max_length=32, null=False, blank=False)
 
-    # Titul před a po jménu
     title_before_name = CharField(max_length=20, null=True, blank=True)
     title_after_name = CharField(max_length=20, null=True, blank=True)
 
-    # Osobní údaje
     date_of_birth = DateField(null=False, blank=False)
     place_of_birth = CharField(max_length=40, null=False, blank=False)
     address = CharField(max_length=100, null=True, blank=True)
 
-    # Kontaktní informace
     email = models.EmailField(max_length=100, null=True, blank=True, default='', validators=[EmailValidator()])
     phone_number = models.CharField(max_length=13, blank=True, null=True, validators=[validate_phone_number])
 
-    # Typ dohody a platnost
     type_of_agreement = CharField(max_length=32, choices=TypeOfAgreement.choices,
                                     default=TypeOfAgreement.PERFORMANCE_WORK_AGREEMENT)
     contract_from = DateField(null=False, blank=False)
     contract_until = DateField(null=False, blank=False)
 
-    # Hodinová mzda
     hourly_wage = models.DecimalField(null=True, max_digits=5, decimal_places=0)
 
     class Meta:
@@ -187,7 +178,7 @@ class EmployeePersonalCompetence(Model):
     employee = ForeignKey('Employee', on_delete=models.CASCADE)
     competence = ForeignKey('PersonalCompetence', on_delete=models.CASCADE)
     certificate = FileField(upload_to='certificates/', blank=True, null=True)
-    valid_until = DateField(null=True, blank=True)  # Platnost certifikátu
+    valid_until = DateField(null=True, blank=True)
 
     class Meta:
         ordering = ['competence']
@@ -224,8 +215,8 @@ class InternalDirectives(Model):
 
     name = models.CharField(max_length=100, null=False, blank=False, unique=True)
     effective_date = models.DateField(null=False, blank=False)
-    document = models.FileField(upload_to='internal_documents/', blank=True, null=True)  # Přidání pole pro nahrání PDF
-    description = models.TextField(blank=True, null=True)  # Popis dokumentu
+    document = models.FileField(upload_to='internal_documents/', blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
 
     class Meta:
         ordering = ['name']

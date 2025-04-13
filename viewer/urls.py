@@ -1,11 +1,8 @@
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib import admin
-from django.contrib.admin import views
-from django.urls import path, include
+from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
 
-from viewer.forms import section_view
 from viewer.views import *
 from viewer.views import internal_directives, add_employee
 
@@ -22,7 +19,6 @@ urlpatterns = ([
     path('reservation-system/vehicles', vehicles_reservations, name='reservation_system_vehicles'),
     path('reservation-system/properties', properties_reservations, name='reservation_system_properties'),
     path('organizational-structure/', organizational_structure, name='organizational_structure'),
-    path('rooms/', rooms_table, name='rooms_table'),
     path('internal-directives/', internal_directives, name='internal_directive_list'),
     path('internal-directives/add/', directive_create, name='directive_create'),
     path('upload/internal-directive/<int:pk>/', upload_internal_directive, name='upload_internal_directive'),
@@ -30,20 +26,17 @@ urlpatterns = ([
     path('internal-directives/edit/<int:pk>/', directive_update, name='directive_update'),
     path('internal-directives/delete/<int:pk>/', directive_delete, name='directive_delete'),
     path('internal-directives/detail/<int:pk>/', directive_detail, name='directive_detail'),
-    path('personnel-records/', personnel_records, name='personnel_records'),  # Hlavní cesta pro seznam zaměstnanců
+    path('personnel-records/', personnel_records, name='personnel_records_table'),
     path('personnel-records/add/', add_employee, name='add_employee'),
     path('personnel-records/edit/<int:pk>/', employee_update, name='employee_update'),
     path('personnel-records/delete/<int:pk>/', employee_delete, name='employee_delete'),
     path('personnel-records/detail/<int:pk>/', employee_detail, name='employee_detail'),
-    # Zahrňte cesty z aplikace viewer s jiným prefixem
-    path('agreement-workers/', agreement_workers_list, name='agreement_workers_list'),  # Seznam pracovníků s dohodami
-    path('agreement-workers/add/', add_agreement_worker, name='add_agreement_worker'),  # Přidání pracovníka
+    path('agreement-workers/', agreement_workers_list, name='agreement_workers_list'),
+    path('agreement-workers/add/', add_agreement_worker, name='add_agreement_worker'),
     path('agreement-workers/edit/<int:pk>/', agreement_worker_update, name='agreement_worker_update'),
-    # Úprava pracovníka
     path('agreement-workers/delete/<int:pk>/', agreement_worker_delete, name='agreement_worker_delete'),
-    # Smazání pracovníka
     path('agreement-workers/<int:pk>/', agreement_worker_detail, name='agreement_worker_detail'),
-    path('properties/', properties_table, name='properties'),
+    path('properties/', properties_table, name='properties_table'),
     path('properties/add/', property_create, name='property_create'),
     path('properties/edit/<int:pk>/', property_update, name='property_update'),
     path('properties/delete/<int:pk>/', property_delete, name='property_delete'),
@@ -56,7 +49,6 @@ urlpatterns = ([
     path('employee/<int:employee_pk>/competence/<int:competence_pk>/upload/', upload_employee_certificate, name='upload_employee_certificate'),
 ])
 
-
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    # Tento kód zajistí, že všechny soubory, které se nachází v adresáři media/, budou dostupné na URL, která začíná /media/.
+    # Všechny soubory v adresáři media, budou dostupné na URL, která začíná /media/

@@ -1,12 +1,9 @@
 from django.core.validators import validate_email
 from django.forms import ModelForm, DateInput, Field
-
 from kamiladmin.settings import DEBUG
-from django.core.exceptions import ValidationError
 from django.http import JsonResponse
 from datetime import date
 from django import forms
-
 from .models import *
 
 
@@ -262,8 +259,8 @@ class EmployeePersonalCompetenceForm(forms.ModelForm):
         model = EmployeePersonalCompetence
         fields = ['competence', 'certificate', 'valid_until']
 
-    certificate = forms.FileField(required=False, label='Certifikát')  # Umožní nahrání souboru certifikátu
-    valid_until = forms.DateField(required=False, widget=forms.TextInput(attrs={'type': 'date'}))  # Platnost certifikátu
+    certificate = forms.FileField(required=False, label='Certifikát')
+    valid_until = forms.DateField(required=False, widget=forms.TextInput(attrs={'type': 'date'}))
 
 
 class CertificateUploadForm(forms.ModelForm):
