@@ -20,7 +20,6 @@ class Employee(Model):
         SECONDARY_EDUCATION = 'Střední vzdělání s maturitou'
         BACHELOR_UNIVERSITY_DEGREE = 'Vysokoškolské vzdělání bakalářské'
         MASTER_UNIVERSITY_DEGREE = 'Magisterské vysokoškolské vzdělání'
-
     class TypeOfEmployment(TextChoices):
         MAIN_EMPLOYMENT_RELATIONSHIP = "Hlavní pracovní poměr"
         PART_TIME_JOB = 'Částečný pracovní úvazek'
@@ -121,31 +120,19 @@ class AgreementWorker(Model):  # Vytvoření podtřídy pro pracovníky s dohoda
 
     # Nastavíme propojení mezi AgreementWorker a Employee, ale ne dědění
     employee = models.OneToOneField('Employee', on_delete=models.CASCADE)
-
-    # Povinné pole pro jméno a příjmení
     name = CharField(max_length=20, null=False, blank=False)
     surname = CharField(max_length=32, null=False, blank=False)
-
-    # Titul před a po jménu
     title_before_name = CharField(max_length=20, null=True, blank=True)
     title_after_name = CharField(max_length=20, null=True, blank=True)
-
-    # Osobní údaje
     date_of_birth = DateField(null=False, blank=False)
     place_of_birth = CharField(max_length=40, null=False, blank=False)
     address = CharField(max_length=100, null=True, blank=True)
-
-    # Kontaktní informace
     email = models.EmailField(max_length=100, null=True, blank=True, default='', validators=[EmailValidator()])
     phone_number = models.CharField(max_length=13, blank=True, null=True, validators=[validate_phone_number])
-
-    # Typ dohody a platnost
     type_of_agreement = CharField(max_length=32, choices=TypeOfAgreement.choices,
                                     default=TypeOfAgreement.PERFORMANCE_WORK_AGREEMENT)
     contract_from = DateField(null=False, blank=False)
     contract_until = DateField(null=False, blank=False)
-
-    # Hodinová mzda
     hourly_wage = models.DecimalField(null=True, max_digits=5, decimal_places=0)
 
     class Meta:
@@ -215,12 +202,14 @@ class JobPosition(Model):
 
 
 class InternalDirectives(Model):
-    class InternalDirectiveChoices(TextChoices):
+    class InternalDirective(TextChoices):
         REGULATIONS = 'Řád'
         DIRECTIVES = 'Směrnice'
         RULES = 'Nařízení'
 
     name = models.CharField(max_length=100, null=False, blank=False, unique=True)
+    type = models.CharField(max_length=50, choices=InternalDirective.choices,
+                                   default=InternalDirective.REGULATIONS)
     effective_date = models.DateField(null=False, blank=False)
     document = models.FileField(upload_to='internal_documents/', blank=True, null=True)  # Přidání pole pro nahrání PDF
     description = models.TextField(blank=True, null=True)  # Popis dokumentu

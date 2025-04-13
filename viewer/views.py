@@ -392,17 +392,3 @@ def rooms_table(request):
         }
     ]
     return render(request, 'rooms_table.html')
-
-def section_view(request):
-    print("METHOD:", request.method)
-    print("POST:", request.POST)
-    if request.method == 'POST':
-        form = EmployeeModelForm(request.POST)
-        if form.is_valid():
-            employee = form.save(commit=False)
-            total_creditable_work_experience = calculate_total_creditable_work_experience(employee)
-            section, fields = assign_salary_grade_step(total_creditable_work_experience)
-            return JsonResponse({'total_creditable_work_experience': total_creditable_work_experience, 'section': section, 'fields': fields})
-    else:
-        form = EmployeeModelForm()
-    return JsonResponse({'error': 'Invalid input or method.'}, status=400)

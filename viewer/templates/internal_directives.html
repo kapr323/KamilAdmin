@@ -6,7 +6,6 @@
     <h1>Interní dokumenty a směrnice</h1>
     <button class="back-button" onclick="history.back()">⬅ Zpět</button>
 
-    <!-- Formulář pro vytvoření nového záznamu -->
     <form action="{% url 'directive_create' %}" method="get" style="display: inline;">
         <button type="submit" class="btn">Vytvořit nový záznam</button>
     </form>
@@ -15,23 +14,24 @@
         <table id="table" class="table">
             <thead>
                 <tr>
-                    <th data-sort="type">Druh předpisu</th>
                     <th data-sort="name">Název směrnice/předpisu</th>
+                    <th data-sort="type">Druh předpisu</th>
                     <th data-sort="effective_date">Datum účinnosti předpisu od:</th>
-                    <th data-sort="uploaded_at">Datum nahrání</th>
-                    <th>PDF Dokument</th> <!-- Sloupec pro zobrazení PDF -->
-                    <th>Akce</th> <!-- Tlačítka pro akce (např. upload dokumentu) -->
+                    <th>PDF Dokument</th>
+                    <th data-sort="description">Popis:</th>
+                    <th>Akce</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 {% for directive in directives %}
                 <tr data-href="{% url 'internal_directive_detail' directive.id %}" data-id="{{ directive.id }}">
-                    <td>{{ directive.type }}</td>
                     <td>{{ directive.name }}</td>
+                    <td>{{ directive.type }}</td>
                     <td>{{ directive.effective_date }}</td>
                     <td>{{ directive.uploaded_at|date:"d.m.Y H:i" }}</td>
+                    <td>{{ directive.description }}</td>
 
-                    <!-- Zobrazení PDF dokumentu, pokud existuje -->
                     <td>
                         {% if directive.document %}
                             <a href="{{ directive.document.url }}" target="_blank">📄 Zobrazit dokument</a>
@@ -40,7 +40,6 @@
                         {% endif %}
                     </td>
 
-                    <!-- Tlačítko pro upload dokumentu -->
                     <td>
                         {% if not directive.document %}
                             <a href="{% url 'upload_internal_directive' pk=directive.id %}">

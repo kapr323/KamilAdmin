@@ -1,8 +1,7 @@
 from django.core.validators import validate_email
-from django.forms import ModelForm, DateInput, Field
+from django.forms import ModelForm, DateInput
 
 from kamiladmin.settings import DEBUG
-from django.core.exceptions import ValidationError
 from django.http import JsonResponse
 from datetime import date
 from django import forms
@@ -112,7 +111,7 @@ class EmployeeModelForm(ModelForm):
 def calculate_total_creditable_work_experience(employee):
     current_date = date.today()
     days_since_start = (current_date - employee.start_date_of_employment).days
-    total_creditable_work_experience = ((employee.total_initial_creditable_work_experience_in_days() + days_since_start)) // 365
+    total_creditable_work_experience = (employee.total_initial_creditable_work_experience_in_days() + days_since_start) // 365
     return total_creditable_work_experience
 
 section_data = {
@@ -208,6 +207,23 @@ class AgreementWorkerForm(forms.ModelForm):
         return cleaned_data
 
 
+def section_view(request):
+    print("METHOD:", request.method)
+    print("POST:", request.POST)
+    if request.method == 'POST':
+        form = EmployeeModelForm(request.POST)
+        if form.is_valid():
+            employee = form.save(commit=False)
+            total_creditable_work_experience = calculate_total_creditable_work_experience(employee)
+            section, fields = assign_salary_grade_step(total_creditable_work_experience)
+            return JsonResponse(
+                {'total_creditable_work_experience': total_creditable_work_experience, 'section': section,
+                 'fields': fields})
+    else:
+        form = EmployeeModelForm()
+    return JsonResponse({'error': 'Invalid input or method.'}, status=400)
+
+
 class JobPositionModelForm(ModelForm):
     class Meta:
         model = JobPosition
@@ -264,9 +280,11 @@ class InternalDirectivesModelForm(ModelForm):
         fields = '__all__'
 
     labels = {
-        'type': 'Druh předpisu',
         'name': 'Název směrnice/předpisu',
-        'effective_date': 'Datum účinnosti předpisu od:'
+        'type': 'Druh předpisu',
+        'effective_date': 'Datum účinnosti předpisu od:',
+        'document': 'Nahrání dokumentu',
+        'description': 'Popis:'
     }
 
     widgets = {
