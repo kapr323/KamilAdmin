@@ -60,8 +60,11 @@ def test_internal_directives_repr_and_str():
     directive = InternalDirectives.objects.create(
         name="Bezpečnostní směrnice",
         effective_date=date(2024, 1, 1),
+        type=InternalDirectives.InternalDirective.REGULATIONS,  # správně
     )
+
     assert str(directive) == "Bezpečnostní směrnice"
+    assert repr(directive) == "(Bezpečnostní směrnice)"
 
 @pytest.mark.django_db
 def test_cars_repr_and_str():
@@ -125,13 +128,6 @@ def test_job_position_repr():
 def test_personal_competence_repr():
     comp = PersonalCompetence.objects.create(name="Zkouška", valid_until=date(2030, 1, 1))
     assert repr(comp) == "(Zkouška)"
-
-@pytest.mark.django_db
-def test_internal_directives_repr():
-    directive = InternalDirectives.objects.create(
-        name="Bezpečnost", effective_date=date(2024, 5, 1)
-    )
-    assert repr(directive) == "(Bezpečnost)"
 
 @pytest.mark.django_db
 def test_cars_repr():

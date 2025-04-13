@@ -208,12 +208,14 @@ class JobPosition(Model):
 
 
 class InternalDirectives(Model):
-    class InternalDirectiveChoices(TextChoices):
+    class InternalDirective(TextChoices):
         REGULATIONS = 'Řád'
         DIRECTIVES = 'Směrnice'
         RULES = 'Nařízení'
 
     name = models.CharField(max_length=100, null=False, blank=False, unique=True)
+    type = models.CharField(max_length=50, choices=InternalDirective.choices,
+                                   default=InternalDirective.REGULATIONS)
     effective_date = models.DateField(null=False, blank=False)
     document = models.FileField(upload_to='internal_documents/', blank=True, null=True)
     description = models.TextField(blank=True, null=True)

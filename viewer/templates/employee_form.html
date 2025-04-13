@@ -5,12 +5,9 @@
 {% block content %}
 <h1>Upravit data zaměstnance</h1>
 <button class="back-button" onclick="history.back()">⬅ Zpět</button>
-
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-
-    {{ form.as_p }}  <!-- Zobrazí formulář jako odstavce (formulářová pole) -->
-
+    {{ form.as_p }}
     <button type="submit">Uložit zaměstnance</button>
 </form>
 {% endblock %}

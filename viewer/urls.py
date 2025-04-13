@@ -4,13 +4,11 @@ from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
 
 from viewer.views import *
-from viewer.views import internal_directives, add_employee
 
 urlpatterns = ([
     path('', home, name='home'),
     path('login/', LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
-
     path('assign-section/', section_view, name='assign_section'),
     path('about/', about, name='about'),
     path('settings/', user_settings, name='user_settings'),

@@ -275,9 +275,11 @@ class InternalDirectivesModelForm(ModelForm):
         fields = '__all__'
 
     labels = {
-        'type': 'Druh předpisu',
         'name': 'Název směrnice/předpisu',
-        'effective_date': 'Datum účinnosti předpisu od:'
+        'type': 'Druh předpisu',
+        'effective_date': 'Datum účinnosti předpisu od:',
+        'document': 'Nahrání dokumentu',
+        'description': 'Popis:'
     }
 
     widgets = {

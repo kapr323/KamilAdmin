@@ -3,12 +3,12 @@
 {% block title %}MORSE{% endblock %}
 
 {% block content %}
-<h1>Detail zaměstnance</h1>
+<h1>Detail nemovitosti</h1>
 <button class="back-button" onclick="history.back()">⬅ Zpět</button>
 <div class="detail-wrapper">
 <div class="photo-container">
     {% if prop.image_url %}
-        <img src="{{ prop.image_url }}" alt="Foto zaměstnance">
+        <img src="{{ prop.image_url }}" alt="Foto nemovitosti">
     {% else %}
         Foto není k dispozici
     {% endif %}

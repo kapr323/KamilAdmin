@@ -6,6 +6,6 @@
 <form method="post">
   {% csrf_token %}
   <button type="submit" class="btn">Ano, smazat.</button>
-  <a href="{% url 'internal_directives' %}" class="btn">Zpět</a>
+  <a href="{% url 'internal_directive_list' %}" class="btn">Zpět</a>
 </form>
 {% endblock %}

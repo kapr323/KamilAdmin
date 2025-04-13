@@ -13,22 +13,22 @@
         <table id="table" class="table">
             <thead>
                 <tr>
-                    <th data-sort="type">Druh předpisu</th>
                     <th data-sort="name">Název směrnice/předpisu</th>
-                    <th data-sort="effective_date">Datum účinnosti předpisu od:</th>
-                    <th data-sort="uploaded_at">Datum nahrání</th>
-                    <th>PDF Dokument</th>
-                    <th>Akce</th>
+                    <th data-sort="type">Druh předpisu</th>
+                    <th data-sort="effective_date">Datum účinnosti předpisu od</th>
+                    <th data-sort="description">Popis</th>
+                    <th data-sort="document">Dokument</th>
+                    <th data-sort="action">Akce</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 {% for directive in directives %}
                 <tr data-href="{% url 'internal_directive_detail' directive.id %}" data-id="{{ directive.id }}">
-                    <td>{{ directive.type }}</td>
                     <td>{{ directive.name }}</td>
+                    <td>{{ directive.type }}</td>
                     <td>{{ directive.effective_date }}</td>
-                    <td>{{ directive.uploaded_at|date:"d.m.Y H:i" }}</td>
+                    <td>{{ directive.description }}</td>
                     <td>
                         {% if directive.document %}
                             <a href="{{ directive.document.url }}" target="_blank">📄 Zobrazit dokument</a>

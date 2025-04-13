@@ -3,7 +3,8 @@
 
 {% block content %}
 <h1>{{ action }} dokument/směrnici</h1>
-<form method="post">
+<button class="back-button" onclick="history.back()">⬅ Zpět</button>
+<form method="post" enctype="multipart/form-data">
   {% csrf_token %}
   {{ form.as_p }}
   <button type="submit" class="btn">{{ action }}</button>
