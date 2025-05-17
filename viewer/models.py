@@ -1,9 +1,9 @@
 import re
 
 from django.core.exceptions import ValidationError
-from django.db import models
 from django.db.models import Model, CharField, DateField, IntegerField, ForeignKey, SET_NULL, BooleanField, TextChoices, \
-    ManyToManyField, FileField
+    ManyToManyField, FileField, OneToOneField, PositiveIntegerField, EmailField, ImageField, AutoField, DecimalField, \
+    CASCADE, TextField
 from django.core.validators import MinValueValidator, EmailValidator
 from django.contrib.auth.models import User
 
@@ -16,7 +16,7 @@ def validate_phone_number(value):
 
 
 class Employee(Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = OneToOneField(User, on_delete=CASCADE, null=True, blank=True)
     class EducationLevel(TextChoices):
         SECONDARY_EDUCATION = 'Střední vzdělání s maturitou'
         BACHELOR_UNIVERSITY_DEGREE = 'Vysokoškolské vzdělání bakalářské'
@@ -31,16 +31,16 @@ class Employee(Model):
     surname = CharField(max_length=32, null=False, blank=False, unique=False)
     title_before_name = CharField(max_length=20, null=True, blank=True, unique=False)
     title_after_name = CharField(max_length=20, null=True, blank=True, unique=False)
-    personal_number = models.PositiveIntegerField(validators=[MinValueValidator(1)], verbose_name='Osobní číslo')
+    personal_number = PositiveIntegerField(validators=[MinValueValidator(1)], verbose_name='Osobní číslo')
     job_position = ForeignKey('JobPosition', null=True, blank=True, on_delete=SET_NULL,
                               related_name='employee_job_position')
     date_of_birth = DateField(null=False, blank=False, unique=False)
     place_of_birth = CharField(max_length=40, null=False, blank=False, unique=False)
     nationality = CharField(max_length=20, null=False, blank=False, unique=False)
     address = CharField(max_length=100, null=False, blank=False, unique=False)
-    email = models.EmailField(max_length=100, unique=False, blank=False, null=False, default='',
+    email = EmailField(max_length=100, unique=False, blank=False, null=False, default='',
                               validators=[EmailValidator()])
-    phone_number = models.CharField(
+    phone_number = CharField(
         max_length=13,
         blank=True,
         null=True,
@@ -49,16 +49,16 @@ class Employee(Model):
     start_date_of_employment = DateField(null=False, blank=False, unique=False)
     contract_from = DateField(null=False, blank=False, unique=False, default=None)
     contract_until = DateField(null=False, blank=False, unique=False, default=None)
-    initial_creditable_work_experience_years = models.PositiveIntegerField(default=0)
-    initial_creditable_work_experience_months = models.PositiveIntegerField(default=0,
+    initial_creditable_work_experience_years = PositiveIntegerField(default=0)
+    initial_creditable_work_experience_months = PositiveIntegerField(default=0,
                                                                             choices=[(i, str(i)) for i in range(12)])
-    initial_creditable_work_experience_days = models.PositiveIntegerField(default=0,
+    initial_creditable_work_experience_days = PositiveIntegerField(default=0,
                                                                           choices=[(i, str(i)) for i in range(31)])
     education_level = CharField(max_length=50, choices=EducationLevel.choices,
                                 default=EducationLevel.SECONDARY_EDUCATION)
     type_of_employment = CharField(max_length=50, choices=TypeOfEmployment.choices,
                                    default=TypeOfEmployment.MAIN_EMPLOYMENT_RELATIONSHIP)
-    image = models.ImageField(upload_to='employee_images/', null=True,
+    image = ImageField(upload_to='employee_images/', null=True,
                               blank=True)
 
 
@@ -117,9 +117,9 @@ class AgreementWorker(Model):
         WORK_AGREEMENT = 'Dohoda o pracovní činnosti'
         PERFORMANCE_WORK_AGREEMENT = 'Dohoda o provedení práce'
 
-    id = models.AutoField(primary_key=True)
+    id = AutoField(primary_key=True)
 
-    employee = models.OneToOneField('Employee', on_delete=models.CASCADE)
+    employee = OneToOneField('Employee', on_delete=CASCADE)
 
     name = CharField(max_length=20, null=False, blank=False)
     surname = CharField(max_length=32, null=False, blank=False)
@@ -131,15 +131,15 @@ class AgreementWorker(Model):
     place_of_birth = CharField(max_length=40, null=False, blank=False)
     address = CharField(max_length=100, null=True, blank=True)
 
-    email = models.EmailField(max_length=100, null=True, blank=True, default='', validators=[EmailValidator()])
-    phone_number = models.CharField(max_length=13, blank=True, null=True, validators=[validate_phone_number])
+    email = EmailField(max_length=100, null=True, blank=True, default='', validators=[EmailValidator()])
+    phone_number = CharField(max_length=13, blank=True, null=True, validators=[validate_phone_number])
 
     type_of_agreement = CharField(max_length=32, choices=TypeOfAgreement.choices,
                                     default=TypeOfAgreement.PERFORMANCE_WORK_AGREEMENT)
     contract_from = DateField(null=False, blank=False)
     contract_until = DateField(null=False, blank=False)
 
-    hourly_wage = models.DecimalField(null=True, max_digits=5, decimal_places=0)
+    hourly_wage = DecimalField(null=True, max_digits=5, decimal_places=0)
 
     class Meta:
         verbose_name = "Pracovník s dohodou"
@@ -162,7 +162,7 @@ class AgreementWorker(Model):
 class PersonalCompetence(Model):
     name = CharField(max_length=50)
     valid_until = DateField()
-    job_position = models.ForeignKey('JobPosition', on_delete=models.CASCADE, related_name='competencies', null=True, blank=True)
+    job_position = ForeignKey('JobPosition', on_delete=CASCADE, related_name='competencies', null=True, blank=True)
 
     class Meta:
         ordering = ['name']
@@ -175,8 +175,8 @@ class PersonalCompetence(Model):
 
 
 class EmployeePersonalCompetence(Model):
-    employee = ForeignKey('Employee', on_delete=models.CASCADE)
-    competence = ForeignKey('PersonalCompetence', on_delete=models.CASCADE)
+    employee = ForeignKey('Employee', on_delete=CASCADE)
+    competence = ForeignKey('PersonalCompetence', on_delete=CASCADE)
     certificate = FileField(upload_to='certificates/', blank=True, null=True)
     valid_until = DateField(null=True, blank=True)
 
@@ -213,12 +213,12 @@ class InternalDirectives(Model):
         DIRECTIVES = 'Směrnice'
         RULES = 'Nařízení'
 
-    name = models.CharField(max_length=100, null=False, blank=False, unique=True)
-    type = models.CharField(max_length=50, choices=InternalDirective.choices,
+    name = CharField(max_length=100, null=False, blank=False, unique=True)
+    type = CharField(max_length=50, choices=InternalDirective.choices,
                                    default=InternalDirective.REGULATIONS)
-    effective_date = models.DateField(null=False, blank=False)
-    document = models.FileField(upload_to='internal_documents/', blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
+    effective_date = DateField(null=False, blank=False)
+    document = FileField(upload_to='internal_documents/', blank=True, null=True)
+    description = TextField(blank=True, null=True)
 
     class Meta:
         ordering = ['name']

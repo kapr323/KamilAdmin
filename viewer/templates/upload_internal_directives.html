@@ -5,6 +5,7 @@
 
 {% block content %}
   <h1>Upload Interního Dokumentu</h1>
+  <button class="back-button" onclick="history.back()">⬅ Zpět</button>
   <form action="{% url 'upload_internal_directive' directive.pk %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <label for="document">Vyberte PDF soubor:</label>

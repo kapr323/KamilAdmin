@@ -58,7 +58,7 @@ cover/
 # Django stuff:
 *.log
 local_settings.py
-db.sqlite3
+../../Desktop/db.sqlite3
 db.sqlite3-journal
 db_old.sqlite3
 old_db_data.sql

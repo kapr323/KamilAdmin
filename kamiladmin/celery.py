@@ -18,6 +18,6 @@ celery_app.autodiscover_tasks()
 celery_app.conf.beat_schedule = {
     'send_work_anniversary_email_daily': {
         'task': 'viewer.tasks.send_work_anniversary_email',
-        'schedule': crontab(hour='8', minute='0'),  # Běží každý den v 8:00
+        'schedule': crontab(hour='13', minute='15'),  # Běží každý den v čase...
     },
 }

@@ -4,6 +4,7 @@ from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
 
 from viewer.views import *
+from viewer.views import personnel_management
 
 urlpatterns = ([
     path('', home, name='home'),
@@ -17,7 +18,7 @@ urlpatterns = ([
     path('reservation-system/vehicles', vehicles_reservations, name='reservation_system_vehicles'),
     path('reservation-system/properties', properties_reservations, name='reservation_system_properties'),
     path('organizational-structure/', organizational_structure, name='organizational_structure'),
-    path('internal-directives/', internal_directives, name='internal_directive_list'),
+    path('internal-directives/', internal_directives, name='internal_directives'),
     path('internal-directives/add/', directive_create, name='directive_create'),
     path('upload/internal-directive/<int:pk>/', upload_internal_directive, name='upload_internal_directive'),
     path('internal-directive/<int:pk>/', directive_detail, name='internal_directive_detail'),
@@ -45,6 +46,9 @@ urlpatterns = ([
     path('vehicles/delete/<int:pk>/', vehicle_delete, name='vehicle_delete'),
     path('vehicles/<int:pk>/', vehicle_detail, name="vehicle_detail"),
     path('employee/<int:employee_pk>/competence/<int:competence_pk>/upload/', upload_employee_certificate, name='upload_employee_certificate'),
+    path('personalistika/', personnel_management, name='personnel_management'),
+    path('nemovitosti/', properties, name='properties'),
+    path('vozidla/', vehicles, name='vehicles'),
 ])
 
 if settings.DEBUG:

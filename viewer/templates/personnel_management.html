@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Personalistika{% endblock %}
+{% block content %}
+    <h1>Personalistika</h1>
+    <button class="back-button" onclick="history.back()">⬅ Zpět</button>
+
+    <div class="tiles">
+    <div class="tile">
+        <a href="{% url 'organizational_structure' %}" class="tile-content">Organizační struktura</a>
+    </div>
+     <div class="tile">
+        <a href="{% url 'personnel_records_table' %}" class="tile-content">Evidence zaměstnanců</a>
+    </div>
+    <div class="tile">
+        <a href="{% url 'agreement_workers_list' %}" class="tile-content">Dohody o pracích mimo pracovní poměr</a>
+    </div>
+    </div>
+    {% endblock %}

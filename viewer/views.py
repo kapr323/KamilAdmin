@@ -44,6 +44,15 @@ def get_calendar(request):
 def home(request):
     return render(request, 'home.html')
 
+def personnel_management(request):
+    return render(request, 'personnel_management.html')
+
+def properties(request):
+    return render(request, 'properties.html')
+
+def vehicles(request):
+    return render(request, 'vehicles.html')
+
 def about(request):
     return render(request, 'about.html')
 

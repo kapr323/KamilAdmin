@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}MORSE{% endblock %}
+{% block content %}
+<h1>Odkazy</h1>
+<div id="main-tiles" class="tiles">
+  <div class="tile" onclick="showSubtiles('personalistics')">
+    <div class="tile-content">👷‍♂️ <br>Personalistika </div>
+  </div>
+  <div class="tile" onclick="showSubtiles('properties')">
+    <div class="tile-content">🏢️ <br>Nemovitosti </div>
+  </div>
+  <div class="tile" onclick="showSubtiles('vehicles')">
+    <div class="tile-content">🚗️ <br>Vozidla </div>
+  </div>
+  <div class="tile">
+    <a href="internal-directives/" class="tile-content">Interní dokumenty a směrnice</a>
+  </div>
+  {% load user_groups %} {% if request.user|in_group:"tajemnik" %}
+  <div class="tile">
+    <a href="{% url 'admin:index' %}" class="tile-content">Administrace</a>
+  </div>
+  {% endif %}
+</div>
+<div id="subtiles" style="display: none;">
+  <button class="back-button" onclick="backToMain()">⬅ Zpět</button>
+  <div id="personalistics" class="tiles" style="display: none;">
+    <div class="tile">
+      <a href="{% url 'organizational_structure' %}" class="tile-content">Organizační struktura</a>
+    </div>
+    <div class="tile">
+      <a href="{% url 'personnel_records_table' %}" class="tile-content">Evidence zaměstnanců</a>
+    </div>
+    <div class="tile">
+      <a href="{% url 'agreement_workers_list' %}" class="tile-content">Dohody o pracích <br>konaných mimo pracovní poměr </a>
+    </div>
+  </div>
+  <div id="properties" class="tiles" style="display: none;">
+    <div class="tile">
+      <a href="{% url 'properties_table' %}" class="tile-content">📋Karty nemovitostí</a>
+    </div>
+    <div class="tile">
+      <a href="{% url 'reservation_system_properties' %}" class="tile-content">📅Rezervace</a>
+    </div>
+  </div>
+  <div id="vehicles" class="tiles" style="display: none;">
+    <div class="tile">
+      <a href="{% url 'vehicles_table' %}" class="tile-content">📋Karty vozidel</a>
+    </div>
+    <div class="tile">
+      <a href="{% url 'reservation_system_vehicles' %}" class="tile-content">📅Rezervace</a>
+    </div>
+  </div>
+</div> {% endblock %}

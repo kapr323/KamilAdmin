@@ -1,5 +1,5 @@
 from django.core.validators import validate_email
-from django.forms import ModelForm, DateInput, Field
+from django.forms import ModelForm, DateInput
 from kamiladmin.settings import DEBUG
 from django.http import JsonResponse
 from datetime import date

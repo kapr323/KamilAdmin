@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Vozidla{% endblock %}
+{% block content %}
+    <h1>Vozidla</h1>
+    <button class="back-button" onclick="history.back()">⬅ Zpět</button>
+
+    <div class="tiles">
+    <div class="tile">
+        <a href="{% url 'vehicles_table' %}" class="tile-content">📋Karty vozidel</a>
+    </div>
+    <div class="tile">
+        <a href="{% url 'reservation_system_vehicles' %}" class="tile-content">📅Rezervace</a>
+    </div>
+    </div>
+    {% endblock %}
